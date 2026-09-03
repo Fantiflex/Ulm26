@@ -1,0 +1,3 @@
+image_path,face_detected,luminance_mean,luminance_median,output_path
+data/raw/cfd/images/CFD-AF-200-228-N.jpg,True,167.914800240171,173.878,data/interim/faces_only_test/CFD-AF-200-228-N_face_only.png
+data/raw/cfd/images/CFD-AF-201-060-N.jpg,True,166.78107509598235,174.611,data/interim/faces_only_test/CFD-AF-201-060-N_face_only.png

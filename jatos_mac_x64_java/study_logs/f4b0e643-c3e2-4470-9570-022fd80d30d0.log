@@ -1,0 +1,85 @@
+
+{"msg":"Initial entry","timestamp":1788204574319,"studyUuid":"f4b0e643-c3e2-4470-9570-022fd80d30d0","serversMac":"D6-93-59-70-62-45","hashFunction":"SHA-256"}
+{"msg":"Created study","userName":"Admin","timestamp":1788204574333}
+{"msg":"Started study run with Jatos worker","batchId":1,"studyCode":"SfK0It8EMH9","workerId":1,"timestamp":1788204798651}
+{"msg":"Started study run with Jatos worker","batchId":1,"studyCode":"SfK0It8EMH9","workerId":1,"timestamp":1788204850152}
+{"msg":"Started study run with Jatos worker","batchId":1,"studyCode":"SfK0It8EMH9","workerId":1,"timestamp":1788204880388}
+{"msg":"Replaced component result data","componentUuid":"5ff24621-b290-4d4e-8696-4ada87bfd538","workerId":1,"dataHash":"4eccd74009b1f1d17d6e9d1d934ad1d181ed2c6a732b14f88d4153a70296258f","timestamp":1788204887583}
+{"msg":"Replaced component result data","componentUuid":"5ff24621-b290-4d4e-8696-4ada87bfd538","workerId":1,"dataHash":"7b98b6268e28cf3701ad8ed4c335f35855ab76968194c7f751f4cca96e1405ed","timestamp":1788204889924}
+{"msg":"Replaced component result data","componentUuid":"5ff24621-b290-4d4e-8696-4ada87bfd538","workerId":1,"dataHash":"010529aa368694684ed226563b3d5e6f6f64f5a0506fb457308a006c2e3f1111","timestamp":1788204892191}
+{"msg":"Replaced component result data","componentUuid":"5ff24621-b290-4d4e-8696-4ada87bfd538","workerId":1,"dataHash":"0c199a0bf004625758dd5c1a1f1656f85a660804ce64c178e1ed5902393e41f6","timestamp":1788204895477}
+{"msg":"Replaced component result data","componentUuid":"5ff24621-b290-4d4e-8696-4ada87bfd538","workerId":1,"dataHash":"37640f8e1dffa5fd5c62c9c5d9b2ab07095b975b273f65d52775458b3fd1b23b","timestamp":1788204895545}
+{"msg":"Removed result data and files","userName":"Admin","timestamp":1788205514921}
+{"msg":"Started study run with Jatos worker","batchId":1,"studyCode":"SfK0It8EMH9","workerId":1,"timestamp":1788205532717}
+{"msg":"Replaced component result data","componentUuid":"3ffd454f-bd33-47b7-9777-d5d10e7ad22d","workerId":1,"dataHash":"1c722839fa1054c5781616be5c43ec532949005c8a1059a274e2b24075a4de67","timestamp":1788205539404}
+{"msg":"Replaced component result data","componentUuid":"3ffd454f-bd33-47b7-9777-d5d10e7ad22d","workerId":1,"dataHash":"ee83d8babebbda8733a351cc5e93d1dd12f2b153a3df9a43388b0ed18e93e88c","timestamp":1788205541752}
+{"msg":"Replaced component result data","componentUuid":"3ffd454f-bd33-47b7-9777-d5d10e7ad22d","workerId":1,"dataHash":"991010b24d1efbaf3ca84e5aa2cbda58dc0adadefd7997ba787bad0f14d263ea","timestamp":1788205543724}
+{"msg":"Replaced component result data","componentUuid":"3ffd454f-bd33-47b7-9777-d5d10e7ad22d","workerId":1,"dataHash":"3112e0011f1ac4ad6312139d7a04873641817274a6816b41a54209521a693f98","timestamp":1788205546495}
+{"msg":"Replaced component result data","componentUuid":"3ffd454f-bd33-47b7-9777-d5d10e7ad22d","workerId":1,"dataHash":"208ff37b6c34fd763bf5d8474e1de07594b2aef5a6410510247c90ed3913b73c","timestamp":1788205546555}
+{"msg":"Started study run with Jatos worker","batchId":1,"studyCode":"SfK0It8EMH9","workerId":1,"timestamp":1788205596100}
+{"msg":"Replaced component result data","componentUuid":"3ffd454f-bd33-47b7-9777-d5d10e7ad22d","workerId":1,"dataHash":"ba6edb997361b40086c31c6e62754eac6ebcd87a63eecdd1b42155cc4040807a","timestamp":1788205602484}
+{"msg":"Replaced component result data","componentUuid":"3ffd454f-bd33-47b7-9777-d5d10e7ad22d","workerId":1,"dataHash":"18aa43be77cd5759580d51f54f00b6b3cf793753ecdf7b3ee8fc8f23b6daf62e","timestamp":1788205604732}
+{"msg":"Replaced component result data","componentUuid":"3ffd454f-bd33-47b7-9777-d5d10e7ad22d","workerId":1,"dataHash":"a311bd6d056f5a808f47b7a7ca2ec92fe38fb8f525b197a81c8ba8a13186230c","timestamp":1788205607312}
+{"msg":"Replaced component result data","componentUuid":"3ffd454f-bd33-47b7-9777-d5d10e7ad22d","workerId":1,"dataHash":"63ee10bbfc69168b7bf68e740a846666f6010e03c1d87dac7fc32fa4495ade65","timestamp":1788205610908}
+{"msg":"Replaced component result data","componentUuid":"3ffd454f-bd33-47b7-9777-d5d10e7ad22d","workerId":1,"dataHash":"08973de07ad85fa387890a685099e6ac31bde2bca0f2e99781c1cb92f26afd58","timestamp":1788205610976}
+{"msg":"Removed result data and files","userName":"Admin","timestamp":1788205629958}
+{"msg":"Started study run with Jatos worker","batchId":1,"studyCode":"SfK0It8EMH9","workerId":1,"timestamp":1788205645315}
+{"msg":"Replaced component result data","componentUuid":"f9212fbf-2b52-4715-8835-e6b47ec996ab","workerId":1,"dataHash":"2b7253200b918482c6a7eb1dec66de7e8b9fbd114f6a8088c1c9e8582b55367c","timestamp":1788205650482}
+{"msg":"Replaced component result data","componentUuid":"f9212fbf-2b52-4715-8835-e6b47ec996ab","workerId":1,"dataHash":"9cec42095694d6c7c52741bf0f830fb32dd5f0b8e023ad184d0f151733f7b451","timestamp":1788205652682}
+{"msg":"Replaced component result data","componentUuid":"f9212fbf-2b52-4715-8835-e6b47ec996ab","workerId":1,"dataHash":"aaedb130aaadec0089685474acee88cffb9afbf07d74fbd3044fa5a1a9ca77c1","timestamp":1788205654905}
+{"msg":"Replaced component result data","componentUuid":"f9212fbf-2b52-4715-8835-e6b47ec996ab","workerId":1,"dataHash":"ccb8950e63d8d4b3ce4a307e81ca82c0a8ddff9bb480f6e467278519c4c8a7f4","timestamp":1788205657761}
+{"msg":"Replaced component result data","componentUuid":"f9212fbf-2b52-4715-8835-e6b47ec996ab","workerId":1,"dataHash":"9e398882e3d1cbb00dc06f60c295892f4679f95a6f418d7fc869a3038ae6bea6","timestamp":1788205657842}
+{"msg":"Removed result data and files","userName":"Admin","timestamp":1788205824543}
+{"msg":"Started study run with Jatos worker","batchId":1,"studyCode":"SfK0It8EMH9","workerId":1,"timestamp":1788205837416}
+{"msg":"Removed result data and files","userName":"Admin","timestamp":1788205925459}
+{"msg":"Started study run with Jatos worker","batchId":1,"studyCode":"SfK0It8EMH9","workerId":1,"timestamp":1788205936955}
+{"msg":"Removed result data and files","userName":"Admin","timestamp":1788206247220}
+{"msg":"Started study run with Jatos worker","batchId":1,"studyCode":"SfK0It8EMH9","workerId":1,"timestamp":1788206257907}
+{"msg":"Removed result data and files","userName":"Admin","timestamp":1788206429178}
+{"msg":"Started study run with Jatos worker","batchId":1,"studyCode":"SfK0It8EMH9","workerId":1,"timestamp":1788206444196}
+{"msg":"Replaced component result data","componentUuid":"053b92dc-5ea3-42e5-abdd-13cf7a86b9df","workerId":1,"dataHash":"dbcf8a28784991120f2db425d57c9f6795b2f66b6ca827271b58e6f180626a26","timestamp":1788206451408}
+{"msg":"Replaced component result data","componentUuid":"053b92dc-5ea3-42e5-abdd-13cf7a86b9df","workerId":1,"dataHash":"635be88258ab125d221de3086816836a6c8cfe32001ab0fd0bb0aac818d34e70","timestamp":1788206454234}
+{"msg":"Replaced component result data","componentUuid":"053b92dc-5ea3-42e5-abdd-13cf7a86b9df","workerId":1,"dataHash":"fd2c3d9dbe0e8ab64c5275ca60d1a3356e0e8b5e566049d5131e2b4482b66a71","timestamp":1788206456765}
+{"msg":"Replaced component result data","componentUuid":"053b92dc-5ea3-42e5-abdd-13cf7a86b9df","workerId":1,"dataHash":"eaf752411972b539f93fc3ba7e99c98db23d2d6936865a950bcae09e954ed985","timestamp":1788206459519}
+{"msg":"Finished study run","workerId":1,"timestamp":1788206561247}
+{"msg":"Started study run with Jatos worker","batchId":1,"studyCode":"SfK0It8EMH9","workerId":1,"timestamp":1788206562931}
+{"msg":"Replaced component result data","componentUuid":"053b92dc-5ea3-42e5-abdd-13cf7a86b9df","workerId":1,"dataHash":"989e9a3ddb2d0ee8bf9b18885dac3dcf97aa4e084b041fdc001ecc21288de167","timestamp":1788206568395}
+{"msg":"Replaced component result data","componentUuid":"053b92dc-5ea3-42e5-abdd-13cf7a86b9df","workerId":1,"dataHash":"7e58a58f2a5c002df8ce91b2245c6d296c6fd4fa3bb7847954c49c282fceeda6","timestamp":1788206570661}
+{"msg":"Replaced component result data","componentUuid":"053b92dc-5ea3-42e5-abdd-13cf7a86b9df","workerId":1,"dataHash":"2b8702fb5e033c992b9a31ab50499a93829b87881dc06ebf161de3152943e8ef","timestamp":1788206572574}
+{"msg":"Replaced component result data","componentUuid":"053b92dc-5ea3-42e5-abdd-13cf7a86b9df","workerId":1,"dataHash":"363e4b75b5329a656172a1aa6addaa1b29095fbfdafa94cadf65f6e8abca7e14","timestamp":1788206575160}
+{"msg":"Finished study run","workerId":1,"timestamp":1788206690055}
+{"msg":"Started study run with Jatos worker","batchId":1,"studyCode":"SfK0It8EMH9","workerId":1,"timestamp":1788206692612}
+{"msg":"Replaced component result data","componentUuid":"053b92dc-5ea3-42e5-abdd-13cf7a86b9df","workerId":1,"dataHash":"55225e6867429f67213bab8e53498114219cd77cc96cf5b741378ea2f7c3ae07","timestamp":1788206698459}
+{"msg":"Replaced component result data","componentUuid":"053b92dc-5ea3-42e5-abdd-13cf7a86b9df","workerId":1,"dataHash":"e7e1c6e27efd39cb83b3f20cd964fc3e46bfdcdd2a96b7dd4806e88738256f58","timestamp":1788206700630}
+{"msg":"Replaced component result data","componentUuid":"053b92dc-5ea3-42e5-abdd-13cf7a86b9df","workerId":1,"dataHash":"0407cce8f6d82eca71b4810aa096406959a2c4fdfdc4126eabb8f33092678316","timestamp":1788206702960}
+{"msg":"Replaced component result data","componentUuid":"053b92dc-5ea3-42e5-abdd-13cf7a86b9df","workerId":1,"dataHash":"89d41e03d047f7752a8327f1f8d58fd35d91813e59cc07dda43606d28282ee59","timestamp":1788206705823}
+{"msg":"Finished study run","workerId":1,"timestamp":1788207108033}
+{"msg":"Started study run with Jatos worker","batchId":1,"studyCode":"SfK0It8EMH9","workerId":1,"timestamp":1788207111767}
+{"msg":"Replaced component result data","componentUuid":"053b92dc-5ea3-42e5-abdd-13cf7a86b9df","workerId":1,"dataHash":"d0498f5c88fb35da07f2fcab7206faa07e1448291c571d0e5cf2ccdf1c2b0208","timestamp":1788207126176}
+{"msg":"Replaced component result data","componentUuid":"053b92dc-5ea3-42e5-abdd-13cf7a86b9df","workerId":1,"dataHash":"e3e83ebb85a7442171aec4d5a18586a93c1eacf58a87c0455f8fad0d1081b547","timestamp":1788207135797}
+{"msg":"Replaced component result data","componentUuid":"053b92dc-5ea3-42e5-abdd-13cf7a86b9df","workerId":1,"dataHash":"3e4cc7b62e7cf73ad09f70aee332fb7ae3229a4fbbf19444ce8a0f300aea8c4d","timestamp":1788207141512}
+{"msg":"Replaced component result data","componentUuid":"053b92dc-5ea3-42e5-abdd-13cf7a86b9df","workerId":1,"dataHash":"6dc2ea3560db35e21340b8cbf8eef9f5cf6a09b2c30e183ae385c6673db5879a","timestamp":1788207148395}
+{"msg":"Replaced component result data","componentUuid":"053b92dc-5ea3-42e5-abdd-13cf7a86b9df","workerId":1,"dataHash":"5cbef70902e6b390bd09c111d24975e4f1459075be936dc5028a4d78c3c60bfc","timestamp":1788207156010}
+{"msg":"Replaced component result data","componentUuid":"053b92dc-5ea3-42e5-abdd-13cf7a86b9df","workerId":1,"dataHash":"722b18969aeb6251e0db020826b45a6f982ffa64ff684793457b9084fb87f4c6","timestamp":1788207161358}
+{"msg":"Replaced component result data","componentUuid":"053b92dc-5ea3-42e5-abdd-13cf7a86b9df","workerId":1,"dataHash":"0a9d67f7c7c63981264e4005c5e2a622a8e388e1c123dc6438e2767f406c4837","timestamp":1788207165763}
+{"msg":"Replaced component result data","componentUuid":"053b92dc-5ea3-42e5-abdd-13cf7a86b9df","workerId":1,"dataHash":"5386fca9c92b633c0ab59709f310f634913bb71aa7739a917f956e751082e76a","timestamp":1788207168480}
+{"msg":"Replaced component result data","componentUuid":"053b92dc-5ea3-42e5-abdd-13cf7a86b9df","workerId":1,"dataHash":"4e78d9f7f0b2314f1575ab3a7d434651302282346ef63238dd21ccb249c767fa","timestamp":1788207171661}
+{"msg":"Replaced component result data","componentUuid":"053b92dc-5ea3-42e5-abdd-13cf7a86b9df","workerId":1,"dataHash":"8898d107d9f86fc27c4f90300dca7caddb29715803c1f6d4636c4b7a7f4d1efd","timestamp":1788207174606}
+{"msg":"Replaced component result data","componentUuid":"053b92dc-5ea3-42e5-abdd-13cf7a86b9df","workerId":1,"dataHash":"7385ad1b00c012fd490dd63fdaa0cf6061c8055a1a3940b03efeb71705090111","timestamp":1788207177638}
+{"msg":"Replaced component result data","componentUuid":"053b92dc-5ea3-42e5-abdd-13cf7a86b9df","workerId":1,"dataHash":"e0f69c61d062506ff4e41725fb60043133e44b802c1a61d6a550ce3a73c29969","timestamp":1788207182515}
+{"msg":"Replaced component result data","componentUuid":"053b92dc-5ea3-42e5-abdd-13cf7a86b9df","workerId":1,"dataHash":"aef4bde152156f3646e316843b61584775bb03ba653de39814b8f29c287f26a3","timestamp":1788207182571}
+{"msg":"Finished study run","workerId":1,"timestamp":1788207396986}
+{"msg":"Started study run with Jatos worker","batchId":1,"studyCode":"SfK0It8EMH9","workerId":1,"timestamp":1788207402446}
+{"msg":"Replaced component result data","componentUuid":"053b92dc-5ea3-42e5-abdd-13cf7a86b9df","workerId":1,"dataHash":"f1c8feea702905ee534d830fcadf2d5f9769987c548a24f968aaf473a01946c4","timestamp":1788207416127}
+{"msg":"Replaced component result data","componentUuid":"053b92dc-5ea3-42e5-abdd-13cf7a86b9df","workerId":1,"dataHash":"a33b96b999855e90ca1bc2a0bb10e579807fb99ad92072957d2dbac24d828b5d","timestamp":1788207420252}
+{"msg":"Replaced component result data","componentUuid":"053b92dc-5ea3-42e5-abdd-13cf7a86b9df","workerId":1,"dataHash":"e93907c02378be2c49da801cf413e4d43e5ebb05fee6c62eae9844f9fba8e149","timestamp":1788207425153}
+{"msg":"Replaced component result data","componentUuid":"053b92dc-5ea3-42e5-abdd-13cf7a86b9df","workerId":1,"dataHash":"3d22ff207bf7dbb251c5c4961f147036aefc5de556b3a0430e88331615444caf","timestamp":1788207429815}
+{"msg":"Replaced component result data","componentUuid":"053b92dc-5ea3-42e5-abdd-13cf7a86b9df","workerId":1,"dataHash":"ed5a07e3557e9a84fb86c02101e101b28da742ebebc949ae15d388a8b55d4ec2","timestamp":1788207434527}
+{"msg":"Replaced component result data","componentUuid":"053b92dc-5ea3-42e5-abdd-13cf7a86b9df","workerId":1,"dataHash":"f0096e4470e517876cea5837a85b71674076ff214ade75de33747b8d4433cd1a","timestamp":1788207439402}
+{"msg":"Replaced component result data","componentUuid":"053b92dc-5ea3-42e5-abdd-13cf7a86b9df","workerId":1,"dataHash":"63b7bccbab2962978f5b63ad6a4d15043482f75f3885668cc41a658da7ac8552","timestamp":1788207441784}
+{"msg":"Replaced component result data","componentUuid":"053b92dc-5ea3-42e5-abdd-13cf7a86b9df","workerId":1,"dataHash":"d132f6ce3119ba730360a7c108b0601a9d24ad709aa457676f4f06d4d363bd55","timestamp":1788207444233}
+{"msg":"Replaced component result data","componentUuid":"053b92dc-5ea3-42e5-abdd-13cf7a86b9df","workerId":1,"dataHash":"9c4b64c488386f1c2eb24f7476404afe4c7dc85c7433bbde40700a9109bdcb22","timestamp":1788207448300}
+{"msg":"Replaced component result data","componentUuid":"053b92dc-5ea3-42e5-abdd-13cf7a86b9df","workerId":1,"dataHash":"f31e8813e54d1ac59e0eae95ed94ff3bc1ad6de7253c29db4d18e5991bbec181","timestamp":1788207452319}
+{"msg":"Replaced component result data","componentUuid":"053b92dc-5ea3-42e5-abdd-13cf7a86b9df","workerId":1,"dataHash":"97b2accbf23742723184e58469c8fbaae02de84c5615e0885ace0e05f40f4e4e","timestamp":1788207455981}
+{"msg":"Replaced component result data","componentUuid":"053b92dc-5ea3-42e5-abdd-13cf7a86b9df","workerId":1,"dataHash":"701d68fb86981f287f585d9a7b0e6f886beb377ce25e19f4e6c87ae0badf608e","timestamp":1788207458703}
+{"msg":"Replaced component result data","componentUuid":"053b92dc-5ea3-42e5-abdd-13cf7a86b9df","workerId":1,"dataHash":"272d163a03c764018038b16a0c49817098a04b6b6cec24d7a9f116d077c61748","timestamp":1788207458740}

@@ -1,0 +1,31 @@
+{
+  "alignment_method": "eye_centres_similarity",
+  "border_mode": "reflect101",
+  "eye_error_tolerance": 0.5,
+  "eye_group_a": [
+    33,
+    133,
+    159,
+    145
+  ],
+  "eye_group_b": [
+    362,
+    263,
+    386,
+    374
+  ],
+  "interpolation": "opencv_inter_cubic",
+  "landmark_topology": "mediapipe_face_landmarker_478",
+  "min_in_bounds_fraction": 0.98,
+  "n_faces_in_mean": 25,
+  "output_height": 512,
+  "output_width": 512,
+  "target_left_eye_pixels": [
+    178.85,
+    194.18
+  ],
+  "target_right_eye_pixels": [
+    332.15000000000003,
+    194.18
+  ]
+}

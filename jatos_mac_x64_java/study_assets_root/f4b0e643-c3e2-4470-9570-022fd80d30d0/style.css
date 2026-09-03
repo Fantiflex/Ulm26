@@ -1,0 +1,567 @@
+/* =========================================================
+   PAGE
+========================================================= */
+
+body {
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    background-color: #f5f5f5;
+
+    color: #222;
+
+    margin: 0;
+
+    padding: 30px;
+}
+
+
+/* =========================================================
+   UTILITIES
+========================================================= */
+
+.hidden {
+
+    display: none !important;
+}
+
+
+/* =========================================================
+   MAIN CONTAINER
+========================================================= */
+
+.container {
+
+    max-width: 900px;
+
+    margin: 40px auto;
+
+    background-color: white;
+
+    padding: 40px;
+
+    border-radius: 12px;
+
+    box-shadow:
+        0 4px 18px
+        rgba(0, 0, 0, 0.08);
+}
+
+
+/* =========================================================
+   SECTIONS
+========================================================= */
+
+.study-section {
+
+    width: 100%;
+}
+
+
+.centered-content {
+
+    text-align: center;
+
+    padding:
+
+        50px
+        20px;
+}
+
+
+/* =========================================================
+   TYPOGRAPHY
+========================================================= */
+
+h1 {
+
+    font-size: 30px;
+
+    margin-top: 0;
+
+    margin-bottom: 20px;
+}
+
+
+h2 {
+
+    font-size: 24px;
+
+    line-height: 1.4;
+
+    margin-top: 0;
+
+    margin-bottom: 20px;
+}
+
+
+p {
+
+    line-height: 1.5;
+}
+
+
+.intro-text {
+
+    font-size: 17px;
+}
+
+
+.large-instruction {
+
+    font-size: 22px;
+
+    line-height: 1.6;
+
+    max-width: 650px;
+
+    margin:
+
+        30px
+        auto;
+}
+
+
+.secondary-instruction {
+
+    font-size: 16px;
+
+    color: #666;
+
+    max-width: 600px;
+
+    margin:
+
+        20px
+        auto;
+}
+
+
+.image-question {
+
+    text-align: center;
+
+    margin-bottom: 30px;
+}
+
+
+.response-instruction {
+
+    font-size: 18px;
+
+    margin-bottom: 25px;
+}
+
+
+.likert-instruction {
+
+    color: #555;
+
+    margin-bottom: 25px;
+}
+
+
+/* =========================================================
+   PARTICIPANT INPUT
+========================================================= */
+
+input[type="text"] {
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 13px 15px;
+
+    border:
+
+        1px solid
+        #ccc;
+
+    border-radius: 7px;
+
+    font-size: 16px;
+
+    margin-top: 10px;
+}
+
+
+/* =========================================================
+   PROGRESS
+========================================================= */
+
+.progress {
+
+    font-size: 14px;
+
+    color: #666;
+
+    margin-bottom: 20px;
+}
+
+
+/* =========================================================
+   QUESTION CARDS
+========================================================= */
+
+.question-card {
+
+    padding: 30px;
+
+    border:
+
+        1px solid
+        #ddd;
+
+    border-radius: 10px;
+
+    background-color: #fafafa;
+}
+
+
+/* =========================================================
+   IMAGE
+========================================================= */
+
+.stimulus-container {
+
+    min-height: 500px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    margin:
+
+        20px
+        auto;
+}
+
+
+#stimulus-image {
+
+    display: block;
+
+    max-width: 600px;
+
+    max-height: 500px;
+
+    width: auto;
+
+    height: auto;
+
+    margin: auto;
+}
+
+
+.loading-message {
+
+    color: #666;
+
+    font-size: 16px;
+}
+
+
+/* =========================================================
+   SLIDERS
+========================================================= */
+
+.slider-section {
+
+    margin-top: 35px;
+
+    text-align: center;
+}
+
+
+.percentage-slider {
+
+    width: 100%;
+
+    cursor: pointer;
+
+    margin-top: 20px;
+}
+
+
+.slider-value-display {
+
+    text-align: center;
+
+    margin:
+
+        20px
+        0;
+}
+
+
+.slider-value-display span {
+
+    font-size: 28px;
+
+    font-weight: bold;
+}
+
+
+.slider-labels {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    margin-top: 8px;
+
+    font-size: 14px;
+
+    color: #666;
+}
+
+
+/* =========================================================
+   THREAT ITEMS
+========================================================= */
+
+.section-header {
+
+    margin-bottom: 30px;
+}
+
+
+.scale-reminder {
+
+    font-size: 14px;
+
+    color: #555;
+
+    margin-top: 15px;
+}
+
+
+.item-block {
+
+    padding: 25px;
+
+    margin-bottom: 30px;
+
+    border:
+
+        1px solid
+        #ddd;
+
+    border-radius: 10px;
+
+    background-color: #fafafa;
+}
+
+
+.item-number {
+
+    font-size: 13px;
+
+    color: #777;
+
+    margin-bottom: 10px;
+}
+
+
+.item-text {
+
+    font-size: 17px;
+
+    line-height: 1.5;
+
+    margin:
+
+        0
+        0
+        25px
+        0;
+}
+
+
+/* =========================================================
+   LIKERT
+========================================================= */
+
+.likert-scale {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 8px;
+
+    margin-top: 25px;
+}
+
+
+.likert-option {
+
+    flex: 1;
+
+    text-align: center;
+
+    padding: 10px 5px;
+
+    cursor: pointer;
+
+    border-radius: 6px;
+}
+
+
+.likert-option:hover {
+
+    background-color: #eeeeee;
+}
+
+
+.likert-option input {
+
+    display: block;
+
+    margin:
+
+        0
+        auto
+        8px
+        auto;
+
+    cursor: pointer;
+}
+
+
+.likert-number {
+
+    font-size: 16px;
+}
+
+
+.anchors {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    margin-top: 12px;
+
+    font-size: 13px;
+
+    color: #666;
+}
+
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+button {
+
+    margin-top: 25px;
+
+    padding:
+
+        13px
+        24px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    background-color: #111;
+
+    color: white;
+
+    font-size: 16px;
+
+    cursor: pointer;
+}
+
+
+button:hover:not(:disabled) {
+
+    opacity: 0.82;
+}
+
+
+button:disabled {
+
+    opacity: 0.35;
+
+    cursor: not-allowed;
+}
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+.navigation {
+
+    display: flex;
+
+    justify-content: flex-end;
+
+    margin-top: 20px;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 650px) {
+
+    body {
+
+        padding: 10px;
+    }
+
+
+    .container {
+
+        padding: 20px;
+
+        margin:
+
+            10px
+            auto;
+    }
+
+
+    .item-block {
+
+        padding: 18px;
+    }
+
+
+    .likert-scale {
+
+        gap: 2px;
+    }
+
+
+    .anchors {
+
+        font-size: 11px;
+    }
+
+
+    #stimulus-image {
+
+        max-width: 100%;
+
+        max-height: 420px;
+    }
+
+
+    .stimulus-container {
+
+        min-height: 420px;
+    }
+
+}

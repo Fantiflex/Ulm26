@@ -1,0 +1,12 @@
+face_id,image_path,landmark_path,visualisation_path,visualisation_created,reused_existing_file,error_type,error_message
+AF-208,data/raw/cfd/images/CFD-AF-208-003-N.jpg,data/interim/landmarks/arrays/AF-208.npy,data/results/landmark_qc/AF-208_landmarks.png,True,False,,
+AF-221,data/raw/cfd/images/CFD-AF-221-147-N.jpg,data/interim/landmarks/arrays/AF-221.npy,data/results/landmark_qc/AF-221_landmarks.png,True,False,,
+AM-241,data/raw/cfd/images/CFD-AM-241-287-N.jpg,data/interim/landmarks/arrays/AM-241.npy,data/results/landmark_qc/AM-241_landmarks.png,True,False,,
+BF-007,data/raw/cfd/images/CFD-BF-007-001-N.jpg,data/interim/landmarks/arrays/BF-007.npy,data/results/landmark_qc/BF-007_landmarks.png,True,False,,
+BF-242,data/raw/cfd/images/CFD-BF-242-154-N.jpg,data/interim/landmarks/arrays/BF-242.npy,data/results/landmark_qc/BF-242_landmarks.png,True,False,,
+BM-225,data/raw/cfd/images/CFD-BM-225-154-N.jpg,data/interim/landmarks/arrays/BM-225.npy,data/results/landmark_qc/BM-225_landmarks.png,True,False,,
+BM-231,data/raw/cfd/images/CFD-BM-231-155-N.jpg,data/interim/landmarks/arrays/BM-231.npy,data/results/landmark_qc/BM-231_landmarks.png,True,False,,
+BM-236,data/raw/cfd/images/CFD-BM-236-248-N.jpg,data/interim/landmarks/arrays/BM-236.npy,data/results/landmark_qc/BM-236_landmarks.png,True,False,,
+BM-237,data/raw/cfd/images/CFD-BM-237-188-N.jpg,data/interim/landmarks/arrays/BM-237.npy,data/results/landmark_qc/BM-237_landmarks.png,True,False,,
+BM-239,data/raw/cfd/images/CFD-BM-239-136-N.jpg,data/interim/landmarks/arrays/BM-239.npy,data/results/landmark_qc/BM-239_landmarks.png,True,False,,
+LF-203,data/raw/cfd/images/CFD-LF-203-066-N.jpg,data/interim/landmarks/arrays/LF-203.npy,data/results/landmark_qc/LF-203_landmarks.png,True,False,,

@@ -1,0 +1,462 @@
+2026-08-31 12:17:02,426 [INFO] - p.a.d.DefaultDBApi - Database [default] initialized
+2026-08-31 12:17:02,454 [INFO] - application - Creating Pool for datasource 'default'
+2026-08-31 12:17:02,520 [INFO] - c.z.h.HikariDataSource - HikariPool-1 - Starting...
+2026-08-31 12:17:02,607 [INFO] - c.z.h.HikariDataSource - HikariPool-1 - Start completed.
+2026-08-31 12:17:02,696 [INFO] - p.a.d.HikariCPConnectionPool - datasource [default] bound to JNDI as DefaultDS
+2026-08-31 12:17:03,851 [INFO] - a.e.s.Slf4jLogger - Slf4jLogger started
+2026-08-31 12:17:07,701 [INFO] - g.c.Common - Path to study assets directory is /Users/fantine/Ulm26/jatos_mac_x64_java/study_assets_root
+2026-08-31 12:17:07,703 [INFO] - g.c.Common - Path to study logs directory is /Users/fantine/Ulm26/jatos_mac_x64_java/study_logs
+2026-08-31 12:17:07,704 [INFO] - g.c.Common - Path to uploads directory is /Users/fantine/Ulm26/jatos_mac_x64_java/result_uploads
+2026-08-31 12:17:07,726 [INFO] - g.c.Common - Path to logs directory is /Users/fantine/Ulm26/jatos_mac_x64_java/logs
+2026-08-31 12:17:07,726 [INFO] - g.c.Common - Path to tmp directory is /var/folders/j6/70wnc9w12td9kf6s3__k55580000gn/T/jatos
+2026-08-31 12:17:08,081 [INFO] - o.h.j.i.u.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: mysqlPersistenceUnit]
+2026-08-31 12:17:08,176 [INFO] - o.h.Version - HHH000412: Hibernate ORM core version 5.4.24.Final
+2026-08-31 12:17:08,510 [INFO] - o.h.a.c.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2026-08-31 12:17:09,127 [INFO] - o.h.d.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2026-08-31 12:17:10,093 [INFO] - o.h.v.i.u.Version - HV000001: Hibernate Validator 6.0.16.Final
+2026-08-31 12:17:12,871 [INFO] - o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2026-08-31 12:17:14,642 [INFO] - g.OnStartStop - .createDirIfNotExist: Created /Users/fantine/Ulm26/jatos_mac_x64_java/study_assets_root
+2026-08-31 12:17:14,644 [INFO] - g.OnStartStop - .createDirIfNotExist: Created /Users/fantine/Ulm26/jatos_mac_x64_java/study_logs
+2026-08-31 12:17:14,645 [INFO] - g.OnStartStop - .createDirIfNotExist: Created /Users/fantine/Ulm26/jatos_mac_x64_java/result_uploads
+2026-08-31 12:17:14,645 [INFO] - g.OnStartStop - .createDirIfNotExist: Created /var/folders/j6/70wnc9w12td9kf6s3__k55580000gn/T/jatos
+2026-08-31 12:17:15,632 [INFO] - s.p.GroupCleaner - Starting group cleaning
+2026-08-31 12:17:16,179 [INFO] - p.a.Play - Application started (Prod) (no global state)
+2026-08-31 12:17:17,049 [INFO] - p.c.s.AkkaHttpServer - Listening for HTTP on /0:0:0:0:0:0:0:0:9000
+2026-08-31 12:17:36,453 [INFO] - gui_access - GET /jatos/signin (unknown)
+2026-08-31 12:18:15,333 [INFO] - gui_access - POST /jatos/signin/local (unknown)
+2026-08-31 12:18:16,364 [INFO] - gui_access - GET /jatos (admin)
+2026-08-31 12:18:17,609 [INFO] - gui_access - GET /jatos/branding (admin)
+2026-08-31 12:28:44,350 [INFO] - gui_access - GET /jatos/sidebarData (admin)
+2026-08-31 12:29:12,374 [INFO] - gui_access - POST /jatos/import/study (admin)
+2026-08-31 12:29:12,421 [WARN] - s.g.ImportExportService - .unzipUploadedFile: unzipping failed
+2026-08-31 12:29:12,447 [INFO] - g.ErrorHandler - ImportExportException during call POST /jatos/import/study: Unpacking ZIP archive failed
+2026-08-31 12:29:21,700 [INFO] - gui_access - GET /jatos/sidebarData (admin)
+2026-08-31 12:29:27,766 [INFO] - gui_access - GET /jatos/sidebarData (admin)
+2026-08-31 12:29:32,858 [INFO] - gui_access - POST /jatos/study (admin)
+2026-08-31 12:29:34,471 [INFO] - gui_access - POST /jatos/study (admin)
+2026-08-31 12:29:34,571 [INFO] - gui_access - GET /jatos/1 (admin)
+2026-08-31 12:29:34,698 [INFO] - gui_access - GET /jatos/2 (admin)
+2026-08-31 12:29:35,113 [INFO] - gui_access - GET /jatos/2/componentsTableData?_=1788204574855 (admin)
+2026-08-31 12:31:45,014 [INFO] - gui_access - POST /jatos/2/component (admin)
+2026-08-31 12:32:29,282 [INFO] - gui_access - GET /jatos (admin)
+2026-08-31 12:32:31,478 [INFO] - gui_access - GET /jatos/sidebarData (admin)
+2026-08-31 12:32:33,237 [INFO] - gui_access - GET /jatos/1 (admin)
+2026-08-31 12:32:33,528 [INFO] - gui_access - GET /jatos/1/componentsTableData?_=1788204753337 (admin)
+2026-08-31 12:33:01,680 [INFO] - gui_access - POST /jatos/1/component (admin)
+2026-08-31 12:33:15,357 [INFO] - gui_access - POST /jatos/1/component (admin)
+2026-08-31 12:33:15,647 [INFO] - gui_access - GET /jatos/1/componentsTableData?_=1788204753338 (admin)
+2026-08-31 12:33:17,887 [INFO] - gui_access - GET /jatos/1/1/run?frames=1&hSplit=1&vSplit=1 (admin)
+2026-08-31 12:33:18,186 [INFO] - publix_access - GET /publix/runx?code=SfK0It8EMH9&frames=1&hSplit=1&vSplit=1
+2026-08-31 12:33:18,224 [INFO] - c.p.PublixInterceptor - .runx: code SfK0It8EMH9, frames 1, hSplit 1, vSplit 1
+2026-08-31 12:33:18,296 [INFO] - publix_access - GET /publix/SfK0It8EMH9
+2026-08-31 12:33:18,299 [INFO] - c.p.PublixInterceptor - .run: studyCode SfK0It8EMH9
+2026-08-31 12:33:18,651 [INFO] - c.p.w.JatosPublix - .startStudy: studyCode SfK0It8EMH9, studyResultId 1, studyId 1, batchId 1, signed-in username admin, workerId 1
+2026-08-31 12:33:18,817 [INFO] - publix_access - GET /publix/17b80e80-8896-41ea-8b72-4f3ba276a44e/5ff24621-b290-4d4e-8696-4ada87bfd538/start
+2026-08-31 12:33:18,979 [INFO] - c.p.PublixInterceptor - .startComponent: studyResultId 1, componentId 1
+2026-08-31 12:33:19,103 [INFO] - g.ErrorHandler - PublixException during call GET /publix/17b80e80-8896-41ea-8b72-4f3ba276a44e/5ff24621-b290-4d4e-8696-4ada87bfd538/start: HTML file 'Users/fantine/Ulm26/index.html' in study assets 'f4b0e643-c3e2-4470-9570-022fd80d30d0' couldn't be found. Please change this in the component's properties.
+2026-08-31 12:34:06,274 [INFO] - publix_access - GET /publix/17b80e80-8896-41ea-8b72-4f3ba276a44e/5ff24621-b290-4d4e-8696-4ada87bfd538/start
+2026-08-31 12:34:06,315 [INFO] - c.p.PublixInterceptor - .startComponent: studyResultId 1, componentId 1
+2026-08-31 12:34:06,361 [INFO] - g.ErrorHandler - PublixException during call GET /publix/17b80e80-8896-41ea-8b72-4f3ba276a44e/5ff24621-b290-4d4e-8696-4ada87bfd538/start: HTML file 'Users/fantine/Ulm26/index.html' in study assets 'f4b0e643-c3e2-4470-9570-022fd80d30d0' couldn't be found. Please change this in the component's properties.
+2026-08-31 12:34:07,408 [INFO] - gui_access - GET /jatos/1 (admin)
+2026-08-31 12:34:07,696 [INFO] - gui_access - GET /jatos/1/componentsTableData?_=1788204847492 (admin)
+2026-08-31 12:34:09,899 [INFO] - gui_access - GET /jatos/1/1/run?frames=1&hSplit=1&vSplit=1 (admin)
+2026-08-31 12:34:10,004 [INFO] - publix_access - GET /publix/runx?code=SfK0It8EMH9&frames=1&hSplit=1&vSplit=1
+2026-08-31 12:34:10,004 [INFO] - c.p.PublixInterceptor - .runx: code SfK0It8EMH9, frames 1, hSplit 1, vSplit 1
+2026-08-31 12:34:10,044 [INFO] - publix_access - GET /publix/SfK0It8EMH9
+2026-08-31 12:34:10,045 [INFO] - c.p.PublixInterceptor - .run: studyCode SfK0It8EMH9
+2026-08-31 12:34:10,152 [INFO] - c.p.w.JatosPublix - .startStudy: studyCode SfK0It8EMH9, studyResultId 2, studyId 1, batchId 1, signed-in username admin, workerId 1
+2026-08-31 12:34:10,195 [INFO] - publix_access - GET /publix/8843ac39-fdf3-4f86-bfdd-a6e70739f2f4/5ff24621-b290-4d4e-8696-4ada87bfd538/start
+2026-08-31 12:34:10,264 [INFO] - c.p.PublixInterceptor - .startComponent: studyResultId 2, componentId 1
+2026-08-31 12:34:10,280 [INFO] - g.ErrorHandler - PublixException during call GET /publix/8843ac39-fdf3-4f86-bfdd-a6e70739f2f4/5ff24621-b290-4d4e-8696-4ada87bfd538/start: HTML file 'Users/fantine/Ulm26/index.html' in study assets 'f4b0e643-c3e2-4470-9570-022fd80d30d0' couldn't be found. Please change this in the component's properties.
+2026-08-31 12:34:20,678 [INFO] - gui_access - GET /jatos/1 (admin)
+2026-08-31 12:34:21,019 [INFO] - gui_access - GET /jatos/1/componentsTableData?_=1788204860778 (admin)
+2026-08-31 12:34:23,338 [INFO] - gui_access - GET /jatos/1/1/properties (admin)
+2026-08-31 12:34:34,347 [INFO] - gui_access - POST /jatos/1/1/properties (admin)
+2026-08-31 12:34:34,562 [INFO] - gui_access - GET /jatos/1/componentsTableData?_=1788204860779 (admin)
+2026-08-31 12:34:38,630 [INFO] - gui_access - GET /jatos/1/1/run?frames=1&hSplit=1&vSplit=1 (admin)
+2026-08-31 12:34:38,723 [INFO] - publix_access - GET /publix/runx?code=SfK0It8EMH9&frames=1&hSplit=1&vSplit=1
+2026-08-31 12:34:38,723 [INFO] - c.p.PublixInterceptor - .runx: code SfK0It8EMH9, frames 1, hSplit 1, vSplit 1
+2026-08-31 12:34:40,285 [INFO] - publix_access - GET /publix/SfK0It8EMH9
+2026-08-31 12:34:40,286 [INFO] - c.p.PublixInterceptor - .run: studyCode SfK0It8EMH9
+2026-08-31 12:34:40,387 [INFO] - c.p.w.JatosPublix - .startStudy: studyCode SfK0It8EMH9, studyResultId 3, studyId 1, batchId 1, signed-in username admin, workerId 1
+2026-08-31 12:34:40,432 [INFO] - publix_access - GET /publix/4a3647fd-6b04-4c95-bd77-3bb3bca34f09/5ff24621-b290-4d4e-8696-4ada87bfd538/start
+2026-08-31 12:34:40,461 [INFO] - c.p.PublixInterceptor - .startComponent: studyResultId 3, componentId 1
+2026-08-31 12:34:41,689 [INFO] - publix_access - GET /publix/4a3647fd-6b04-4c95-bd77-3bb3bca34f09/5ff24621-b290-4d4e-8696-4ada87bfd538/initData
+2026-08-31 12:34:41,760 [INFO] - c.p.PublixInterceptor - .getInitData: studyResultId 3, componentId 1
+2026-08-31 12:34:41,829 [INFO] - publix_access - POST /publix/4a3647fd-6b04-4c95-bd77-3bb3bca34f09/heartbeat
+2026-08-31 12:34:42,018 [INFO] - c.p.JatosBatchChannel - .open: studyResult 3
+2026-08-31 12:34:47,508 [INFO] - publix_access - PUT /publix/4a3647fd-6b04-4c95-bd77-3bb3bca34f09/5ff24621-b290-4d4e-8696-4ada87bfd538/resultData
+2026-08-31 12:34:47,530 [INFO] - c.p.PublixInterceptor - .submitOrAppendResultData: studyResultId 3, componentId 1
+2026-08-31 12:34:49,894 [INFO] - publix_access - PUT /publix/4a3647fd-6b04-4c95-bd77-3bb3bca34f09/5ff24621-b290-4d4e-8696-4ada87bfd538/resultData
+2026-08-31 12:34:49,910 [INFO] - c.p.PublixInterceptor - .submitOrAppendResultData: studyResultId 3, componentId 1
+2026-08-31 12:34:52,138 [INFO] - publix_access - PUT /publix/4a3647fd-6b04-4c95-bd77-3bb3bca34f09/5ff24621-b290-4d4e-8696-4ada87bfd538/resultData
+2026-08-31 12:34:52,171 [INFO] - c.p.PublixInterceptor - .submitOrAppendResultData: studyResultId 3, componentId 1
+2026-08-31 12:34:55,445 [INFO] - publix_access - PUT /publix/4a3647fd-6b04-4c95-bd77-3bb3bca34f09/5ff24621-b290-4d4e-8696-4ada87bfd538/resultData
+2026-08-31 12:34:55,465 [INFO] - c.p.PublixInterceptor - .submitOrAppendResultData: studyResultId 3, componentId 1
+2026-08-31 12:34:55,524 [INFO] - publix_access - PUT /publix/4a3647fd-6b04-4c95-bd77-3bb3bca34f09/5ff24621-b290-4d4e-8696-4ada87bfd538/resultData
+2026-08-31 12:34:55,534 [INFO] - c.p.PublixInterceptor - .submitOrAppendResultData: studyResultId 3, componentId 1
+2026-08-31 12:35:12,297 [INFO] - gui_access - GET / (admin)
+2026-08-31 12:35:12,601 [INFO] - gui_access - GET /jatos/branding (admin)
+2026-08-31 12:35:15,919 [INFO] - gui_access - GET /jatos/sidebarData (admin)
+2026-08-31 12:35:17,154 [INFO] - gui_access - GET /jatos/1 (admin)
+2026-08-31 12:35:17,406 [INFO] - gui_access - GET /jatos/1/componentsTableData?_=1788204917223 (admin)
+2026-08-31 12:35:18,631 [INFO] - gui_access - GET /jatos/1/1/results (admin)
+2026-08-31 12:35:19,027 [INFO] - gui_access - GET /jatos/componentResults/tableData?componentId=1&_=1788204918737 (admin)
+2026-08-31 12:44:47,875 [INFO] - gui_access - GET / (admin)
+2026-08-31 12:44:48,349 [INFO] - gui_access - GET /jatos/branding (admin)
+2026-08-31 12:45:07,133 [INFO] - gui_access - GET /jatos/sidebarData (admin)
+2026-08-31 12:45:08,309 [INFO] - gui_access - GET /jatos/1 (admin)
+2026-08-31 12:45:08,623 [INFO] - gui_access - GET /jatos/1/componentsTableData?_=1788205508379 (admin)
+2026-08-31 12:45:14,827 [INFO] - gui_access - DELETE /jatos/1/1 (admin)
+2026-08-31 12:45:15,149 [INFO] - gui_access - GET /jatos/1/componentsTableData?_=1788205508380 (admin)
+2026-08-31 12:45:31,069 [INFO] - gui_access - POST /jatos/1/component (admin)
+2026-08-31 12:45:31,177 [INFO] - gui_access - GET /jatos/1/componentsTableData?_=1788205508381 (admin)
+2026-08-31 12:45:32,587 [INFO] - gui_access - GET /jatos/1/2/run?frames=1&hSplit=1&vSplit=1 (admin)
+2026-08-31 12:45:32,643 [INFO] - publix_access - GET /publix/runx?code=SfK0It8EMH9&frames=1&hSplit=1&vSplit=1
+2026-08-31 12:45:32,643 [INFO] - c.p.PublixInterceptor - .runx: code SfK0It8EMH9, frames 1, hSplit 1, vSplit 1
+2026-08-31 12:45:32,664 [INFO] - publix_access - GET /publix/SfK0It8EMH9
+2026-08-31 12:45:32,664 [INFO] - c.p.PublixInterceptor - .run: studyCode SfK0It8EMH9
+2026-08-31 12:45:32,716 [INFO] - c.p.w.JatosPublix - .startStudy: studyCode SfK0It8EMH9, studyResultId 4, studyId 1, batchId 1, signed-in username admin, workerId 1
+2026-08-31 12:45:32,769 [INFO] - publix_access - GET /publix/5024dbe5-80a1-4128-ae01-89ad97b00325/3ffd454f-bd33-47b7-9777-d5d10e7ad22d/start
+2026-08-31 12:45:32,796 [INFO] - c.p.PublixInterceptor - .startComponent: studyResultId 4, componentId 2
+2026-08-31 12:45:33,337 [INFO] - publix_access - GET /publix/5024dbe5-80a1-4128-ae01-89ad97b00325/3ffd454f-bd33-47b7-9777-d5d10e7ad22d/initData
+2026-08-31 12:45:33,380 [INFO] - publix_access - POST /publix/5024dbe5-80a1-4128-ae01-89ad97b00325/heartbeat
+2026-08-31 12:45:33,381 [INFO] - c.p.PublixInterceptor - .getInitData: studyResultId 4, componentId 2
+2026-08-31 12:45:33,472 [INFO] - c.p.JatosBatchChannel - .open: studyResult 4
+2026-08-31 12:45:39,245 [INFO] - publix_access - PUT /publix/5024dbe5-80a1-4128-ae01-89ad97b00325/3ffd454f-bd33-47b7-9777-d5d10e7ad22d/resultData
+2026-08-31 12:45:39,369 [INFO] - c.p.PublixInterceptor - .submitOrAppendResultData: studyResultId 4, componentId 2
+2026-08-31 12:45:41,676 [INFO] - publix_access - PUT /publix/5024dbe5-80a1-4128-ae01-89ad97b00325/3ffd454f-bd33-47b7-9777-d5d10e7ad22d/resultData
+2026-08-31 12:45:41,720 [INFO] - c.p.PublixInterceptor - .submitOrAppendResultData: studyResultId 4, componentId 2
+2026-08-31 12:45:43,678 [INFO] - publix_access - PUT /publix/5024dbe5-80a1-4128-ae01-89ad97b00325/3ffd454f-bd33-47b7-9777-d5d10e7ad22d/resultData
+2026-08-31 12:45:43,711 [INFO] - c.p.PublixInterceptor - .submitOrAppendResultData: studyResultId 4, componentId 2
+2026-08-31 12:45:46,453 [INFO] - publix_access - PUT /publix/5024dbe5-80a1-4128-ae01-89ad97b00325/3ffd454f-bd33-47b7-9777-d5d10e7ad22d/resultData
+2026-08-31 12:45:46,482 [INFO] - c.p.PublixInterceptor - .submitOrAppendResultData: studyResultId 4, componentId 2
+2026-08-31 12:45:46,525 [INFO] - publix_access - PUT /publix/5024dbe5-80a1-4128-ae01-89ad97b00325/3ffd454f-bd33-47b7-9777-d5d10e7ad22d/resultData
+2026-08-31 12:45:46,535 [INFO] - c.p.PublixInterceptor - .submitOrAppendResultData: studyResultId 4, componentId 2
+2026-08-31 12:46:29,017 [INFO] - gui_access - GET / (admin)
+2026-08-31 12:46:29,621 [INFO] - gui_access - GET /jatos/branding (admin)
+2026-08-31 12:46:32,383 [INFO] - gui_access - GET /jatos/sidebarData (admin)
+2026-08-31 12:46:33,633 [INFO] - gui_access - GET /jatos/1 (admin)
+2026-08-31 12:46:33,854 [INFO] - gui_access - GET /jatos/1/componentsTableData?_=1788205593684 (admin)
+2026-08-31 12:46:35,957 [INFO] - gui_access - GET /jatos/1/2/run?frames=1&hSplit=1&vSplit=1 (admin)
+2026-08-31 12:46:36,029 [INFO] - publix_access - GET /publix/runx?code=SfK0It8EMH9&frames=1&hSplit=1&vSplit=1
+2026-08-31 12:46:36,029 [INFO] - c.p.PublixInterceptor - .runx: code SfK0It8EMH9, frames 1, hSplit 1, vSplit 1
+2026-08-31 12:46:36,051 [INFO] - publix_access - GET /publix/SfK0It8EMH9
+2026-08-31 12:46:36,051 [INFO] - c.p.PublixInterceptor - .run: studyCode SfK0It8EMH9
+2026-08-31 12:46:36,091 [INFO] - c.p.w.JatosPublix - .startStudy: studyCode SfK0It8EMH9, studyResultId 5, studyId 1, batchId 1, signed-in username admin, workerId 1
+2026-08-31 12:46:36,169 [INFO] - publix_access - GET /publix/87b3c310-0916-4490-8091-533dc57d9864/3ffd454f-bd33-47b7-9777-d5d10e7ad22d/start
+2026-08-31 12:46:36,186 [INFO] - c.p.PublixInterceptor - .startComponent: studyResultId 5, componentId 2
+2026-08-31 12:46:36,544 [INFO] - publix_access - GET /publix/87b3c310-0916-4490-8091-533dc57d9864/3ffd454f-bd33-47b7-9777-d5d10e7ad22d/initData
+2026-08-31 12:46:36,585 [INFO] - c.p.PublixInterceptor - .getInitData: studyResultId 5, componentId 2
+2026-08-31 12:46:36,607 [INFO] - publix_access - POST /publix/87b3c310-0916-4490-8091-533dc57d9864/heartbeat
+2026-08-31 12:46:36,703 [INFO] - c.p.JatosBatchChannel - .open: studyResult 5
+2026-08-31 12:46:42,374 [INFO] - publix_access - PUT /publix/87b3c310-0916-4490-8091-533dc57d9864/3ffd454f-bd33-47b7-9777-d5d10e7ad22d/resultData
+2026-08-31 12:46:42,433 [INFO] - c.p.PublixInterceptor - .submitOrAppendResultData: studyResultId 5, componentId 2
+2026-08-31 12:46:44,701 [INFO] - publix_access - PUT /publix/87b3c310-0916-4490-8091-533dc57d9864/3ffd454f-bd33-47b7-9777-d5d10e7ad22d/resultData
+2026-08-31 12:46:44,719 [INFO] - c.p.PublixInterceptor - .submitOrAppendResultData: studyResultId 5, componentId 2
+2026-08-31 12:46:47,266 [INFO] - publix_access - PUT /publix/87b3c310-0916-4490-8091-533dc57d9864/3ffd454f-bd33-47b7-9777-d5d10e7ad22d/resultData
+2026-08-31 12:46:47,300 [INFO] - c.p.PublixInterceptor - .submitOrAppendResultData: studyResultId 5, componentId 2
+2026-08-31 12:46:50,872 [INFO] - publix_access - PUT /publix/87b3c310-0916-4490-8091-533dc57d9864/3ffd454f-bd33-47b7-9777-d5d10e7ad22d/resultData
+2026-08-31 12:46:50,897 [INFO] - c.p.PublixInterceptor - .submitOrAppendResultData: studyResultId 5, componentId 2
+2026-08-31 12:46:50,934 [INFO] - publix_access - PUT /publix/87b3c310-0916-4490-8091-533dc57d9864/3ffd454f-bd33-47b7-9777-d5d10e7ad22d/resultData
+2026-08-31 12:46:50,952 [INFO] - c.p.PublixInterceptor - .submitOrAppendResultData: studyResultId 5, componentId 2
+2026-08-31 12:46:56,455 [INFO] - gui_access - GET / (admin)
+2026-08-31 12:46:57,336 [INFO] - gui_access - GET /jatos/branding (admin)
+2026-08-31 12:47:01,795 [INFO] - gui_access - GET /jatos/sidebarData (admin)
+2026-08-31 12:47:02,680 [INFO] - gui_access - GET /jatos/1 (admin)
+2026-08-31 12:47:03,005 [INFO] - gui_access - GET /jatos/1/componentsTableData?_=1788205622759 (admin)
+2026-08-31 12:47:09,931 [INFO] - gui_access - DELETE /jatos/1/2 (admin)
+2026-08-31 12:47:10,037 [INFO] - gui_access - GET /jatos/1/componentsTableData?_=1788205622760 (admin)
+2026-08-31 12:47:23,110 [INFO] - gui_access - POST /jatos/1/component (admin)
+2026-08-31 12:47:23,202 [INFO] - gui_access - GET /jatos/1/componentsTableData?_=1788205622761 (admin)
+2026-08-31 12:47:25,193 [INFO] - gui_access - GET /jatos/1/3/run?frames=1&hSplit=1&vSplit=1 (admin)
+2026-08-31 12:47:25,228 [INFO] - publix_access - GET /publix/runx?code=SfK0It8EMH9&frames=1&hSplit=1&vSplit=1
+2026-08-31 12:47:25,229 [INFO] - c.p.PublixInterceptor - .runx: code SfK0It8EMH9, frames 1, hSplit 1, vSplit 1
+2026-08-31 12:47:25,245 [INFO] - publix_access - GET /publix/SfK0It8EMH9
+2026-08-31 12:47:25,248 [INFO] - c.p.PublixInterceptor - .run: studyCode SfK0It8EMH9
+2026-08-31 12:47:25,314 [INFO] - c.p.w.JatosPublix - .startStudy: studyCode SfK0It8EMH9, studyResultId 6, studyId 1, batchId 1, signed-in username admin, workerId 1
+2026-08-31 12:47:25,366 [INFO] - publix_access - GET /publix/a102041f-7149-41aa-82bf-e33d3f139e25/f9212fbf-2b52-4715-8835-e6b47ec996ab/start
+2026-08-31 12:47:25,416 [INFO] - c.p.PublixInterceptor - .startComponent: studyResultId 6, componentId 3
+2026-08-31 12:47:25,847 [INFO] - publix_access - GET /publix/a102041f-7149-41aa-82bf-e33d3f139e25/f9212fbf-2b52-4715-8835-e6b47ec996ab/initData
+2026-08-31 12:47:25,867 [INFO] - c.p.PublixInterceptor - .getInitData: studyResultId 6, componentId 3
+2026-08-31 12:47:25,902 [INFO] - publix_access - POST /publix/a102041f-7149-41aa-82bf-e33d3f139e25/heartbeat
+2026-08-31 12:47:25,977 [INFO] - c.p.JatosBatchChannel - .open: studyResult 6
+2026-08-31 12:47:30,430 [INFO] - publix_access - PUT /publix/a102041f-7149-41aa-82bf-e33d3f139e25/f9212fbf-2b52-4715-8835-e6b47ec996ab/resultData
+2026-08-31 12:47:30,454 [INFO] - c.p.PublixInterceptor - .submitOrAppendResultData: studyResultId 6, componentId 3
+2026-08-31 12:47:32,668 [INFO] - publix_access - PUT /publix/a102041f-7149-41aa-82bf-e33d3f139e25/f9212fbf-2b52-4715-8835-e6b47ec996ab/resultData
+2026-08-31 12:47:32,676 [INFO] - c.p.PublixInterceptor - .submitOrAppendResultData: studyResultId 6, componentId 3
+2026-08-31 12:47:34,885 [INFO] - publix_access - PUT /publix/a102041f-7149-41aa-82bf-e33d3f139e25/f9212fbf-2b52-4715-8835-e6b47ec996ab/resultData
+2026-08-31 12:47:34,890 [INFO] - c.p.PublixInterceptor - .submitOrAppendResultData: studyResultId 6, componentId 3
+2026-08-31 12:47:37,714 [INFO] - publix_access - PUT /publix/a102041f-7149-41aa-82bf-e33d3f139e25/f9212fbf-2b52-4715-8835-e6b47ec996ab/resultData
+2026-08-31 12:47:37,742 [INFO] - c.p.PublixInterceptor - .submitOrAppendResultData: studyResultId 6, componentId 3
+2026-08-31 12:47:37,805 [INFO] - publix_access - PUT /publix/a102041f-7149-41aa-82bf-e33d3f139e25/f9212fbf-2b52-4715-8835-e6b47ec996ab/resultData
+2026-08-31 12:47:37,828 [INFO] - c.p.PublixInterceptor - .submitOrAppendResultData: studyResultId 6, componentId 3
+2026-08-31 12:48:26,027 [INFO] - publix_access - POST /publix/a102041f-7149-41aa-82bf-e33d3f139e25/heartbeat
+2026-08-31 12:49:26,204 [INFO] - publix_access - POST /publix/a102041f-7149-41aa-82bf-e33d3f139e25/heartbeat
+2026-08-31 12:50:11,297 [INFO] - gui_access - GET / (admin)
+2026-08-31 12:50:12,032 [INFO] - gui_access - GET /jatos/branding (admin)
+2026-08-31 12:50:15,918 [INFO] - gui_access - GET /jatos/sidebarData (admin)
+2026-08-31 12:50:17,605 [INFO] - gui_access - GET /jatos/1 (admin)
+2026-08-31 12:50:17,804 [INFO] - gui_access - GET /jatos/1/componentsTableData?_=1788205817656 (admin)
+2026-08-31 12:50:24,525 [INFO] - gui_access - DELETE /jatos/1/3 (admin)
+2026-08-31 12:50:24,617 [INFO] - gui_access - GET /jatos/1/componentsTableData?_=1788205817657 (admin)
+2026-08-31 12:50:33,811 [INFO] - gui_access - POST /jatos/1/component (admin)
+2026-08-31 12:50:33,913 [INFO] - gui_access - GET /jatos/1/componentsTableData?_=1788205817658 (admin)
+2026-08-31 12:50:37,239 [INFO] - gui_access - GET /jatos/1/4/run?frames=1&hSplit=1&vSplit=1 (admin)
+2026-08-31 12:50:37,318 [INFO] - publix_access - GET /publix/runx?code=SfK0It8EMH9&frames=1&hSplit=1&vSplit=1
+2026-08-31 12:50:37,319 [INFO] - c.p.PublixInterceptor - .runx: code SfK0It8EMH9, frames 1, hSplit 1, vSplit 1
+2026-08-31 12:50:37,378 [INFO] - publix_access - GET /publix/SfK0It8EMH9
+2026-08-31 12:50:37,379 [INFO] - c.p.PublixInterceptor - .run: studyCode SfK0It8EMH9
+2026-08-31 12:50:37,415 [INFO] - c.p.w.JatosPublix - .startStudy: studyCode SfK0It8EMH9, studyResultId 7, studyId 1, batchId 1, signed-in username admin, workerId 1
+2026-08-31 12:50:37,470 [INFO] - publix_access - GET /publix/957dab85-7089-4c15-b22a-69059f586625/41911331-bc59-4d6c-a2b2-bd9df0164ea6/start
+2026-08-31 12:50:37,495 [INFO] - c.p.PublixInterceptor - .startComponent: studyResultId 7, componentId 4
+2026-08-31 12:50:37,935 [INFO] - publix_access - GET /publix/957dab85-7089-4c15-b22a-69059f586625/41911331-bc59-4d6c-a2b2-bd9df0164ea6/initData
+2026-08-31 12:50:38,009 [INFO] - c.p.PublixInterceptor - .getInitData: studyResultId 7, componentId 4
+2026-08-31 12:50:38,021 [INFO] - publix_access - POST /publix/957dab85-7089-4c15-b22a-69059f586625/heartbeat
+2026-08-31 12:50:38,143 [INFO] - c.p.JatosBatchChannel - .open: studyResult 7
+2026-08-31 12:51:38,407 [INFO] - publix_access - POST /publix/957dab85-7089-4c15-b22a-69059f586625/heartbeat
+2026-08-31 12:51:57,521 [INFO] - gui_access - GET / (admin)
+2026-08-31 12:51:58,576 [INFO] - gui_access - GET /jatos/branding (admin)
+2026-08-31 12:51:59,945 [INFO] - gui_access - GET /jatos/sidebarData (admin)
+2026-08-31 12:52:00,919 [INFO] - gui_access - GET /jatos/1 (admin)
+2026-08-31 12:52:01,142 [INFO] - gui_access - GET /jatos/1/componentsTableData?_=1788205920996 (admin)
+2026-08-31 12:52:05,418 [INFO] - gui_access - DELETE /jatos/1/4 (admin)
+2026-08-31 12:52:05,535 [INFO] - gui_access - GET /jatos/1/componentsTableData?_=1788205920997 (admin)
+2026-08-31 12:52:15,702 [INFO] - gui_access - POST /jatos/1/component (admin)
+2026-08-31 12:52:15,745 [INFO] - gui_access - GET /jatos/1/componentsTableData?_=1788205920998 (admin)
+2026-08-31 12:52:16,840 [INFO] - gui_access - GET /jatos/1/5/run?frames=1&hSplit=1&vSplit=1 (admin)
+2026-08-31 12:52:16,873 [INFO] - publix_access - GET /publix/runx?code=SfK0It8EMH9&frames=1&hSplit=1&vSplit=1
+2026-08-31 12:52:16,878 [INFO] - c.p.PublixInterceptor - .runx: code SfK0It8EMH9, frames 1, hSplit 1, vSplit 1
+2026-08-31 12:52:16,913 [INFO] - publix_access - GET /publix/SfK0It8EMH9
+2026-08-31 12:52:16,914 [INFO] - c.p.PublixInterceptor - .run: studyCode SfK0It8EMH9
+2026-08-31 12:52:16,954 [INFO] - c.p.w.JatosPublix - .startStudy: studyCode SfK0It8EMH9, studyResultId 8, studyId 1, batchId 1, signed-in username admin, workerId 1
+2026-08-31 12:52:16,986 [INFO] - publix_access - GET /publix/a6b35651-24cf-4162-a9d1-aa7d3344d034/c0e006d3-8ba8-46ee-abf0-0e9d69beba96/start
+2026-08-31 12:52:16,998 [INFO] - c.p.PublixInterceptor - .startComponent: studyResultId 8, componentId 5
+2026-08-31 12:52:17,353 [INFO] - publix_access - GET /publix/a6b35651-24cf-4162-a9d1-aa7d3344d034/c0e006d3-8ba8-46ee-abf0-0e9d69beba96/initData
+2026-08-31 12:52:17,362 [INFO] - c.p.PublixInterceptor - .getInitData: studyResultId 8, componentId 5
+2026-08-31 12:52:17,405 [INFO] - publix_access - POST /publix/a6b35651-24cf-4162-a9d1-aa7d3344d034/heartbeat
+2026-08-31 12:52:17,474 [INFO] - c.p.JatosBatchChannel - .open: studyResult 8
+2026-08-31 12:53:17,518 [INFO] - publix_access - POST /publix/a6b35651-24cf-4162-a9d1-aa7d3344d034/heartbeat
+2026-08-31 12:54:17,623 [INFO] - publix_access - POST /publix/a6b35651-24cf-4162-a9d1-aa7d3344d034/heartbeat
+2026-08-31 12:55:17,742 [INFO] - publix_access - POST /publix/a6b35651-24cf-4162-a9d1-aa7d3344d034/heartbeat
+2026-08-31 12:56:17,845 [INFO] - publix_access - POST /publix/a6b35651-24cf-4162-a9d1-aa7d3344d034/heartbeat
+2026-08-31 12:57:17,974 [INFO] - publix_access - POST /publix/a6b35651-24cf-4162-a9d1-aa7d3344d034/heartbeat
+2026-08-31 12:57:18,344 [INFO] - gui_access - GET / (admin)
+2026-08-31 12:57:19,400 [INFO] - gui_access - GET /jatos/branding (admin)
+2026-08-31 12:57:21,450 [INFO] - gui_access - GET /jatos/sidebarData (admin)
+2026-08-31 12:57:22,101 [INFO] - gui_access - GET /jatos/1 (admin)
+2026-08-31 12:57:22,273 [INFO] - gui_access - GET /jatos/1/componentsTableData?_=1788206242162 (admin)
+2026-08-31 12:57:27,200 [INFO] - gui_access - DELETE /jatos/1/5 (admin)
+2026-08-31 12:57:27,266 [INFO] - gui_access - GET /jatos/1/componentsTableData?_=1788206242163 (admin)
+2026-08-31 12:57:35,829 [INFO] - gui_access - POST /jatos/1/component (admin)
+2026-08-31 12:57:35,884 [INFO] - gui_access - GET /jatos/1/componentsTableData?_=1788206242164 (admin)
+2026-08-31 12:57:37,364 [INFO] - gui_access - GET /jatos/1/6/run?frames=1&hSplit=1&vSplit=1 (admin)
+2026-08-31 12:57:37,776 [INFO] - publix_access - GET /publix/runx?code=SfK0It8EMH9&frames=1&hSplit=1&vSplit=1
+2026-08-31 12:57:37,776 [INFO] - c.p.PublixInterceptor - .runx: code SfK0It8EMH9, frames 1, hSplit 1, vSplit 1
+2026-08-31 12:57:37,893 [INFO] - publix_access - GET /publix/SfK0It8EMH9
+2026-08-31 12:57:37,894 [INFO] - c.p.PublixInterceptor - .run: studyCode SfK0It8EMH9
+2026-08-31 12:57:37,906 [INFO] - c.p.w.JatosPublix - .startStudy: studyCode SfK0It8EMH9, studyResultId 9, studyId 1, batchId 1, signed-in username admin, workerId 1
+2026-08-31 12:57:37,948 [INFO] - publix_access - GET /publix/60a7923e-d319-43d6-8b53-b7b406a4b3f9/18364fb1-f192-4265-afbc-3d1f0c21352f/start
+2026-08-31 12:57:37,959 [INFO] - c.p.PublixInterceptor - .startComponent: studyResultId 9, componentId 6
+2026-08-31 12:57:38,248 [INFO] - publix_access - GET /publix/60a7923e-d319-43d6-8b53-b7b406a4b3f9/18364fb1-f192-4265-afbc-3d1f0c21352f/initData
+2026-08-31 12:57:38,258 [INFO] - c.p.PublixInterceptor - .getInitData: studyResultId 9, componentId 6
+2026-08-31 12:57:38,301 [INFO] - publix_access - POST /publix/60a7923e-d319-43d6-8b53-b7b406a4b3f9/heartbeat
+2026-08-31 12:57:38,314 [INFO] - c.p.JatosBatchChannel - .open: studyResult 9
+2026-08-31 12:58:38,424 [INFO] - publix_access - POST /publix/60a7923e-d319-43d6-8b53-b7b406a4b3f9/heartbeat
+2026-08-31 12:59:38,709 [INFO] - publix_access - POST /publix/60a7923e-d319-43d6-8b53-b7b406a4b3f9/heartbeat
+2026-08-31 12:59:58,265 [INFO] - gui_access - GET / (admin)
+2026-08-31 12:59:59,102 [INFO] - gui_access - GET /jatos/branding (admin)
+2026-08-31 13:00:21,418 [INFO] - gui_access - GET /jatos/sidebarData (admin)
+2026-08-31 13:00:22,325 [INFO] - gui_access - GET /jatos/1 (admin)
+2026-08-31 13:00:22,518 [INFO] - gui_access - GET /jatos/1/componentsTableData?_=1788206422396 (admin)
+2026-08-31 13:00:29,155 [INFO] - gui_access - DELETE /jatos/1/6 (admin)
+2026-08-31 13:00:29,236 [INFO] - gui_access - GET /jatos/1/componentsTableData?_=1788206422397 (admin)
+2026-08-31 13:00:41,809 [INFO] - gui_access - POST /jatos/1/component (admin)
+2026-08-31 13:00:41,896 [INFO] - gui_access - GET /jatos/1/componentsTableData?_=1788206422398 (admin)
+2026-08-31 13:00:44,109 [INFO] - gui_access - GET /jatos/1/7/run?frames=1&hSplit=1&vSplit=1 (admin)
+2026-08-31 13:00:44,141 [INFO] - publix_access - GET /publix/runx?code=SfK0It8EMH9&frames=1&hSplit=1&vSplit=1
+2026-08-31 13:00:44,141 [INFO] - c.p.PublixInterceptor - .runx: code SfK0It8EMH9, frames 1, hSplit 1, vSplit 1
+2026-08-31 13:00:44,166 [INFO] - publix_access - GET /publix/SfK0It8EMH9
+2026-08-31 13:00:44,166 [INFO] - c.p.PublixInterceptor - .run: studyCode SfK0It8EMH9
+2026-08-31 13:00:44,194 [INFO] - c.p.w.JatosPublix - .startStudy: studyCode SfK0It8EMH9, studyResultId 10, studyId 1, batchId 1, signed-in username admin, workerId 1
+2026-08-31 13:00:44,270 [INFO] - publix_access - GET /publix/b1680b8b-4b42-4694-b8df-485801442836/053b92dc-5ea3-42e5-abdd-13cf7a86b9df/start
+2026-08-31 13:00:44,280 [INFO] - c.p.PublixInterceptor - .startComponent: studyResultId 10, componentId 7
+2026-08-31 13:00:44,625 [INFO] - publix_access - GET /publix/b1680b8b-4b42-4694-b8df-485801442836/053b92dc-5ea3-42e5-abdd-13cf7a86b9df/initData
+2026-08-31 13:00:44,649 [INFO] - c.p.PublixInterceptor - .getInitData: studyResultId 10, componentId 7
+2026-08-31 13:00:44,660 [INFO] - publix_access - POST /publix/b1680b8b-4b42-4694-b8df-485801442836/heartbeat
+2026-08-31 13:00:44,755 [INFO] - c.p.JatosBatchChannel - .open: studyResult 10
+2026-08-31 13:00:51,357 [INFO] - publix_access - PUT /publix/b1680b8b-4b42-4694-b8df-485801442836/053b92dc-5ea3-42e5-abdd-13cf7a86b9df/resultData
+2026-08-31 13:00:51,378 [INFO] - c.p.PublixInterceptor - .submitOrAppendResultData: studyResultId 10, componentId 7
+2026-08-31 13:00:54,219 [INFO] - publix_access - PUT /publix/b1680b8b-4b42-4694-b8df-485801442836/053b92dc-5ea3-42e5-abdd-13cf7a86b9df/resultData
+2026-08-31 13:00:54,227 [INFO] - c.p.PublixInterceptor - .submitOrAppendResultData: studyResultId 10, componentId 7
+2026-08-31 13:00:56,747 [INFO] - publix_access - PUT /publix/b1680b8b-4b42-4694-b8df-485801442836/053b92dc-5ea3-42e5-abdd-13cf7a86b9df/resultData
+2026-08-31 13:00:56,760 [INFO] - c.p.PublixInterceptor - .submitOrAppendResultData: studyResultId 10, componentId 7
+2026-08-31 13:00:59,502 [INFO] - publix_access - PUT /publix/b1680b8b-4b42-4694-b8df-485801442836/053b92dc-5ea3-42e5-abdd-13cf7a86b9df/resultData
+2026-08-31 13:00:59,513 [INFO] - c.p.PublixInterceptor - .submitOrAppendResultData: studyResultId 10, componentId 7
+2026-08-31 13:01:00,997 [INFO] - c.p.StudyAssets - .viaAssetsPath: failed loading from path /Users/fantine/Ulm26/jatos_mac_x64_java/study_assets_root/f4b0e643-c3e2-4470-9570-022fd80d30d0/images_matrices/35pct/matrix_circles_blue_green.jpg
+2026-08-31 13:01:44,809 [INFO] - publix_access - POST /publix/b1680b8b-4b42-4694-b8df-485801442836/heartbeat
+2026-08-31 13:02:41,024 [INFO] - publix_access - GET /publix/b1680b8b-4b42-4694-b8df-485801442836/053b92dc-5ea3-42e5-abdd-13cf7a86b9df/start
+2026-08-31 13:02:41,042 [INFO] - c.p.PublixInterceptor - .startComponent: studyResultId 10, componentId 7
+2026-08-31 13:02:41,228 [INFO] - publix_access - GET /publix/b1680b8b-4b42-4694-b8df-485801442836/end?successful=false&message=It%27s+not+allowed+to+reload+this+component+%28ID%3A+7%29.+Study+%28ID%3A+1%29+is+finished.
+2026-08-31 13:02:41,234 [INFO] - c.p.PublixInterceptor - .finishStudy: studyResultId 10, successful false
+2026-08-31 13:02:41,310 [INFO] - gui_access - GET /jatos/1 (admin)
+2026-08-31 13:02:41,568 [INFO] - gui_access - GET /jatos/1/componentsTableData?_=1788206561406 (admin)
+2026-08-31 13:02:42,783 [INFO] - gui_access - GET /jatos/1/7/run?frames=1&hSplit=1&vSplit=1 (admin)
+2026-08-31 13:02:42,805 [INFO] - publix_access - GET /publix/runx?code=SfK0It8EMH9&frames=1&hSplit=1&vSplit=1
+2026-08-31 13:02:42,806 [INFO] - c.p.PublixInterceptor - .runx: code SfK0It8EMH9, frames 1, hSplit 1, vSplit 1
+2026-08-31 13:02:42,891 [INFO] - publix_access - GET /publix/SfK0It8EMH9
+2026-08-31 13:02:42,892 [INFO] - c.p.PublixInterceptor - .run: studyCode SfK0It8EMH9
+2026-08-31 13:02:42,929 [INFO] - c.p.w.JatosPublix - .startStudy: studyCode SfK0It8EMH9, studyResultId 11, studyId 1, batchId 1, signed-in username admin, workerId 1
+2026-08-31 13:02:42,955 [INFO] - publix_access - GET /publix/3e0a032e-18df-4750-9b0a-0a1f08660e07/053b92dc-5ea3-42e5-abdd-13cf7a86b9df/start
+2026-08-31 13:02:42,978 [INFO] - c.p.PublixInterceptor - .startComponent: studyResultId 11, componentId 7
+2026-08-31 13:02:43,500 [INFO] - publix_access - GET /publix/3e0a032e-18df-4750-9b0a-0a1f08660e07/053b92dc-5ea3-42e5-abdd-13cf7a86b9df/initData
+2026-08-31 13:02:43,520 [INFO] - c.p.PublixInterceptor - .getInitData: studyResultId 11, componentId 7
+2026-08-31 13:02:43,545 [INFO] - publix_access - POST /publix/3e0a032e-18df-4750-9b0a-0a1f08660e07/heartbeat
+2026-08-31 13:02:43,659 [INFO] - c.p.JatosBatchChannel - .open: studyResult 11
+2026-08-31 13:02:48,297 [INFO] - publix_access - PUT /publix/3e0a032e-18df-4750-9b0a-0a1f08660e07/053b92dc-5ea3-42e5-abdd-13cf7a86b9df/resultData
+2026-08-31 13:02:48,367 [INFO] - c.p.PublixInterceptor - .submitOrAppendResultData: studyResultId 11, componentId 7
+2026-08-31 13:02:50,638 [INFO] - publix_access - PUT /publix/3e0a032e-18df-4750-9b0a-0a1f08660e07/053b92dc-5ea3-42e5-abdd-13cf7a86b9df/resultData
+2026-08-31 13:02:50,649 [INFO] - c.p.PublixInterceptor - .submitOrAppendResultData: studyResultId 11, componentId 7
+2026-08-31 13:02:52,567 [INFO] - publix_access - PUT /publix/3e0a032e-18df-4750-9b0a-0a1f08660e07/053b92dc-5ea3-42e5-abdd-13cf7a86b9df/resultData
+2026-08-31 13:02:52,571 [INFO] - c.p.PublixInterceptor - .submitOrAppendResultData: studyResultId 11, componentId 7
+2026-08-31 13:02:55,142 [INFO] - publix_access - PUT /publix/3e0a032e-18df-4750-9b0a-0a1f08660e07/053b92dc-5ea3-42e5-abdd-13cf7a86b9df/resultData
+2026-08-31 13:02:55,155 [INFO] - c.p.PublixInterceptor - .submitOrAppendResultData: studyResultId 11, componentId 7
+2026-08-31 13:02:55,211 [INFO] - c.p.StudyAssets - .viaAssetsPath: failed loading from path /Users/fantine/Ulm26/jatos_mac_x64_java/study_assets_root/f4b0e643-c3e2-4470-9570-022fd80d30d0/images_matrices/35pct/matrix_circles_blue_green.jpg
+2026-08-31 13:03:43,642 [INFO] - publix_access - POST /publix/3e0a032e-18df-4750-9b0a-0a1f08660e07/heartbeat
+2026-08-31 13:04:43,772 [INFO] - publix_access - POST /publix/3e0a032e-18df-4750-9b0a-0a1f08660e07/heartbeat
+2026-08-31 13:04:49,874 [INFO] - publix_access - GET /publix/3e0a032e-18df-4750-9b0a-0a1f08660e07/053b92dc-5ea3-42e5-abdd-13cf7a86b9df/start
+2026-08-31 13:04:49,911 [INFO] - c.p.PublixInterceptor - .startComponent: studyResultId 11, componentId 7
+2026-08-31 13:04:49,987 [INFO] - publix_access - GET /publix/3e0a032e-18df-4750-9b0a-0a1f08660e07/end?successful=false&message=It%27s+not+allowed+to+reload+this+component+%28ID%3A+7%29.+Study+%28ID%3A+1%29+is+finished.
+2026-08-31 13:04:50,041 [INFO] - c.p.PublixInterceptor - .finishStudy: studyResultId 11, successful false
+2026-08-31 13:04:50,105 [INFO] - gui_access - GET /jatos/1 (admin)
+2026-08-31 13:04:50,337 [INFO] - gui_access - GET /jatos/1/componentsTableData?_=1788206690210 (admin)
+2026-08-31 13:04:52,533 [INFO] - gui_access - GET /jatos/1/7/run?frames=1&hSplit=1&vSplit=1 (admin)
+2026-08-31 13:04:52,551 [INFO] - publix_access - GET /publix/runx?code=SfK0It8EMH9&frames=1&hSplit=1&vSplit=1
+2026-08-31 13:04:52,551 [INFO] - c.p.PublixInterceptor - .runx: code SfK0It8EMH9, frames 1, hSplit 1, vSplit 1
+2026-08-31 13:04:52,565 [INFO] - publix_access - GET /publix/SfK0It8EMH9
+2026-08-31 13:04:52,566 [INFO] - c.p.PublixInterceptor - .run: studyCode SfK0It8EMH9
+2026-08-31 13:04:52,610 [INFO] - c.p.w.JatosPublix - .startStudy: studyCode SfK0It8EMH9, studyResultId 12, studyId 1, batchId 1, signed-in username admin, workerId 1
+2026-08-31 13:04:52,650 [INFO] - publix_access - GET /publix/5530249e-cbab-421e-8382-5179544e692b/053b92dc-5ea3-42e5-abdd-13cf7a86b9df/start
+2026-08-31 13:04:52,674 [INFO] - c.p.PublixInterceptor - .startComponent: studyResultId 12, componentId 7
+2026-08-31 13:04:53,021 [INFO] - publix_access - GET /publix/5530249e-cbab-421e-8382-5179544e692b/053b92dc-5ea3-42e5-abdd-13cf7a86b9df/initData
+2026-08-31 13:04:53,038 [INFO] - c.p.PublixInterceptor - .getInitData: studyResultId 12, componentId 7
+2026-08-31 13:04:53,073 [INFO] - publix_access - POST /publix/5530249e-cbab-421e-8382-5179544e692b/heartbeat
+2026-08-31 13:04:53,163 [INFO] - c.p.JatosBatchChannel - .open: studyResult 12
+2026-08-31 13:04:58,448 [INFO] - publix_access - PUT /publix/5530249e-cbab-421e-8382-5179544e692b/053b92dc-5ea3-42e5-abdd-13cf7a86b9df/resultData
+2026-08-31 13:04:58,452 [INFO] - c.p.PublixInterceptor - .submitOrAppendResultData: studyResultId 12, componentId 7
+2026-08-31 13:05:00,610 [INFO] - publix_access - PUT /publix/5530249e-cbab-421e-8382-5179544e692b/053b92dc-5ea3-42e5-abdd-13cf7a86b9df/resultData
+2026-08-31 13:05:00,615 [INFO] - c.p.PublixInterceptor - .submitOrAppendResultData: studyResultId 12, componentId 7
+2026-08-31 13:05:02,944 [INFO] - publix_access - PUT /publix/5530249e-cbab-421e-8382-5179544e692b/053b92dc-5ea3-42e5-abdd-13cf7a86b9df/resultData
+2026-08-31 13:05:02,947 [INFO] - c.p.PublixInterceptor - .submitOrAppendResultData: studyResultId 12, componentId 7
+2026-08-31 13:05:05,814 [INFO] - publix_access - PUT /publix/5530249e-cbab-421e-8382-5179544e692b/053b92dc-5ea3-42e5-abdd-13cf7a86b9df/resultData
+2026-08-31 13:05:05,818 [INFO] - c.p.PublixInterceptor - .submitOrAppendResultData: studyResultId 12, componentId 7
+2026-08-31 13:05:53,166 [INFO] - publix_access - POST /publix/5530249e-cbab-421e-8382-5179544e692b/heartbeat
+2026-08-31 13:06:53,262 [INFO] - publix_access - POST /publix/5530249e-cbab-421e-8382-5179544e692b/heartbeat
+2026-08-31 13:07:53,375 [INFO] - publix_access - POST /publix/5530249e-cbab-421e-8382-5179544e692b/heartbeat
+2026-08-31 13:08:53,478 [INFO] - publix_access - POST /publix/5530249e-cbab-421e-8382-5179544e692b/heartbeat
+2026-08-31 13:09:53,604 [INFO] - publix_access - POST /publix/5530249e-cbab-421e-8382-5179544e692b/heartbeat
+2026-08-31 13:10:53,767 [INFO] - publix_access - POST /publix/5530249e-cbab-421e-8382-5179544e692b/heartbeat
+2026-08-31 13:11:47,872 [INFO] - publix_access - GET /publix/5530249e-cbab-421e-8382-5179544e692b/053b92dc-5ea3-42e5-abdd-13cf7a86b9df/start
+2026-08-31 13:11:47,941 [INFO] - c.p.PublixInterceptor - .startComponent: studyResultId 12, componentId 7
+2026-08-31 13:11:48,016 [INFO] - publix_access - GET /publix/5530249e-cbab-421e-8382-5179544e692b/end?successful=false&message=It%27s+not+allowed+to+reload+this+component+%28ID%3A+7%29.+Study+%28ID%3A+1%29+is+finished.
+2026-08-31 13:11:48,027 [INFO] - c.p.PublixInterceptor - .finishStudy: studyResultId 12, successful false
+2026-08-31 13:11:48,110 [INFO] - gui_access - GET /jatos/1 (admin)
+2026-08-31 13:11:48,568 [INFO] - gui_access - GET /jatos/1/componentsTableData?_=1788207108353 (admin)
+2026-08-31 13:11:51,656 [INFO] - gui_access - GET /jatos/1/7/run?frames=1&hSplit=1&vSplit=1 (admin)
+2026-08-31 13:11:51,695 [INFO] - publix_access - GET /publix/runx?code=SfK0It8EMH9&frames=1&hSplit=1&vSplit=1
+2026-08-31 13:11:51,695 [INFO] - c.p.PublixInterceptor - .runx: code SfK0It8EMH9, frames 1, hSplit 1, vSplit 1
+2026-08-31 13:11:51,718 [INFO] - publix_access - GET /publix/SfK0It8EMH9
+2026-08-31 13:11:51,718 [INFO] - c.p.PublixInterceptor - .run: studyCode SfK0It8EMH9
+2026-08-31 13:11:51,765 [INFO] - c.p.w.JatosPublix - .startStudy: studyCode SfK0It8EMH9, studyResultId 13, studyId 1, batchId 1, signed-in username admin, workerId 1
+2026-08-31 13:11:51,836 [INFO] - publix_access - GET /publix/af0630ad-9744-4958-96c7-787dfc213a52/053b92dc-5ea3-42e5-abdd-13cf7a86b9df/start
+2026-08-31 13:11:51,850 [INFO] - c.p.PublixInterceptor - .startComponent: studyResultId 13, componentId 7
+2026-08-31 13:11:52,274 [INFO] - publix_access - GET /publix/af0630ad-9744-4958-96c7-787dfc213a52/053b92dc-5ea3-42e5-abdd-13cf7a86b9df/initData
+2026-08-31 13:11:52,288 [INFO] - c.p.PublixInterceptor - .getInitData: studyResultId 13, componentId 7
+2026-08-31 13:11:52,328 [INFO] - publix_access - POST /publix/af0630ad-9744-4958-96c7-787dfc213a52/heartbeat
+2026-08-31 13:11:52,393 [INFO] - c.p.JatosBatchChannel - .open: studyResult 13
+2026-08-31 13:12:06,137 [INFO] - publix_access - PUT /publix/af0630ad-9744-4958-96c7-787dfc213a52/053b92dc-5ea3-42e5-abdd-13cf7a86b9df/resultData
+2026-08-31 13:12:06,151 [INFO] - c.p.PublixInterceptor - .submitOrAppendResultData: studyResultId 13, componentId 7
+2026-08-31 13:12:15,767 [INFO] - publix_access - PUT /publix/af0630ad-9744-4958-96c7-787dfc213a52/053b92dc-5ea3-42e5-abdd-13cf7a86b9df/resultData
+2026-08-31 13:12:15,779 [INFO] - c.p.PublixInterceptor - .submitOrAppendResultData: studyResultId 13, componentId 7
+2026-08-31 13:12:21,487 [INFO] - publix_access - PUT /publix/af0630ad-9744-4958-96c7-787dfc213a52/053b92dc-5ea3-42e5-abdd-13cf7a86b9df/resultData
+2026-08-31 13:12:21,505 [INFO] - c.p.PublixInterceptor - .submitOrAppendResultData: studyResultId 13, componentId 7
+2026-08-31 13:12:28,334 [INFO] - publix_access - PUT /publix/af0630ad-9744-4958-96c7-787dfc213a52/053b92dc-5ea3-42e5-abdd-13cf7a86b9df/resultData
+2026-08-31 13:12:28,372 [INFO] - c.p.PublixInterceptor - .submitOrAppendResultData: studyResultId 13, componentId 7
+2026-08-31 13:12:35,973 [INFO] - publix_access - PUT /publix/af0630ad-9744-4958-96c7-787dfc213a52/053b92dc-5ea3-42e5-abdd-13cf7a86b9df/resultData
+2026-08-31 13:12:35,997 [INFO] - c.p.PublixInterceptor - .submitOrAppendResultData: studyResultId 13, componentId 7
+2026-08-31 13:12:41,329 [INFO] - publix_access - PUT /publix/af0630ad-9744-4958-96c7-787dfc213a52/053b92dc-5ea3-42e5-abdd-13cf7a86b9df/resultData
+2026-08-31 13:12:41,345 [INFO] - c.p.PublixInterceptor - .submitOrAppendResultData: studyResultId 13, componentId 7
+2026-08-31 13:12:45,728 [INFO] - publix_access - PUT /publix/af0630ad-9744-4958-96c7-787dfc213a52/053b92dc-5ea3-42e5-abdd-13cf7a86b9df/resultData
+2026-08-31 13:12:45,754 [INFO] - c.p.PublixInterceptor - .submitOrAppendResultData: studyResultId 13, componentId 7
+2026-08-31 13:12:48,457 [INFO] - publix_access - PUT /publix/af0630ad-9744-4958-96c7-787dfc213a52/053b92dc-5ea3-42e5-abdd-13cf7a86b9df/resultData
+2026-08-31 13:12:48,465 [INFO] - c.p.PublixInterceptor - .submitOrAppendResultData: studyResultId 13, componentId 7
+2026-08-31 13:12:51,637 [INFO] - publix_access - PUT /publix/af0630ad-9744-4958-96c7-787dfc213a52/053b92dc-5ea3-42e5-abdd-13cf7a86b9df/resultData
+2026-08-31 13:12:51,655 [INFO] - c.p.PublixInterceptor - .submitOrAppendResultData: studyResultId 13, componentId 7
+2026-08-31 13:12:52,399 [INFO] - publix_access - POST /publix/af0630ad-9744-4958-96c7-787dfc213a52/heartbeat
+2026-08-31 13:12:54,592 [INFO] - publix_access - PUT /publix/af0630ad-9744-4958-96c7-787dfc213a52/053b92dc-5ea3-42e5-abdd-13cf7a86b9df/resultData
+2026-08-31 13:12:54,598 [INFO] - c.p.PublixInterceptor - .submitOrAppendResultData: studyResultId 13, componentId 7
+2026-08-31 13:12:57,595 [INFO] - publix_access - PUT /publix/af0630ad-9744-4958-96c7-787dfc213a52/053b92dc-5ea3-42e5-abdd-13cf7a86b9df/resultData
+2026-08-31 13:12:57,616 [INFO] - c.p.PublixInterceptor - .submitOrAppendResultData: studyResultId 13, componentId 7
+2026-08-31 13:13:02,489 [INFO] - publix_access - PUT /publix/af0630ad-9744-4958-96c7-787dfc213a52/053b92dc-5ea3-42e5-abdd-13cf7a86b9df/resultData
+2026-08-31 13:13:02,510 [INFO] - c.p.PublixInterceptor - .submitOrAppendResultData: studyResultId 13, componentId 7
+2026-08-31 13:13:02,562 [INFO] - publix_access - PUT /publix/af0630ad-9744-4958-96c7-787dfc213a52/053b92dc-5ea3-42e5-abdd-13cf7a86b9df/resultData
+2026-08-31 13:13:02,568 [INFO] - c.p.PublixInterceptor - .submitOrAppendResultData: studyResultId 13, componentId 7
+2026-08-31 13:13:52,505 [INFO] - publix_access - POST /publix/af0630ad-9744-4958-96c7-787dfc213a52/heartbeat
+2026-08-31 13:14:52,652 [INFO] - publix_access - POST /publix/af0630ad-9744-4958-96c7-787dfc213a52/heartbeat
+2026-08-31 13:15:52,829 [INFO] - publix_access - POST /publix/af0630ad-9744-4958-96c7-787dfc213a52/heartbeat
+2026-08-31 13:16:36,780 [INFO] - publix_access - GET /publix/af0630ad-9744-4958-96c7-787dfc213a52/053b92dc-5ea3-42e5-abdd-13cf7a86b9df/start
+2026-08-31 13:16:36,820 [INFO] - c.p.PublixInterceptor - .startComponent: studyResultId 13, componentId 7
+2026-08-31 13:16:36,943 [INFO] - publix_access - GET /publix/af0630ad-9744-4958-96c7-787dfc213a52/end?successful=false&message=It%27s+not+allowed+to+reload+this+component+%28ID%3A+7%29.+Study+%28ID%3A+1%29+is+finished.
+2026-08-31 13:16:36,976 [INFO] - c.p.PublixInterceptor - .finishStudy: studyResultId 13, successful false
+2026-08-31 13:16:37,042 [INFO] - gui_access - GET /jatos/1 (admin)
+2026-08-31 13:16:37,590 [INFO] - gui_access - GET /jatos/1/componentsTableData?_=1788207397364 (admin)
+2026-08-31 13:16:42,261 [INFO] - gui_access - GET /jatos/1/7/run?frames=1&hSplit=1&vSplit=1 (admin)
+2026-08-31 13:16:42,351 [INFO] - publix_access - GET /publix/runx?code=SfK0It8EMH9&frames=1&hSplit=1&vSplit=1
+2026-08-31 13:16:42,352 [INFO] - c.p.PublixInterceptor - .runx: code SfK0It8EMH9, frames 1, hSplit 1, vSplit 1
+2026-08-31 13:16:42,374 [INFO] - publix_access - GET /publix/SfK0It8EMH9
+2026-08-31 13:16:42,374 [INFO] - c.p.PublixInterceptor - .run: studyCode SfK0It8EMH9
+2026-08-31 13:16:42,445 [INFO] - c.p.w.JatosPublix - .startStudy: studyCode SfK0It8EMH9, studyResultId 14, studyId 1, batchId 1, signed-in username admin, workerId 1
+2026-08-31 13:16:42,508 [INFO] - publix_access - GET /publix/b9ef2e18-ac47-4b80-bc60-a1f50761b31a/053b92dc-5ea3-42e5-abdd-13cf7a86b9df/start
+2026-08-31 13:16:42,521 [INFO] - c.p.PublixInterceptor - .startComponent: studyResultId 14, componentId 7
+2026-08-31 13:16:43,026 [INFO] - publix_access - GET /publix/b9ef2e18-ac47-4b80-bc60-a1f50761b31a/053b92dc-5ea3-42e5-abdd-13cf7a86b9df/initData
+2026-08-31 13:16:43,058 [INFO] - c.p.PublixInterceptor - .getInitData: studyResultId 14, componentId 7
+2026-08-31 13:16:43,068 [INFO] - publix_access - POST /publix/b9ef2e18-ac47-4b80-bc60-a1f50761b31a/heartbeat
+2026-08-31 13:16:43,127 [INFO] - c.p.JatosBatchChannel - .open: studyResult 14
+2026-08-31 13:16:56,097 [INFO] - publix_access - PUT /publix/b9ef2e18-ac47-4b80-bc60-a1f50761b31a/053b92dc-5ea3-42e5-abdd-13cf7a86b9df/resultData
+2026-08-31 13:16:56,107 [INFO] - c.p.PublixInterceptor - .submitOrAppendResultData: studyResultId 14, componentId 7
+2026-08-31 13:17:00,214 [INFO] - publix_access - PUT /publix/b9ef2e18-ac47-4b80-bc60-a1f50761b31a/053b92dc-5ea3-42e5-abdd-13cf7a86b9df/resultData
+2026-08-31 13:17:00,233 [INFO] - c.p.PublixInterceptor - .submitOrAppendResultData: studyResultId 14, componentId 7
+2026-08-31 13:17:05,111 [INFO] - publix_access - PUT /publix/b9ef2e18-ac47-4b80-bc60-a1f50761b31a/053b92dc-5ea3-42e5-abdd-13cf7a86b9df/resultData
+2026-08-31 13:17:05,140 [INFO] - c.p.PublixInterceptor - .submitOrAppendResultData: studyResultId 14, componentId 7
+2026-08-31 13:17:09,766 [INFO] - publix_access - PUT /publix/b9ef2e18-ac47-4b80-bc60-a1f50761b31a/053b92dc-5ea3-42e5-abdd-13cf7a86b9df/resultData
+2026-08-31 13:17:09,790 [INFO] - c.p.PublixInterceptor - .submitOrAppendResultData: studyResultId 14, componentId 7
+2026-08-31 13:17:14,463 [INFO] - publix_access - PUT /publix/b9ef2e18-ac47-4b80-bc60-a1f50761b31a/053b92dc-5ea3-42e5-abdd-13cf7a86b9df/resultData
+2026-08-31 13:17:14,514 [INFO] - c.p.PublixInterceptor - .submitOrAppendResultData: studyResultId 14, componentId 7
+2026-08-31 13:17:19,293 [INFO] - publix_access - PUT /publix/b9ef2e18-ac47-4b80-bc60-a1f50761b31a/053b92dc-5ea3-42e5-abdd-13cf7a86b9df/resultData
+2026-08-31 13:17:19,297 [INFO] - c.p.PublixInterceptor - .submitOrAppendResultData: studyResultId 14, componentId 7
+2026-08-31 13:17:21,766 [INFO] - publix_access - PUT /publix/b9ef2e18-ac47-4b80-bc60-a1f50761b31a/053b92dc-5ea3-42e5-abdd-13cf7a86b9df/resultData
+2026-08-31 13:17:21,774 [INFO] - c.p.PublixInterceptor - .submitOrAppendResultData: studyResultId 14, componentId 7
+2026-08-31 13:17:24,222 [INFO] - publix_access - PUT /publix/b9ef2e18-ac47-4b80-bc60-a1f50761b31a/053b92dc-5ea3-42e5-abdd-13cf7a86b9df/resultData
+2026-08-31 13:17:24,228 [INFO] - c.p.PublixInterceptor - .submitOrAppendResultData: studyResultId 14, componentId 7
+2026-08-31 13:17:28,273 [INFO] - publix_access - PUT /publix/b9ef2e18-ac47-4b80-bc60-a1f50761b31a/053b92dc-5ea3-42e5-abdd-13cf7a86b9df/resultData
+2026-08-31 13:17:28,290 [INFO] - c.p.PublixInterceptor - .submitOrAppendResultData: studyResultId 14, componentId 7
+2026-08-31 13:17:32,262 [INFO] - publix_access - PUT /publix/b9ef2e18-ac47-4b80-bc60-a1f50761b31a/053b92dc-5ea3-42e5-abdd-13cf7a86b9df/resultData
+2026-08-31 13:17:32,282 [INFO] - c.p.PublixInterceptor - .submitOrAppendResultData: studyResultId 14, componentId 7
+2026-08-31 13:17:35,950 [INFO] - publix_access - PUT /publix/b9ef2e18-ac47-4b80-bc60-a1f50761b31a/053b92dc-5ea3-42e5-abdd-13cf7a86b9df/resultData
+2026-08-31 13:17:35,970 [INFO] - c.p.PublixInterceptor - .submitOrAppendResultData: studyResultId 14, componentId 7
+2026-08-31 13:17:38,688 [INFO] - publix_access - PUT /publix/b9ef2e18-ac47-4b80-bc60-a1f50761b31a/053b92dc-5ea3-42e5-abdd-13cf7a86b9df/resultData
+2026-08-31 13:17:38,698 [INFO] - c.p.PublixInterceptor - .submitOrAppendResultData: studyResultId 14, componentId 7
+2026-08-31 13:17:38,727 [INFO] - publix_access - PUT /publix/b9ef2e18-ac47-4b80-bc60-a1f50761b31a/053b92dc-5ea3-42e5-abdd-13cf7a86b9df/resultData
+2026-08-31 13:17:38,736 [INFO] - c.p.PublixInterceptor - .submitOrAppendResultData: studyResultId 14, componentId 7
+2026-08-31 13:17:43,205 [INFO] - publix_access - POST /publix/b9ef2e18-ac47-4b80-bc60-a1f50761b31a/heartbeat
+2026-08-31 13:18:43,712 [INFO] - publix_access - POST /publix/b9ef2e18-ac47-4b80-bc60-a1f50761b31a/heartbeat
+2026-08-31 13:19:43,925 [INFO] - publix_access - POST /publix/b9ef2e18-ac47-4b80-bc60-a1f50761b31a/heartbeat
+2026-08-31 13:20:44,096 [INFO] - publix_access - POST /publix/b9ef2e18-ac47-4b80-bc60-a1f50761b31a/heartbeat
+2026-08-31 13:21:44,256 [INFO] - publix_access - POST /publix/b9ef2e18-ac47-4b80-bc60-a1f50761b31a/heartbeat
+2026-08-31 13:22:44,385 [INFO] - publix_access - POST /publix/b9ef2e18-ac47-4b80-bc60-a1f50761b31a/heartbeat
+2026-08-31 13:23:44,587 [INFO] - publix_access - POST /publix/b9ef2e18-ac47-4b80-bc60-a1f50761b31a/heartbeat
+2026-08-31 13:25:03,413 [INFO] - p.c.s.AkkaHttpServer - Stopping server...
+2026-08-31 13:25:03,520 [INFO] - g.OnStartStop - JATOS shutdown
+2026-08-31 13:25:03,676 [INFO] - application - Shutting down connection pool.
+2026-08-31 13:25:03,709 [INFO] - c.z.h.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-08-31 13:25:03,782 [INFO] - c.z.h.HikariDataSource - HikariPool-1 - Shutdown completed.

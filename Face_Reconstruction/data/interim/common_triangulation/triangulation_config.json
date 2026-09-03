@@ -1,0 +1,99 @@
+{
+  "algorithm": "scipy.spatial.Delaunay",
+  "boundary_anchor_indices": [
+    444,
+    445,
+    446,
+    447,
+    448,
+    449,
+    450,
+    451
+  ],
+  "boundary_points": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      255.5,
+      0.0
+    ],
+    [
+      511.0,
+      0.0
+    ],
+    [
+      511.0,
+      255.5
+    ],
+    [
+      511.0,
+      511.0
+    ],
+    [
+      255.5,
+      511.0
+    ],
+    [
+      0.0,
+      511.0
+    ],
+    [
+      0.0,
+      255.5
+    ]
+  ],
+  "canvas_height": 512,
+  "canvas_width": 512,
+  "excluded_landmark_indices_file": "excluded_landmark_indices.npy",
+  "inner_lip_indices_excluded": [
+    13,
+    14,
+    78,
+    80,
+    81,
+    82,
+    87,
+    88,
+    95,
+    178,
+    191,
+    308,
+    310,
+    311,
+    312,
+    317,
+    318,
+    324,
+    402,
+    415
+  ],
+  "iris_indices_excluded": [
+    468,
+    469,
+    470,
+    471,
+    472,
+    473,
+    474,
+    475,
+    476,
+    477
+  ],
+  "landmark_selection": "stable_448_without_inner_lips_or_irises",
+  "landmark_topology": "mediapipe_face_landmarker_478",
+  "max_degenerate_fraction": 0.0,
+  "max_flipped_fraction": 0.0,
+  "median_mean_triangle_area_px2": 106.63114393578144,
+  "min_face_triangle_area_threshold_px2": 0.01,
+  "min_mean_triangle_area_px2": 2.635376554680988,
+  "n_boundary_anchors": 8,
+  "n_detected_landmarks": 478,
+  "n_excluded_landmarks": 34,
+  "n_selected_landmarks": 444,
+  "n_triangles": 894,
+  "selected_landmark_indices_file": "selected_landmark_indices.npy",
+  "topology_sha256": "da97749668f653efe91ea15d6e581d7f48fd146dc1e4a818b06d3e76322b2563",
+  "triangulation_reference": "selected_mean_aligned_landmarks"
+}

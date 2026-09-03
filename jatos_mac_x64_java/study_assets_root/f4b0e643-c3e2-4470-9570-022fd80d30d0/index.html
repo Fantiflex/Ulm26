@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Questionnaire</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+    <!-- JATOS -->
+    <script src="jatos.js"></script>
+</head>
+
+
+<body>
+
+<div class="container">
+
+
+    <!-- ================================================= -->
+    <!-- 1. PARTICIPANT ID -->
+    <!-- ================================================= -->
+
+    <section
+        id="start-section"
+        class="study-section"
+    >
+
+        <h1>Questionnaire</h1>
+
+        <p class="intro-text">
+            Veuillez entrer votre identifiant participant.
+        </p>
+
+        <input
+            id="participant-id"
+            type="text"
+            placeholder="Ex. P001"
+            autocomplete="off"
+        >
+
+        <button
+            id="start-button"
+            type="button"
+            onclick="startStudy()"
+        >
+            Commencer
+        </button>
+
+    </section>
+
+
+
+    <!-- ================================================= -->
+    <!-- 2. INSTRUCTIONS IMAGES -->
+    <!-- ================================================= -->
+
+    <section
+        id="image-instruction-section"
+        class="study-section hidden"
+    >
+
+        <div class="centered-content">
+
+            <h2>
+                Tâche d'estimation
+            </h2>
+
+            <p class="large-instruction">
+
+                Pour chaque image, estimez le pourcentage
+                de personnes appartenant au groupe indiqué.
+
+            </p>
+
+            <p class="secondary-instruction">
+                L'image sera affichée brièvement.
+                Elle disparaîtra ensuite et vous pourrez
+                répondre à l'aide d'un curseur allant de
+                0 à 100 %.
+            </p>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ================================================= -->
+    <!-- 3. IMAGE TASK -->
+    <!-- ================================================= -->
+
+    <section
+        id="image-rating-section"
+        class="study-section hidden"
+    >
+
+        <div
+            id="image-progress"
+            class="progress"
+        ></div>
+
+
+        <!-- Question générale toujours visible -->
+        <h2 class="image-question">
+
+            Estimez le pourcentage de personnes
+            appartenant au groupe indiqué.
+
+        </h2>
+
+
+        <!-- Image -->
+        <div
+            id="stimulus-container"
+            class="stimulus-container"
+        >
+
+            <p
+                id="image-loading-message"
+                class="loading-message hidden"
+            >
+                Chargement...
+            </p>
+
+            <img
+                id="stimulus-image"
+                src=""
+                alt="Stimulus"
+            >
+
+        </div>
+
+
+        <!-- Slider caché pendant l'image -->
+        <div
+            id="image-slider-container"
+            class="slider-section hidden"
+        >
+
+            <p class="response-instruction">
+                Quelle est votre estimation ?
+            </p>
+
+
+            <div class="slider-value-display">
+
+                <span id="image-slider-value">
+                    — %
+                </span>
+
+            </div>
+
+
+            <input
+                id="image-percentage-slider"
+                class="percentage-slider"
+                type="range"
+                min="0"
+                max="100"
+                step="1"
+                value="50"
+            >
+
+
+            <div class="slider-labels">
+
+                <span>0 %</span>
+                <span>100 %</span>
+
+            </div>
+
+
+            <button
+                id="image-next-button"
+                type="button"
+                onclick="submitImageRating()"
+                disabled
+            >
+                Suivant
+            </button>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ================================================= -->
+    <!-- 4. ESTIMATION POPULATION FRANÇAISE -->
+    <!-- ================================================= -->
+
+    <section
+        id="population-section"
+        class="study-section hidden"
+    >
+
+        <div class="question-card">
+
+            <h2>
+                À votre avis, quel pourcentage de la
+                population française est noire ?
+            </h2>
+
+
+            <p class="scale-reminder">
+                Réponse de 0 à 100 %
+            </p>
+
+
+            <div class="slider-value-display">
+
+                <span id="population-slider-value">
+                    — %
+                </span>
+
+            </div>
+
+
+            <input
+                id="population-slider"
+                class="percentage-slider"
+                type="range"
+                min="0"
+                max="100"
+                step="1"
+                value="50"
+            >
+
+
+            <div class="slider-labels">
+
+                <span>0 %</span>
+                <span>100 %</span>
+
+            </div>
+
+
+            <button
+                id="population-next-button"
+                type="button"
+                onclick="submitPopulationEstimate()"
+                disabled
+            >
+                Suivant
+            </button>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ================================================= -->
+    <!-- 5. GROUP APART -->
+    <!-- ================================================= -->
+
+    <section
+        id="group-apart-section"
+        class="study-section hidden"
+    >
+
+        <div class="question-card">
+
+            <p class="likert-instruction">
+                Indiquez dans quelle mesure vous êtes
+                d'accord avec l'affirmation suivante.
+            </p>
+
+
+            <h2>
+                Les personnes noires forment un groupe
+                à part dans la société française.
+            </h2>
+
+
+            <div
+                id="group-apart-scale"
+                class="likert-scale"
+            ></div>
+
+
+            <div class="anchors">
+
+                <span>
+                    1 — Pas du tout d'accord
+                </span>
+
+                <span>
+                    7 — Totalement d'accord
+                </span>
+
+            </div>
+
+
+            <button
+                type="button"
+                onclick="submitGroupApart()"
+            >
+                Suivant
+            </button>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ================================================= -->
+    <!-- 6. THREAT QUESTIONNAIRE -->
+    <!-- ================================================= -->
+
+    <section
+        id="threat-section"
+        class="study-section hidden"
+    >
+
+        <div
+            id="threat-progress"
+            class="progress"
+        ></div>
+
+
+        <div class="section-header">
+
+            <h2 id="threat-title"></h2>
+
+            <p>
+                Indiquez dans quelle mesure vous êtes
+                d'accord avec chacune des affirmations
+                suivantes.
+            </p>
+
+
+            <p class="scale-reminder">
+
+                1 = Pas du tout d'accord
+                &nbsp; • &nbsp;
+                7 = Totalement d'accord
+
+            </p>
+
+        </div>
+
+
+        <div id="threat-items"></div>
+
+
+        <div class="navigation">
+
+            <button
+                id="threat-next-button"
+                type="button"
+                onclick="submitThreatSection()"
+            >
+                Suivant
+            </button>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ================================================= -->
+    <!-- SAVING -->
+    <!-- ================================================= -->
+
+    <section
+        id="saving-section"
+        class="study-section hidden"
+    >
+
+        <div class="centered-content">
+
+            <h2>
+                Enregistrement...
+            </h2>
+
+            <p>
+                Veuillez ne pas fermer cette page.
+            </p>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ================================================= -->
+    <!-- END -->
+    <!-- ================================================= -->
+
+    <section
+        id="end-section"
+        class="study-section hidden"
+    >
+
+        <div class="centered-content">
+
+            <h1>
+                Merci pour votre participation.
+            </h1>
+
+            <p>
+                Vos réponses ont bien été enregistrées.
+            </p>
+
+        </div>
+
+    </section>
+
+
+</div>
+
+
+<script src="script.js"></script>
+
+</body>
+
+</html>

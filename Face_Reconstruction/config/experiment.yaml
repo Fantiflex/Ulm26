@@ -1,0 +1,29 @@
+study:
+  name: cfd_initial_test
+  random_seed: 42
+
+paths:
+  cfd_workbook: data/raw/cfd/CFD_codebook.xlsx
+  image_directory: data/raw/cfd/images
+  stimuli_output: data/processed/stimuli.csv
+  pairs_output: data/processed/pairs.csv
+
+stimuli:
+  genders: null
+  ethnicities_self: null
+  ethnicities_perceived: null
+  ethnicity_selection_mode: none
+  minimum_perceived_probability: null
+  require_existing_image: true
+
+pairs:
+  method: balanced
+  n_pairs: 20
+  randomise_sides: true
+
+simulation:
+  n_participants: 5
+
+bradley_terry:
+  regularization: 1.0
+  softmax_temperature: 1.0

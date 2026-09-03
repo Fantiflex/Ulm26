@@ -1,0 +1,34 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+
+# Virtual environments
+.venv/
+venv/
+
+# Raw data
+data/raw/cfd/*
+!data/raw/cfd/.gitkeep
+# Raw CFD data
+data/raw/cfd/
+data/raw/images/
+*.zip
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# macOS
+.DS_Store
+
+# Large generated files
+*.zip
+*.pt
+*.pth
+*.ckpt
+
+# OS
+.DS_Store

@@ -1,0 +1,14 @@
+2026-08-31 12:17:05 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Table "play_evolutions" not found; SQL statement:
+select id, hash, apply_script, revert_script, state, last_problem from play_evolutions where state like 'applying_%' [42102-197]
+2026-08-31 13:25:03 database: close
+org.h2.message.DbException: Cannot drop "PUBLIC.SYSTEM_SEQUENCE_7B12064D_7717_4D17_AC3E_125D61DB78D6" because "PUBLIC.USER_ID_MAP" depends on it [90107-197]
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.engine.Database.removeSchemaObject(Database.java:1915)
+	at org.h2.table.Table.removeChildrenAndResources(Table.java:558)
+	at org.h2.mvstore.db.MVTable.removeChildrenAndResources(MVTable.java:827)
+	at org.h2.engine.Database.close(Database.java:1306)
+	at org.h2.engine.DatabaseCloser.run(DatabaseCloser.java:63)
+Caused by: org.h2.jdbc.JdbcSQLException: Cannot drop "PUBLIC.SYSTEM_SEQUENCE_7B12064D_7717_4D17_AC3E_125D61DB78D6" because "PUBLIC.USER_ID_MAP" depends on it [90107-197]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:357)
+	... 6 more
