@@ -13,6 +13,8 @@ dependencies = [
     "openpyxl",
     "pyyaml",
     "pillow",
+    "opencv-python",
+    "mediapipe"
 ]
 
 [project.optional-dependencies]

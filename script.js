@@ -35,56 +35,89 @@ const TARGET_COUNTS = [
 // IMAGE TRIALS
 // =========================================================
 
-const imageTrials = [
+// =========================================================
+// IMAGE TRIALS
+// =========================================================
 
-    // =====================================================
-    // 8 / 64 = 12.5 %
-    // =====================================================
+const imageTrials = [];
 
-    {
-        id: "8_blue_green",
+TARGET_COUNTS.forEach(targetCount => {
 
-        target_count: 8,
-        total_count: 64,
-        true_percentage: 100 * 8 / 64,
+    const folder = `${targetCount}64`;
+
+    const truePercentage =
+        100 * targetCount / MATRIX_SIZE;
+
+
+    // -----------------------------------------------------
+    // Grey circles: white = light, black = dark
+    // Historical name kept: blue_green
+    // -----------------------------------------------------
+
+    imageTrials.push({
+
+        id: `${targetCount}_blue_green`,
+
+        target_count: targetCount,
+        total_count: MATRIX_SIZE,
+        true_percentage: truePercentage,
 
         image_type: "circles_blue_green",
 
-        target_group: "blue",
+        color_scheme: "blue_green",
+
+        target_group: "black",
 
         question:
-            "Quel pourcentage des cercles étaient bleus ?",
+            "Quel pourcentage des cercles étaient gris foncé ?",
 
         image:
-            "images_matrices/8of64/matrix_circles_blue_green.jpg"
-    },
+            `images_matrices/${folder}/matrix_01_circles_blue_green.jpg`
+    });
 
-    {
-        id: "8_green_blue",
 
-        target_count: 8,
-        total_count: 64,
-        true_percentage: 100 * 8 / 64,
+    // -----------------------------------------------------
+    // Grey circles: white = dark, black = light
+    // Historical name kept: green_blue
+    // -----------------------------------------------------
+
+    imageTrials.push({
+
+        id: `${targetCount}_green_blue`,
+
+        target_count: targetCount,
+        total_count: MATRIX_SIZE,
+        true_percentage: truePercentage,
 
         image_type: "circles_green_blue",
 
-        target_group: "green",
+        color_scheme: "green_blue",
+
+        target_group: "black",
 
         question:
-            "Quel pourcentage des cercles étaient verts ?",
+            "Quel pourcentage des cercles étaient gris clair ?",
 
         image:
-            "images_matrices/8of64/matrix_circles_green_blue.jpg"
-    },
+            `images_matrices/${folder}/matrix_01_circles_green_blue.jpg`
+    });
 
-    {
-        id: "8_face",
 
-        target_count: 8,
-        total_count: 64,
-        true_percentage: 100 * 8 / 64,
+    // -----------------------------------------------------
+    // Faces
+    // -----------------------------------------------------
+
+    imageTrials.push({
+
+        id: `${targetCount}_face`,
+
+        target_count: targetCount,
+        total_count: MATRIX_SIZE,
+        true_percentage: truePercentage,
 
         image_type: "face",
+
+        color_scheme: null,
 
         target_group: "black",
 
@@ -92,482 +125,10 @@ const imageTrials = [
             "Quel pourcentage des personnes étaient noires ?",
 
         image:
-            "images_matrices/8of64/matrix_face.jpg"
-    },
+            `images_matrices/${folder}/matrix_01_face.jpg`
+    });
 
-
-    // =====================================================
-    // 14 / 64 = 21.875 %
-    // =====================================================
-
-    {
-        id: "14_blue_green",
-
-        target_count: 14,
-        total_count: 64,
-        true_percentage: 100 * 14 / 64,
-
-        image_type: "circles_blue_green",
-
-        target_group: "blue",
-
-        question:
-            "Quel pourcentage des cercles étaient bleus ?",
-
-        image:
-            "images_matrices/14of64/matrix_circles_blue_green.jpg"
-    },
-
-    {
-        id: "14_green_blue",
-
-        target_count: 14,
-        total_count: 64,
-        true_percentage: 100 * 14 / 64,
-
-        image_type: "circles_green_blue",
-
-        target_group: "green",
-
-        question:
-            "Quel pourcentage des cercles étaient verts ?",
-
-        image:
-            "images_matrices/14of64/matrix_circles_green_blue.jpg"
-    },
-
-    {
-        id: "14_face",
-
-        target_count: 14,
-        total_count: 64,
-        true_percentage: 100 * 14 / 64,
-
-        image_type: "face",
-
-        target_group: "black",
-
-        question:
-            "Quel pourcentage des personnes étaient noires ?",
-
-        image:
-            "images_matrices/14of64/matrix_face.jpg"
-    },
-
-
-    // =====================================================
-    // 20 / 64 = 31.25 %
-    // =====================================================
-
-    {
-        id: "20_blue_green",
-
-        target_count: 20,
-        total_count: 64,
-        true_percentage: 100 * 20 / 64,
-
-        image_type: "circles_blue_green",
-
-        target_group: "blue",
-
-        question:
-            "Quel pourcentage des cercles étaient bleus ?",
-
-        image:
-            "images_matrices/20of64/matrix_circles_blue_green.jpg"
-    },
-
-    {
-        id: "20_green_blue",
-
-        target_count: 20,
-        total_count: 64,
-        true_percentage: 100 * 20 / 64,
-
-        image_type: "circles_green_blue",
-
-        target_group: "green",
-
-        question:
-            "Quel pourcentage des cercles étaient verts ?",
-
-        image:
-            "images_matrices/20of64/matrix_circles_green_blue.jpg"
-    },
-
-    {
-        id: "20_face",
-
-        target_count: 20,
-        total_count: 64,
-        true_percentage: 100 * 20 / 64,
-
-        image_type: "face",
-
-        target_group: "black",
-
-        question:
-            "Quel pourcentage des personnes étaient noires ?",
-
-        image:
-            "images_matrices/20of64/matrix_face.jpg"
-    },
-
-
-    // =====================================================
-    // 26 / 64 = 40.625 %
-    // =====================================================
-
-    {
-        id: "26_blue_green",
-
-        target_count: 26,
-        total_count: 64,
-        true_percentage: 100 * 26 / 64,
-
-        image_type: "circles_blue_green",
-
-        target_group: "blue",
-
-        question:
-            "Quel pourcentage des cercles étaient bleus ?",
-
-        image:
-            "images_matrices/26of64/matrix_circles_blue_green.jpg"
-    },
-
-    {
-        id: "26_green_blue",
-
-        target_count: 26,
-        total_count: 64,
-        true_percentage: 100 * 26 / 64,
-
-        image_type: "circles_green_blue",
-
-        target_group: "green",
-
-        question:
-            "Quel pourcentage des cercles étaient verts ?",
-
-        image:
-            "images_matrices/26of64/matrix_circles_green_blue.jpg"
-    },
-
-    {
-        id: "26_face",
-
-        target_count: 26,
-        total_count: 64,
-        true_percentage: 100 * 26 / 64,
-
-        image_type: "face",
-
-        target_group: "black",
-
-        question:
-            "Quel pourcentage des personnes étaient noires ?",
-
-        image:
-            "images_matrices/26of64/matrix_face.jpg"
-    },
-
-
-    // =====================================================
-    // 32 / 64 = 50 %
-    // =====================================================
-
-    {
-        id: "32_blue_green",
-
-        target_count: 32,
-        total_count: 64,
-        true_percentage: 100 * 32 / 64,
-
-        image_type: "circles_blue_green",
-
-        target_group: "blue",
-
-        question:
-            "Quel pourcentage des cercles étaient bleus ?",
-
-        image:
-            "images_matrices/32of64/matrix_circles_blue_green.jpg"
-    },
-
-    {
-        id: "32_green_blue",
-
-        target_count: 32,
-        total_count: 64,
-        true_percentage: 100 * 32 / 64,
-
-        image_type: "circles_green_blue",
-
-        target_group: "green",
-
-        question:
-            "Quel pourcentage des cercles étaient verts ?",
-
-        image:
-            "images_matrices/32of64/matrix_circles_green_blue.jpg"
-    },
-
-    {
-        id: "32_face",
-
-        target_count: 32,
-        total_count: 64,
-        true_percentage: 100 * 32 / 64,
-
-        image_type: "face",
-
-        target_group: "black",
-
-        question:
-            "Quel pourcentage des personnes étaient noires ?",
-
-        image:
-            "images_matrices/32of64/matrix_face.jpg"
-    },
-
-
-    // =====================================================
-    // 38 / 64 = 59.375 %
-    // =====================================================
-
-    {
-        id: "38_blue_green",
-
-        target_count: 38,
-        total_count: 64,
-        true_percentage: 100 * 38 / 64,
-
-        image_type: "circles_blue_green",
-
-        target_group: "blue",
-
-        question:
-            "Quel pourcentage des cercles étaient bleus ?",
-
-        image:
-            "images_matrices/38of64/matrix_circles_blue_green.jpg"
-    },
-
-    {
-        id: "38_green_blue",
-
-        target_count: 38,
-        total_count: 64,
-        true_percentage: 100 * 38 / 64,
-
-        image_type: "circles_green_blue",
-
-        target_group: "green",
-
-        question:
-            "Quel pourcentage des cercles étaient verts ?",
-
-        image:
-            "images_matrices/38of64/matrix_circles_green_blue.jpg"
-    },
-
-    {
-        id: "38_face",
-
-        target_count: 38,
-        total_count: 64,
-        true_percentage: 100 * 38 / 64,
-
-        image_type: "face",
-
-        target_group: "black",
-
-        question:
-            "Quel pourcentage des personnes étaient noires ?",
-
-        image:
-            "images_matrices/38of64/matrix_face.jpg"
-    },
-
-
-    // =====================================================
-    // 44 / 64 = 68.75 %
-    // =====================================================
-
-    {
-        id: "44_blue_green",
-
-        target_count: 44,
-        total_count: 64,
-        true_percentage: 100 * 44 / 64,
-
-        image_type: "circles_blue_green",
-
-        target_group: "blue",
-
-        question:
-            "Quel pourcentage des cercles étaient bleus ?",
-
-        image:
-            "images_matrices/44of64/matrix_circles_blue_green.jpg"
-    },
-
-    {
-        id: "44_green_blue",
-
-        target_count: 44,
-        total_count: 64,
-        true_percentage: 100 * 44 / 64,
-
-        image_type: "circles_green_blue",
-
-        target_group: "green",
-
-        question:
-            "Quel pourcentage des cercles étaient verts ?",
-
-        image:
-            "images_matrices/44of64/matrix_circles_green_blue.jpg"
-    },
-
-    {
-        id: "44_face",
-
-        target_count: 44,
-        total_count: 64,
-        true_percentage: 100 * 44 / 64,
-
-        image_type: "face",
-
-        target_group: "black",
-
-        question:
-            "Quel pourcentage des personnes étaient noires ?",
-
-        image:
-            "images_matrices/44of64/matrix_face.jpg"
-    },
-
-
-    // =====================================================
-    // 50 / 64 = 78.125 %
-    // =====================================================
-
-    {
-        id: "50_blue_green",
-
-        target_count: 50,
-        total_count: 64,
-        true_percentage: 100 * 50 / 64,
-
-        image_type: "circles_blue_green",
-
-        target_group: "blue",
-
-        question:
-            "Quel pourcentage des cercles étaient bleus ?",
-
-        image:
-            "images_matrices/50of64/matrix_circles_blue_green.jpg"
-    },
-
-    {
-        id: "50_green_blue",
-
-        target_count: 50,
-        total_count: 64,
-        true_percentage: 100 * 50 / 64,
-
-        image_type: "circles_green_blue",
-
-        target_group: "green",
-
-        question:
-            "Quel pourcentage des cercles étaient verts ?",
-
-        image:
-            "images_matrices/50of64/matrix_circles_green_blue.jpg"
-    },
-
-    {
-        id: "50_face",
-
-        target_count: 50,
-        total_count: 64,
-        true_percentage: 100 * 50 / 64,
-
-        image_type: "face",
-
-        target_group: "black",
-
-        question:
-            "Quel pourcentage des personnes étaient noires ?",
-
-        image:
-            "images_matrices/50of64/matrix_face.jpg"
-    },
-
-
-    // =====================================================
-    // 56 / 64 = 87.5 %
-    // =====================================================
-
-    {
-        id: "56_blue_green",
-
-        target_count: 56,
-        total_count: 64,
-        true_percentage: 100 * 56 / 64,
-
-        image_type: "circles_blue_green",
-
-        target_group: "blue",
-
-        question:
-            "Quel pourcentage des cercles étaient bleus ?",
-
-        image:
-            "images_matrices/56of64/matrix_circles_blue_green.jpg"
-    },
-
-    {
-        id: "56_green_blue",
-
-        target_count: 56,
-        total_count: 64,
-        true_percentage: 100 * 56 / 64,
-
-        image_type: "circles_green_blue",
-
-        target_group: "green",
-
-        question:
-            "Quel pourcentage des cercles étaient verts ?",
-
-        image:
-            "images_matrices/56of64/matrix_circles_green_blue.jpg"
-    },
-
-    {
-        id: "56_face",
-
-        target_count: 56,
-        total_count: 64,
-        true_percentage: 100 * 56 / 64,
-
-        image_type: "face",
-
-        target_group: "black",
-
-        question:
-            "Quel pourcentage des personnes étaient noires ?",
-
-        image:
-            "images_matrices/56of64/matrix_face.jpg"
-    }
-
-];
+});
 // =========================================================
 // THREAT QUESTIONNAIRE
 // =========================================================
@@ -971,6 +532,8 @@ function startImageTask() {
 
     currentImageTrial = 0;
 
+    shuffleArray(imageTrials);
+
     showOnly(
         "image-rating-section"
     );
@@ -1219,11 +782,23 @@ async function submitImageRating() {
         trial_id:
             trial.id,
 
-        condition:
-            trial.condition,
+        target_count:
+            trial.target_count,
+
+        total_count:
+            trial.total_count,
+
+        true_percentage:
+            trial.true_percentage,
 
         image_type:
             trial.image_type,
+
+        color_scheme:
+            trial.color_scheme,
+
+        target_group:
+            trial.target_group,
 
         image:
             trial.image,
@@ -1241,8 +816,10 @@ async function submitImageRating() {
             new Date().toISOString(),
 
         slider_start:
-            trial.slider_start
+            trial.slider_start,
 
+        presentation_order:
+            currentImageTrial + 1
     });
 
 

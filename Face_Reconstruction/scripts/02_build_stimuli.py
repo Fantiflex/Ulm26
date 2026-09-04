@@ -46,7 +46,7 @@ ETHNICITIES_PERCEIVED = ["Black", "White"] # options are Black, White, Hispanic,
 
 ETHNICITY_SELECTION_MODE = "perceived"
 
-MINIMUM_PERCEIVED_PROBABILITY = 0.8
+MINIMUM_PERCEIVED_PROBABILITY = 0.9
 
 
 def build_selection_summary(

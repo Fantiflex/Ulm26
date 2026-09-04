@@ -6,9 +6,7 @@ BM-005,M,B,,0.0,,,,,,0.989130435,0.0,0.0,0.010869565,0.0,Black,0.989130435,True,
 BM-009,M,B,,0.010309278,,,,,,0.917525773,0.030927835,0.020618557,0.020618557,0.0,Black,0.917525773,True,bm-009,CFD-BM-009-002-N.jpg,CFD-BM-009-002-N,data/raw/cfd/images/CFD-BM-009-002-N.jpg,BM-009,True,True
 BM-010,M,B,,0.010638298,,,,,,0.936170213,0.042553191,0.0,0.010638298,0.0,Black,0.936170213,True,bm-010,CFD-BM-010-003-N.jpg,CFD-BM-010-003-N,data/raw/cfd/images/CFD-BM-010-003-N.jpg,BM-010,True,True
 BM-011,M,B,,0.0,,,,,,0.97826087,0.0,0.0,0.010869565,0.010869565,Black,0.97826087,True,bm-011,CFD-BM-011-016-N.jpg,CFD-BM-011-016-N,data/raw/cfd/images/CFD-BM-011-016-N.jpg,BM-011,True,True
-BM-013,M,B,,0.011235955,,,,,,0.887640449,0.02247191,0.02247191,0.056179775,0.0,Black,0.887640449,True,bm-013,CFD-BM-013-002-N.jpg,CFD-BM-013-002-N,data/raw/cfd/images/CFD-BM-013-002-N.jpg,BM-013,True,True
 BM-015,M,B,,0.0,,,,,,0.913978495,0.032258065,0.021505376,0.032258065,0.0,Black,0.913978495,True,bm-015,CFD-BM-015-015-N.jpg,CFD-BM-015-015-N,data/raw/cfd/images/CFD-BM-015-015-N.jpg,BM-015,True,True
-BM-017,M,B,,0.0,,,,,,0.836956522,0.054347826,0.032608696,0.065217391,0.010869565,Black,0.836956522,True,bm-017,CFD-BM-017-021-N.jpg,CFD-BM-017-021-N,data/raw/cfd/images/CFD-BM-017-021-N.jpg,BM-017,True,True
 BM-019,M,B,,0.0,,,,,,0.988636364,0.0,0.0,0.011363636,0.0,Black,0.988636364,True,bm-019,CFD-BM-019-002-N.jpg,CFD-BM-019-002-N,data/raw/cfd/images/CFD-BM-019-002-N.jpg,BM-019,True,True
 BM-020,M,B,,0.023255814,,,,,,0.918604651,0.011627907,0.011627907,0.034883721,0.0,Black,0.918604651,True,bm-020,CFD-BM-020-001-N.jpg,CFD-BM-020-001-N,data/raw/cfd/images/CFD-BM-020-001-N.jpg,BM-020,True,True
 BM-021,M,B,,0.0,,,,,,0.978947368,0.010526316,0.0,0.010526316,0.0,Black,0.978947368,True,bm-021,CFD-BM-021-021-N.jpg,CFD-BM-021-021-N,data/raw/cfd/images/CFD-BM-021-021-N.jpg,BM-021,True,True
@@ -16,9 +14,7 @@ BM-022,M,B,,0.0,,,,,,1.0,0.0,0.0,0.0,0.0,Black,1.0,True,bm-022,CFD-BM-022-022-N.
 BM-023,M,B,,0.0,,,,,,0.978723404,0.0,0.010638298,0.0,0.010638298,Black,0.978723404,True,bm-023,CFD-BM-023-029-N.jpg,CFD-BM-023-029-N,data/raw/cfd/images/CFD-BM-023-029-N.jpg,BM-023,True,True
 BM-025,M,B,,0.0,,,,,,0.979166667,0.010416667,0.0,0.010416667,0.0,Black,0.979166667,True,bm-025,CFD-BM-025-035-N.jpg,CFD-BM-025-035-N,data/raw/cfd/images/CFD-BM-025-035-N.jpg,BM-025,True,True
 BM-026,M,B,,0.0,,,,,,0.967741935,0.021505376,0.0,0.010752688,0.0,Black,0.967741935,True,bm-026,CFD-BM-026-002-N.jpg,CFD-BM-026-002-N,data/raw/cfd/images/CFD-BM-026-002-N.jpg,BM-026,True,True
-BM-028,M,B,,0.021276596,,,,,,0.882978723,0.0,0.021276596,0.074468085,0.0,Black,0.882978723,True,bm-028,CFD-BM-028-002-N.jpg,CFD-BM-028-002-N,data/raw/cfd/images/CFD-BM-028-002-N.jpg,BM-028,True,True
 BM-029,M,B,,0.0,,,,,,0.978021978,0.0,0.0,0.021978022,0.0,Black,0.978021978,True,bm-029,CFD-BM-029-024-N.jpg,CFD-BM-029-024-N,data/raw/cfd/images/CFD-BM-029-024-N.jpg,BM-029,True,True
-BM-030,M,B,,0.020833333,,,,,,0.833333333,0.09375,0.020833333,0.03125,0.0,Black,0.833333333,True,bm-030,CFD-BM-030-003-N.jpg,CFD-BM-030-003-N,data/raw/cfd/images/CFD-BM-030-003-N.jpg,BM-030,True,True
 BM-032,M,B,,0.0,,,,,,0.988636364,0.011363636,0.0,0.0,0.0,Black,0.988636364,True,bm-032,CFD-BM-032-024-N.jpg,CFD-BM-032-024-N,data/raw/cfd/images/CFD-BM-032-024-N.jpg,BM-032,True,True
 BM-033,M,B,,0.0,,,,,,0.927835052,0.051546392,0.010309278,0.010309278,0.0,Black,0.927835052,True,bm-033,CFD-BM-033-003-N.jpg,CFD-BM-033-003-N,data/raw/cfd/images/CFD-BM-033-003-N.jpg,BM-033,True,True
 BM-034,M,B,,0.0,,,,,,0.956043956,0.010989011,0.010989011,0.021978022,0.0,Black,0.956043956,True,bm-034,CFD-BM-034-031-N.jpg,CFD-BM-034-031-N,data/raw/cfd/images/CFD-BM-034-031-N.jpg,BM-034,True,True
@@ -48,7 +44,6 @@ BM-225,M,B,,0.0,,,,,,0.964285714,0.0,0.035714286,0.0,0.0,Black,0.964285714,True,
 BM-226,M,B,,0.0,,,,,,1.0,0.0,0.0,0.0,0.0,Black,1.0,True,bm-226,CFD-BM-226-276-N.jpg,CFD-BM-226-276-N,data/raw/cfd/images/CFD-BM-226-276-N.jpg,BM-226,True,True
 BM-227,M,B,,0.0,,,,,,1.0,0.0,0.0,0.0,0.0,Black,1.0,True,bm-227,CFD-BM-227-191-N.jpg,CFD-BM-227-191-N,data/raw/cfd/images/CFD-BM-227-191-N.jpg,BM-227,True,True
 BM-229,M,B,,0.0,,,,,,1.0,0.0,0.0,0.0,0.0,Black,1.0,True,bm-229,CFD-BM-229-209-N.jpg,CFD-BM-229-209-N,data/raw/cfd/images/CFD-BM-229-209-N.jpg,BM-229,True,True
-BM-231,M,B,,0.0,,,,,,0.884615385,0.0,0.115384615,0.0,0.0,Black,0.884615385,True,bm-231,CFD-BM-231-155-N.jpg,CFD-BM-231-155-N,data/raw/cfd/images/CFD-BM-231-155-N.jpg,BM-231,True,True
 BM-232,M,B,,0.0,,,,,,0.96,0.0,0.04,0.0,0.0,Black,0.96,True,bm-232,CFD-BM-232-213-N.jpg,CFD-BM-232-213-N,data/raw/cfd/images/CFD-BM-232-213-N.jpg,BM-232,True,True
 BM-233,M,B,,0.0,,,,,,1.0,0.0,0.0,0.0,0.0,Black,1.0,True,bm-233,CFD-BM-233-285-N.jpg,CFD-BM-233-285-N,data/raw/cfd/images/CFD-BM-233-285-N.jpg,BM-233,True,True
 BM-236,M,B,,0.0,,,,,,1.0,0.0,0.0,0.0,0.0,Black,1.0,True,bm-236,CFD-BM-236-248-N.jpg,CFD-BM-236-248-N,data/raw/cfd/images/CFD-BM-236-248-N.jpg,BM-236,True,True
@@ -57,7 +52,6 @@ BM-238,M,B,,0.0,,,,,,0.925925926,0.0,0.074074074,0.0,0.0,Black,0.925925926,True,
 BM-240,M,B,,0.0,,,,,,1.0,0.0,0.0,0.0,0.0,Black,1.0,True,bm-240,CFD-BM-240-207-N.jpg,CFD-BM-240-207-N,data/raw/cfd/images/CFD-BM-240-207-N.jpg,BM-240,True,True
 BM-241,M,B,,0.0,,,,,,0.961538462,0.038461538,0.0,0.0,0.0,Black,0.961538462,True,bm-241,CFD-BM-241-235-N.jpg,CFD-BM-241-235-N,data/raw/cfd/images/CFD-BM-241-235-N.jpg,BM-241,True,True
 BM-242,M,B,,0.0,,,,,,1.0,0.0,0.0,0.0,0.0,Black,1.0,True,bm-242,CFD-BM-242-233-N.jpg,CFD-BM-242-233-N,data/raw/cfd/images/CFD-BM-242-233-N.jpg,BM-242,True,True
-BM-243,M,B,,0.0,,,,,,0.875,0.0,0.125,0.0,0.0,Black,0.875,True,bm-243,CFD-BM-243-218-N.jpg,CFD-BM-243-218-N,data/raw/cfd/images/CFD-BM-243-218-N.jpg,BM-243,True,True
 BM-244,M,B,,0.0,,,,,,0.956521739,0.0,0.043478261,0.0,0.0,Black,0.956521739,True,bm-244,CFD-BM-244-197-N.jpg,CFD-BM-244-197-N,data/raw/cfd/images/CFD-BM-244-197-N.jpg,BM-244,True,True
 BM-245,M,B,,0.0,,,,,,0.956521739,0.0,0.0,0.0,0.043478261,Black,0.956521739,True,bm-245,CFD-BM-245-164-N.jpg,CFD-BM-245-164-N,data/raw/cfd/images/CFD-BM-245-164-N.jpg,BM-245,True,True
 BM-246,M,B,,0.0,,,,,,0.958333333,0.041666667,0.0,0.0,0.0,Black,0.958333333,True,bm-246,CFD-BM-246-192-N.jpg,CFD-BM-246-192-N,data/raw/cfd/images/CFD-BM-246-192-N.jpg,BM-246,True,True
@@ -69,15 +63,12 @@ BM-252,M,B,,0.0,,,,,,0.961538462,0.0,0.038461538,0.0,0.0,Black,0.961538462,True,
 BM-253,M,B,,0.0,,,,,,0.916666667,0.0,0.083333333,0.0,0.0,Black,0.916666667,True,bm-253,CFD-BM-253-004-N.jpg,CFD-BM-253-004-N,data/raw/cfd/images/CFD-BM-253-004-N.jpg,BM-253,True,True
 LM-204,M,L,,0.0,,,,,,0.0,0.034482759,0.0,0.0,0.965517241,White,0.965517241,True,lm-204,CFD-LM-204-001-N.jpg,CFD-LM-204-001-N,data/raw/cfd/images/CFD-LM-204-001-N.jpg,LM-204,True,True
 LM-208,M,L,,0.0,,,,,,0.0,0.0,0.0,0.0,1.0,White,1.0,True,lm-208,CFD-LM-208-110-N.jpg,CFD-LM-208-110-N,data/raw/cfd/images/CFD-LM-208-110-N.jpg,LM-208,True,True
-LM-237,M,L,,0.0,,,,,,0.0,0.090909091,0.045454545,0.0,0.863636364,White,0.863636364,True,lm-237,CFD-LM-237-264-N.jpg,CFD-LM-237-264-N,data/raw/cfd/images/CFD-LM-237-264-N.jpg,LM-237,True,True
 LM-244,M,L,,0.0,,,,,,0.0,0.0,0.0,0.0,1.0,White,1.0,True,lm-244,CFD-LM-244-068-N.jpg,CFD-LM-244-068-N,data/raw/cfd/images/CFD-LM-244-068-N.jpg,LM-244,True,True
-LM-250,M,L,,0.0,,,,,,0.0,0.071428571,0.035714286,0.0,0.892857143,White,0.892857143,True,lm-250,CFD-LM-250-077-N.jpg,CFD-LM-250-077-N,data/raw/cfd/images/CFD-LM-250-077-N.jpg,LM-250,True,True
 LM-251,M,L,,0.0,,,,,,0.0,0.04,0.04,0.0,0.92,White,0.92,True,lm-251,CFD-LM-251-073-N.jpg,CFD-LM-251-073-N,data/raw/cfd/images/CFD-LM-251-073-N.jpg,LM-251,True,True
 WM-001,M,W,,0.0,,,,,,0.0,0.0,0.0,0.010752688,0.989247312,White,0.989247312,True,wm-001,CFD-WM-001-014-N.jpg,CFD-WM-001-014-N,data/raw/cfd/images/CFD-WM-001-014-N.jpg,WM-001,True,True
 WM-003,M,W,,0.0,,,,,,0.0,0.0,0.0,0.0,1.0,White,1.0,True,wm-003,CFD-WM-003-002-N.jpg,CFD-WM-003-002-N,data/raw/cfd/images/CFD-WM-003-002-N.jpg,WM-003,True,True
 WM-004,M,W,,0.0,,,,,,0.0,0.0,0.0,0.010752688,0.989247312,White,0.989247312,True,wm-004,CFD-WM-004-010-N.jpg,CFD-WM-004-010-N,data/raw/cfd/images/CFD-WM-004-010-N.jpg,WM-004,True,True
 WM-006,M,W,,0.0,,,,,,0.0,0.023255814,0.011627907,0.011627907,0.953488372,White,0.953488372,True,wm-006,CFD-WM-006-002-N.jpg,CFD-WM-006-002-N,data/raw/cfd/images/CFD-WM-006-002-N.jpg,WM-006,True,True
-WM-009,M,W,,0.010869565,,,,,,0.0,0.108695652,0.0,0.010869565,0.869565217,White,0.869565217,True,wm-009,CFD-WM-009-002-N.jpg,CFD-WM-009-002-N,data/raw/cfd/images/CFD-WM-009-002-N.jpg,WM-009,True,True
 WM-010,M,W,,0.0,,,,,,0.0,0.010752688,0.0,0.021505376,0.967741935,White,0.967741935,True,wm-010,CFD-WM-010-001-N.jpg,CFD-WM-010-001-N,data/raw/cfd/images/CFD-WM-010-001-N.jpg,WM-010,True,True
 WM-011,M,W,,0.0,,,,,,0.0,0.011363636,0.0,0.011363636,0.977272727,White,0.977272727,True,wm-011,CFD-WM-011-002-N.jpg,CFD-WM-011-002-N,data/raw/cfd/images/CFD-WM-011-002-N.jpg,WM-011,True,True
 WM-012,M,W,,0.0,,,,,,0.0,0.044444444,0.011111111,0.011111111,0.933333333,White,0.933333333,True,wm-012,CFD-WM-012-001-N.jpg,CFD-WM-012-001-N,data/raw/cfd/images/CFD-WM-012-001-N.jpg,WM-012,True,True
@@ -110,7 +101,6 @@ WM-203,M,W,,0.0,,,,,,0.0,0.0,0.0,0.0,1.0,White,1.0,True,wm-203,CFD-WM-203-023-N.
 WM-204,M,W,,0.0,,,,,,0.0,0.0,0.0,0.0,1.0,White,1.0,True,wm-204,CFD-WM-204-031-N.jpg,CFD-WM-204-031-N,data/raw/cfd/images/CFD-WM-204-031-N.jpg,WM-204,True,True
 WM-205,M,W,,0.0,,,,,,0.0,0.0,0.0,0.0,1.0,White,1.0,True,wm-205,CFD-WM-205-007-N.jpg,CFD-WM-205-007-N,data/raw/cfd/images/CFD-WM-205-007-N.jpg,WM-205,True,True
 WM-206,M,W,,0.0,,,,,,0.0,0.0,0.0,0.0,1.0,White,1.0,True,wm-206,CFD-WM-206-045-N.jpg,CFD-WM-206-045-N,data/raw/cfd/images/CFD-WM-206-045-N.jpg,WM-206,True,True
-WM-207,M,W,,0.0,,,,,,0.0,0.083333333,0.041666667,0.041666667,0.833333333,White,0.833333333,True,wm-207,CFD-WM-207-048-N.jpg,CFD-WM-207-048-N,data/raw/cfd/images/CFD-WM-207-048-N.jpg,WM-207,True,True
 WM-208,M,W,,0.0,,,,,,0.0,0.034482759,0.0,0.0,0.965517241,White,0.965517241,True,wm-208,CFD-WM-208-068-N.jpg,CFD-WM-208-068-N,data/raw/cfd/images/CFD-WM-208-068-N.jpg,WM-208,True,True
 WM-209,M,W,,0.0,,,,,,0.0,0.0,0.035714286,0.0,0.964285714,White,0.964285714,True,wm-209,CFD-WM-209-038-N.jpg,CFD-WM-209-038-N,data/raw/cfd/images/CFD-WM-209-038-N.jpg,WM-209,True,True
 WM-210,M,W,,0.0,,,,,,0.0,0.0,0.0,0.0,1.0,White,1.0,True,wm-210,CFD-WM-210-057-N.jpg,CFD-WM-210-057-N,data/raw/cfd/images/CFD-WM-210-057-N.jpg,WM-210,True,True
@@ -120,12 +110,10 @@ WM-213,M,W,,0.0,,,,,,0.0,0.0,0.0,0.0,1.0,White,1.0,True,wm-213,CFD-WM-213-076-N.
 WM-214,M,W,,0.0,,,,,,0.0,0.0,0.0,0.0,1.0,White,1.0,True,wm-214,CFD-WM-214-026-N.jpg,CFD-WM-214-026-N,data/raw/cfd/images/CFD-WM-214-026-N.jpg,WM-214,True,True
 WM-215,M,W,,0.0,,,,,,0.0,0.0,0.0,0.0,1.0,White,1.0,True,wm-215,CFD-WM-215-041-N.jpg,CFD-WM-215-041-N,data/raw/cfd/images/CFD-WM-215-041-N.jpg,WM-215,True,True
 WM-216,M,W,,0.038461538,,,,,,0.0,0.0,0.0,0.0,0.961538462,White,0.961538462,True,wm-216,CFD-WM-216-061-N.jpg,CFD-WM-216-061-N,data/raw/cfd/images/CFD-WM-216-061-N.jpg,WM-216,True,True
-WM-218,M,W,,0.0,,,,,,0.0,0.035714286,0.071428571,0.071428571,0.821428571,White,0.821428571,True,wm-218,CFD-WM-218-074-N.jpg,CFD-WM-218-074-N,data/raw/cfd/images/CFD-WM-218-074-N.jpg,WM-218,True,True
 WM-219,M,W,,0.0,,,,,,0.0,0.0,0.0,0.0,1.0,White,1.0,True,wm-219,CFD-WM-219-008-N.jpg,CFD-WM-219-008-N,data/raw/cfd/images/CFD-WM-219-008-N.jpg,WM-219,True,True
 WM-220,M,W,,0.0,,,,,,0.0,0.0,0.0,0.0,1.0,White,1.0,True,wm-220,CFD-WM-220-068-N.jpg,CFD-WM-220-068-N,data/raw/cfd/images/CFD-WM-220-068-N.jpg,WM-220,True,True
 WM-221,M,W,,0.0,,,,,,0.0,0.0,0.0,0.0,1.0,White,1.0,True,wm-221,CFD-WM-221-091-N.jpg,CFD-WM-221-091-N,data/raw/cfd/images/CFD-WM-221-091-N.jpg,WM-221,True,True
 WM-222,M,W,,0.0,,,,,,0.0,0.0,0.0,0.0,1.0,White,1.0,True,wm-222,CFD-WM-222-057-N.jpg,CFD-WM-222-057-N,data/raw/cfd/images/CFD-WM-222-057-N.jpg,WM-222,True,True
-WM-223,M,W,,0.0,,,,,,0.0,0.08,0.08,0.0,0.84,White,0.84,True,wm-223,CFD-WM-223-056-N.jpg,CFD-WM-223-056-N,data/raw/cfd/images/CFD-WM-223-056-N.jpg,WM-223,True,True
 WM-224,M,W,,0.0,,,,,,0.0,0.0,0.0,0.0,1.0,White,1.0,True,wm-224,CFD-WM-224-197-N.jpg,CFD-WM-224-197-N,data/raw/cfd/images/CFD-WM-224-197-N.jpg,WM-224,True,True
 WM-225,M,W,,0.0,,,,,,0.0,0.0,0.0,0.0,1.0,White,1.0,True,wm-225,CFD-WM-225-127-N.jpg,CFD-WM-225-127-N,data/raw/cfd/images/CFD-WM-225-127-N.jpg,WM-225,True,True
 WM-229,M,W,,0.0,,,,,,0.0,0.0,0.0,0.0,1.0,White,1.0,True,wm-229,CFD-WM-229-129-N.jpg,CFD-WM-229-129-N,data/raw/cfd/images/CFD-WM-229-129-N.jpg,WM-229,True,True
@@ -139,7 +127,6 @@ WM-238,M,W,,0.0,,,,,,0.0,0.0,0.0,0.0,1.0,White,1.0,True,wm-238,CFD-WM-238-020-N.
 WM-239,M,W,,0.0,,,,,,0.0,0.0,0.035714286,0.035714286,0.928571429,White,0.928571429,True,wm-239,CFD-WM-239-128-N.jpg,CFD-WM-239-128-N,data/raw/cfd/images/CFD-WM-239-128-N.jpg,WM-239,True,True
 WM-240,M,W,,0.0,,,,,,0.0,0.0,0.0,0.0,1.0,White,1.0,True,wm-240,CFD-WM-240-125-N.jpg,CFD-WM-240-125-N,data/raw/cfd/images/CFD-WM-240-125-N.jpg,WM-240,True,True
 WM-241,M,W,,0.0,,,,,,0.0,0.0,0.0,0.0,1.0,White,1.0,True,wm-241,CFD-WM-241-072-N.jpg,CFD-WM-241-072-N,data/raw/cfd/images/CFD-WM-241-072-N.jpg,WM-241,True,True
-WM-242,M,W,,0.0,,,,,,0.0,0.034482759,0.103448276,0.0,0.862068966,White,0.862068966,True,wm-242,CFD-WM-242-011-N.jpg,CFD-WM-242-011-N,data/raw/cfd/images/CFD-WM-242-011-N.jpg,WM-242,True,True
 WM-244,M,W,,0.0,,,,,,0.0,0.0,0.0,0.0,1.0,White,1.0,True,wm-244,CFD-WM-244-003-N.jpg,CFD-WM-244-003-N,data/raw/cfd/images/CFD-WM-244-003-N.jpg,WM-244,True,True
 WM-245,M,W,,0.0,,,,,,0.0,0.0,0.0,0.0,1.0,White,1.0,True,wm-245,CFD-WM-245-123-N.jpg,CFD-WM-245-123-N,data/raw/cfd/images/CFD-WM-245-123-N.jpg,WM-245,True,True
 WM-247,M,W,,0.0,,,,,,0.0,0.0,0.0,0.038461538,0.961538462,White,0.961538462,True,wm-247,CFD-WM-247-084-N.jpg,CFD-WM-247-084-N,data/raw/cfd/images/CFD-WM-247-084-N.jpg,WM-247,True,True
@@ -147,5 +134,4 @@ WM-248,M,W,,0.0,,,,,,0.0,0.0,0.0,0.0,1.0,White,1.0,True,wm-248,CFD-WM-248-036-N.
 WM-249,M,W,,0.0,,,,,,0.0,0.0,0.0,0.0,1.0,White,1.0,True,wm-249,CFD-WM-249-239-N.jpg,CFD-WM-249-239-N,data/raw/cfd/images/CFD-WM-249-239-N.jpg,WM-249,True,True
 WM-251,M,W,,0.0,,,,,,0.0,0.0,0.0,0.0,1.0,White,1.0,True,wm-251,CFD-WM-251-002-N.jpg,CFD-WM-251-002-N,data/raw/cfd/images/CFD-WM-251-002-N.jpg,WM-251,True,True
 WM-254,M,W,,0.0,,,,,,0.0,0.0,0.0,0.0,1.0,White,1.0,True,wm-254,CFD-WM-254-152-N.jpg,CFD-WM-254-152-N,data/raw/cfd/images/CFD-WM-254-152-N.jpg,WM-254,True,True
-WM-257,M,W,,0.0,,,,,,0.0,0.111111111,0.037037037,0.0,0.851851852,White,0.851851852,True,wm-257,CFD-WM-257-161-N.jpg,CFD-WM-257-161-N,data/raw/cfd/images/CFD-WM-257-161-N.jpg,WM-257,True,True
 WM-258,M,W,,0.0,,,,,,0.0,0.0,0.0,0.0,1.0,White,1.0,True,wm-258,CFD-WM-258-125-N.jpg,CFD-WM-258-125-N,data/raw/cfd/images/CFD-WM-258-125-N.jpg,WM-258,True,True

@@ -41,12 +41,13 @@ GROUP_LUMINANCE_COLORS = {
 
 GROUP_COLOR_SCHEMES = {
     "blue_green": {
-        "white": (173, 216, 230),
-        "black": (30, 110, 70),
+        "white": (200, 200, 200),  # gris très clair
+        "black": (100,100,100),     # gris très foncé
     },
+
     "green_blue": {
-        "white": (30, 110, 70),
-        "black": (173, 216, 230),
+        "white": (100, 100, 100),
+        "black": (200, 200, 200),
     },
 }
 
@@ -354,43 +355,46 @@ def make_ethnicity_circle_cell(
     target_luminance: float | None = None,
     color_scheme: str = "blue_green",
 ) -> Image.Image:
-    """Create a circle whose dominant color reflects the selected ethnicity palette."""
+    """Create a high-contrast grayscale circle according to group."""
+
     group_key = str(group).strip().lower()
-    base_color = GROUP_COLOR_SCHEMES.get(color_scheme, GROUP_COLOR_SCHEMES["blue_green"]).get(
-        group_key,
-        GROUP_COLOR_SCHEMES["blue_green"]["white"],
+
+    if group_key in {"majority", "w"}:
+        group_key = "white"
+    elif group_key in {"minority", "b"}:
+        group_key = "black"
+
+    scheme = GROUP_COLOR_SCHEMES.get(
+        color_scheme,
+        GROUP_COLOR_SCHEMES["blue_green"],
     )
-    if group_key in {"w", "white"}:
-        base_color = GROUP_COLOR_SCHEMES.get(color_scheme, GROUP_COLOR_SCHEMES["blue_green"]).get(
-            "white",
-            (173, 216, 230),
-        )
-    elif group_key in {"b", "black"}:
-        base_color = GROUP_COLOR_SCHEMES.get(color_scheme, GROUP_COLOR_SCHEMES["blue_green"]).get(
-            "black",
-            (30, 110, 70),
-        )
-    else:
-        base_color = GROUP_COLOR_SCHEMES["blue_green"]["white"]
 
-    if target_luminance is None:
-        if group_key in {"white", "w"}:
-            target_luminance = 180.0
-        elif group_key in {"black", "b"}:
-            target_luminance = 120.0
-        else:
-            target_luminance = float(gray_value)
+    rgb = scheme.get(group_key, scheme["white"])
 
-    rgb = match_group_luminance(base_color, group_key, target_luminance)
+    img = Image.new(
+        "RGB",
+        (cell_px, cell_px),
+        color=(255, 255, 255),
+    )
 
-    img = Image.new("RGB", (cell_px, cell_px), color=(255, 255, 255))
     draw = ImageDraw.Draw(img)
 
     radius = max(1, round(CIRCLE_RADIUS_PCT * cell_px))
     cx = cell_px // 2
     cy = cell_px // 2
-    bbox = [cx - radius, cy - radius, cx + radius, cy + radius]
-    draw.ellipse(bbox, fill=tuple(rgb), outline=tuple(rgb))
+
+    bbox = [
+        cx - radius,
+        cy - radius,
+        cx + radius,
+        cy + radius,
+    ]
+
+    draw.ellipse(
+        bbox,
+        fill=rgb,
+        outline=rgb,
+    )
 
     return img
 
