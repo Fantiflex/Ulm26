@@ -15,120 +15,213 @@ const MATRIX_ROWS = 8;
 
 const MATRIX_COLUMNS = 8;
 
-const TARGET_COUNTS = [
-    8,
-    14,
+
+
+
+// =========================================================
+// IMAGE TRIALS
+// =========================================================
+
+// Pourcentages utilisés dans l'expérience.
+// Garde seulement ceux pour lesquels un dossier existe
+// dans images_matrices.
+const TARGET_PERCENTAGES = [
+    10,
+    15,
     20,
-    26,
-    32,
-    38,
-    44,
+    25,
+    30,
+    35,
+    40,
+    45,
     50,
-    56
+    55,
+    60,
+    65,
+    70,
+    75,
+    80,
+    85,
+    90
 ];
 
 
-// =========================================================
-// IMAGE TRIALS
-// =========================================================
-// =========================================================
-// IMAGE TRIALS
-// =========================================================
-
-// =========================================================
-// IMAGE TRIALS
-// =========================================================
-
 const imageTrials = [];
 
-TARGET_COUNTS.forEach(targetCount => {
 
-    const folder = `${targetCount}64`;
+TARGET_PERCENTAGES.forEach(percentage => {
+
+    // -----------------------------------------------------
+    // Nombre de personnes noires sur 64
+    //
+    // Exemples :
+    // 10% -> 6
+    // 15% -> 10
+    // 20% -> 13
+    // -----------------------------------------------------
+
+    const targetCount =
+        Math.round(
+            percentage * MATRIX_SIZE / 100
+        );
+
+
+    // -----------------------------------------------------
+    // Construction automatique du nom du dossier version
+    //
+    // 6  -> "06"
+    // 10 -> "10"
+    // 13 -> "13"
+    // -----------------------------------------------------
+
+    const paddedTargetCount =
+        String(targetCount).padStart(2, "0");
+
+
+    const folder =
+        `${percentage}pct_black`;
+
+
+    const version =
+        `mb${paddedTargetCount}_n64_v01`;
+
+
+    // -----------------------------------------------------
+    // Chemin jusqu'à la matrice
+    //
+    // Exemple :
+    //
+    // ../images_matrices/
+    //     10pct_black/
+    //     mb06_n64_v01/
+    // -----------------------------------------------------
+
+    const basePath =
+        `images_matrices/${folder}/${version}`;
+
 
     const truePercentage =
         100 * targetCount / MATRIX_SIZE;
 
 
-    // -----------------------------------------------------
-    // Grey circles: white = light, black = dark
-    // Historical name kept: blue_green
-    // -----------------------------------------------------
+    // =====================================================
+    // 1. CIRCLES BLUE_GREEN
+    // =====================================================
 
     imageTrials.push({
 
-        id: `${targetCount}_blue_green`,
+        id:
+            `${percentage}pct_blue_green`,
 
-        target_count: targetCount,
-        total_count: MATRIX_SIZE,
-        true_percentage: truePercentage,
+        target_count:
+            targetCount,
 
-        image_type: "circles_blue_green",
+        total_count:
+            MATRIX_SIZE,
 
-        color_scheme: "blue_green",
+        true_percentage:
+            truePercentage,
 
-        target_group: "black",
+        nominal_percentage:
+            percentage,
+
+        image_type:
+            "circles_blue_green",
+
+        color_scheme:
+            "blue_green",
+
+        target_group:
+            "black",
 
         question:
             "Quel pourcentage des cercles étaient gris foncé ?",
 
         image:
-            `images_matrices/${folder}/matrix_01_circles_blue_green.jpg`
+            `${basePath}/circles_blue_green.jpg`
+
     });
 
 
-    // -----------------------------------------------------
-    // Grey circles: white = dark, black = light
-    // Historical name kept: green_blue
-    // -----------------------------------------------------
+    // =====================================================
+    // 2. CIRCLES GREEN_BLUE
+    // =====================================================
 
     imageTrials.push({
 
-        id: `${targetCount}_green_blue`,
+        id:
+            `${percentage}pct_green_blue`,
 
-        target_count: targetCount,
-        total_count: MATRIX_SIZE,
-        true_percentage: truePercentage,
+        target_count:
+            targetCount,
 
-        image_type: "circles_green_blue",
+        total_count:
+            MATRIX_SIZE,
 
-        color_scheme: "green_blue",
+        true_percentage:
+            truePercentage,
 
-        target_group: "black",
+        nominal_percentage:
+            percentage,
+
+        image_type:
+            "circles_green_blue",
+
+        color_scheme:
+            "green_blue",
+
+        target_group:
+            "black",
 
         question:
             "Quel pourcentage des cercles étaient gris clair ?",
 
         image:
-            `images_matrices/${folder}/matrix_01_circles_green_blue.jpg`
+            `${basePath}/circles_green_blue.jpg`
+
     });
 
 
-    // -----------------------------------------------------
-    // Faces
-    // -----------------------------------------------------
+    // =====================================================
+    // 3. FACES
+    // =====================================================
 
     imageTrials.push({
 
-        id: `${targetCount}_face`,
+        id:
+            `${percentage}pct_face`,
 
-        target_count: targetCount,
-        total_count: MATRIX_SIZE,
-        true_percentage: truePercentage,
+        target_count:
+            targetCount,
 
-        image_type: "face",
+        total_count:
+            MATRIX_SIZE,
 
-        color_scheme: null,
+        true_percentage:
+            truePercentage,
 
-        target_group: "black",
+        nominal_percentage:
+            percentage,
+
+        image_type:
+            "face",
+
+        color_scheme:
+            null,
+
+        target_group:
+            "black",
 
         question:
             "Quel pourcentage des personnes étaient noires ?",
 
         image:
-            `images_matrices/${folder}/matrix_01_face.jpg`
+            `${basePath}/face.jpg`
+
     });
 
 });
+
 // =========================================================
 // THREAT QUESTIONNAIRE
 // =========================================================
@@ -701,10 +794,22 @@ function showImageTrial() {
             "Erreur : impossible de charger cette image.";
 
         console.error(
-            "Image introuvable :",
+            "IMAGE INTROUVABLE :",
             trial.image
         );
 
+        console.error(
+            "URL PAGE :",
+            window.location.href
+        );
+
+        console.error(
+            "URL IMAGE RÉSOLUE :",
+            new URL(
+                trial.image,
+                window.location.href
+            ).href
+        );
     };
 
 

@@ -1,0 +1,15 @@
+{
+  "matrix_id": "mb42_n64_v01",
+  "matrix_size": 64,
+  "black_percentage": 65.0,
+  "percentages": {
+    "M_B": 65.0,
+    "M_L": 0.0,
+    "M_W": 35.0
+  },
+  "counts": {
+    "M_B": 42,
+    "M_W": 22
+  },
+  "tile_size": 200
+}

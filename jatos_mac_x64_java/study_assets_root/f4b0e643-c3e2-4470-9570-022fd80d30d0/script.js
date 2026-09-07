@@ -9,81 +9,218 @@ const IMAGE_INSTRUCTION_DURATION_MS = 3000;
 
 const IMAGE_PRESENTATION_DURATION_MS = 2000;
 
+const MATRIX_SIZE = 64;
+
+const MATRIX_ROWS = 8;
+
+const MATRIX_COLUMNS = 8;
+
+
+
 
 // =========================================================
 // IMAGE TRIALS
 // =========================================================
 
-const imageTrials = [
-
-    {
-        id: "35_blue_green",
-
-        condition: "35pct",
-
-        image_type: "circles_blue_green",
-
-        image:
-            "images_matrices/35pct/matrix_circles_blue_green.jpg"
-    },
-
-    {
-        id: "35_green_blue",
-
-        condition: "35pct",
-
-        image_type: "circles_green_blue",
-
-        image:
-            "images_matrices/35pct/matrix_circles_green_blue.jpg"
-    },
-
-    {
-        id: "35_face",
-
-        condition: "35pct",
-
-        image_type: "face",
-
-        image:
-            "images_matrices/35pct/matrix_face.jpg"
-    },
-
-    {
-        id: "55_blue_green",
-
-        condition: "55pct",
-
-        image_type: "circles_blue_green",
-
-        image:
-            "images_matrices/55pct/matrix_circles_blue_green.jpg"
-    },
-
-    {
-        id: "55_green_blue",
-
-        condition: "55pct",
-
-        image_type: "circles_green_blue",
-
-        image:
-            "images_matrices/55pct/matrix_circles_green_blue.jpg"
-    },
-
-    {
-        id: "55_face",
-
-        condition: "55pct",
-
-        image_type: "face",
-
-        image:
-            "images_matrices/55pct/matrix_face.jpg"
-    }
-
+// Pourcentages utilisés dans l'expérience.
+// Garde seulement ceux pour lesquels un dossier existe
+// dans images_matrices.
+const TARGET_PERCENTAGES = [
+    10,
+    15,
+    20,
+    25,
+    30,
+    35,
+    40,
+    45,
+    50,
+    55,
+    60,
+    65,
+    70,
+    75,
+    80,
+    85,
+    90
 ];
 
+
+const imageTrials = [];
+
+
+TARGET_PERCENTAGES.forEach(percentage => {
+
+    // -----------------------------------------------------
+    // Nombre de personnes noires sur 64
+    //
+    // Exemples :
+    // 10% -> 6
+    // 15% -> 10
+    // 20% -> 13
+    // -----------------------------------------------------
+
+    const targetCount =
+        Math.round(
+            percentage * MATRIX_SIZE / 100
+        );
+
+
+    // -----------------------------------------------------
+    // Construction automatique du nom du dossier version
+    //
+    // 6  -> "06"
+    // 10 -> "10"
+    // 13 -> "13"
+    // -----------------------------------------------------
+
+    const paddedTargetCount =
+        String(targetCount).padStart(2, "0");
+
+
+    const folder =
+        `${percentage}pct_black`;
+
+
+    const version =
+        `mb${paddedTargetCount}_n64_v01`;
+
+
+    // -----------------------------------------------------
+    // Chemin jusqu'à la matrice
+    //
+    // Exemple :
+    //
+    // ../images_matrices/
+    //     10pct_black/
+    //     mb06_n64_v01/
+    // -----------------------------------------------------
+
+    const basePath =
+        `/images_matrices/${folder}/${version}`;
+
+
+    const truePercentage =
+        100 * targetCount / MATRIX_SIZE;
+
+
+    // =====================================================
+    // 1. CIRCLES BLUE_GREEN
+    // =====================================================
+
+    imageTrials.push({
+
+        id:
+            `${percentage}pct_blue_green`,
+
+        target_count:
+            targetCount,
+
+        total_count:
+            MATRIX_SIZE,
+
+        true_percentage:
+            truePercentage,
+
+        nominal_percentage:
+            percentage,
+
+        image_type:
+            "circles_blue_green",
+
+        color_scheme:
+            "blue_green",
+
+        target_group:
+            "black",
+
+        question:
+            "Quel pourcentage des cercles étaient gris foncé ?",
+
+        image:
+            `${basePath}/circles_blue_green.jpg`
+
+    });
+
+
+    // =====================================================
+    // 2. CIRCLES GREEN_BLUE
+    // =====================================================
+
+    imageTrials.push({
+
+        id:
+            `${percentage}pct_green_blue`,
+
+        target_count:
+            targetCount,
+
+        total_count:
+            MATRIX_SIZE,
+
+        true_percentage:
+            truePercentage,
+
+        nominal_percentage:
+            percentage,
+
+        image_type:
+            "circles_green_blue",
+
+        color_scheme:
+            "green_blue",
+
+        target_group:
+            "black",
+
+        question:
+            "Quel pourcentage des cercles étaient gris clair ?",
+
+        image:
+            `${basePath}/circles_green_blue.jpg`
+
+    });
+
+
+    // =====================================================
+    // 3. FACES
+    // =====================================================
+
+    imageTrials.push({
+
+        id:
+            `${percentage}pct_face`,
+
+        target_count:
+            targetCount,
+
+        total_count:
+            MATRIX_SIZE,
+
+        true_percentage:
+            truePercentage,
+
+        nominal_percentage:
+            percentage,
+
+        image_type:
+            "face",
+
+        color_scheme:
+            null,
+
+        target_group:
+            "black",
+
+        question:
+            "Quel pourcentage des personnes étaient noires ?",
+
+        image:
+            `${basePath}/face.jpg`
+
+    });
+
+});
 
 // =========================================================
 // THREAT QUESTIONNAIRE
@@ -263,13 +400,16 @@ if (typeof jatos !== "undefined") {
 
         jatosAvailable = true;
 
+        initializeParticipantId();
+
     });
 
 } else {
 
-    console.warn(
-        "JATOS non détecté — mode local."
-    );
+    console.warn("JATOS non détecté — mode local.");
+
+    initializeParticipantId();
+
 
 }
 
@@ -338,7 +478,83 @@ function createLikertScale(name) {
     return html;
 }
 
+function initializeParticipantId() {
 
+    let urlParticipantId = null;
+
+
+    // Cas JATOS
+    if (
+        typeof jatos !== "undefined" &&
+        jatosAvailable &&
+        jatos.urlQueryParameters
+    ) {
+
+        urlParticipantId =
+            jatos.urlQueryParameters.participant_id ||
+            jatos.urlQueryParameters.participant ||
+            jatos.urlQueryParameters.pid ||
+            jatos.urlQueryParameters.id ||
+            null;
+    }
+
+
+    // Fallback mode local / navigateur
+    if (!urlParticipantId) {
+
+        const params =
+            new URLSearchParams(
+                window.location.search
+            );
+
+        urlParticipantId =
+            params.get("participant_id") ||
+            params.get("participant") ||
+            params.get("pid") ||
+            params.get("id");
+    }
+
+
+    if (urlParticipantId) {
+
+        participantId =
+            String(urlParticipantId).trim();
+
+
+        const input =
+            document.getElementById(
+                "participant-id"
+            );
+
+
+        input.value =
+            participantId;
+
+        input.disabled =
+            true;
+
+
+        console.log(
+            "Participant ID récupéré depuis l'URL :",
+            participantId
+        );
+
+    }
+
+}
+function shuffleArray(array) {
+
+    for (let i = array.length - 1; i > 0; i--) {
+
+        const j =
+            Math.floor(Math.random() * (i + 1));
+
+        [array[i], array[j]] =
+            [array[j], array[i]];
+    }
+
+    return array;
+}
 // =========================================================
 // START
 // =========================================================
@@ -351,8 +567,12 @@ function startStudy() {
         );
 
 
-    participantId =
-        input.value.trim();
+    if (!participantId) {
+
+            participantId =
+            input.value.trim();
+
+    }
 
 
     if (!participantId) {
@@ -404,6 +624,8 @@ function startImageInstructions() {
 function startImageTask() {
 
     currentImageTrial = 0;
+
+    shuffleArray(imageTrials);
 
     showOnly(
         "image-rating-section"
@@ -474,11 +696,15 @@ function showImageTrial() {
 
 
     // Reset
+    const randomStart =
+        Math.floor(Math.random() * 101);
 
-    slider.value = 50;
+    slider.value = randomStart;
 
-    sliderValue.textContent =
-        "— %";
+    trial.slider_start =
+    randomStart;
+
+    sliderValue.textContent = "— %";
 
     imageSliderWasMoved =
         false;
@@ -649,11 +875,23 @@ async function submitImageRating() {
         trial_id:
             trial.id,
 
-        condition:
-            trial.condition,
+        target_count:
+            trial.target_count,
+
+        total_count:
+            trial.total_count,
+
+        true_percentage:
+            trial.true_percentage,
 
         image_type:
             trial.image_type,
+
+        color_scheme:
+            trial.color_scheme,
+
+        target_group:
+            trial.target_group,
 
         image:
             trial.image,
@@ -668,8 +906,13 @@ async function submitImageRating() {
             Math.round(responseTimeMs),
 
         timestamp_utc:
-            new Date().toISOString()
+            new Date().toISOString(),
 
+        slider_start:
+            trial.slider_start,
+
+        presentation_order:
+            currentImageTrial + 1
     });
 
 

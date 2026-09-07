@@ -1,0 +1,15 @@
+{
+  "matrix_id": "mb26_n64_v01",
+  "matrix_size": 64,
+  "black_percentage": 40.0,
+  "percentages": {
+    "M_B": 40.0,
+    "M_L": 0.0,
+    "M_W": 60.0
+  },
+  "counts": {
+    "M_B": 26,
+    "M_W": 38
+  },
+  "tile_size": 200
+}
