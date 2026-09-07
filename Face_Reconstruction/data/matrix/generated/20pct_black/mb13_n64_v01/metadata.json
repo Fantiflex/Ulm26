@@ -1,0 +1,15 @@
+{
+  "matrix_id": "mb13_n64_v01",
+  "matrix_size": 64,
+  "black_percentage": 20.0,
+  "percentages": {
+    "M_B": 20.0,
+    "M_L": 0.0,
+    "M_W": 80.0
+  },
+  "counts": {
+    "M_B": 13,
+    "M_W": 51
+  },
+  "tile_size": 200
+}

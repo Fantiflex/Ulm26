@@ -50,7 +50,7 @@ GROUP_COLOR_SCHEMES = {
     },
 }
 
-WITHIN_GROUP_LUMINANCE_SCALE = 5
+WITHIN_GROUP_LUMINANCE_SCALE = 1
 
 
 def list_image_paths(input_dir: Path, recursive: bool = False) -> list[Path]:

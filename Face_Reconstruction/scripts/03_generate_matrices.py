@@ -16,7 +16,7 @@ import random
 import shutil
 import sys
 from pathlib import Path
-
+import json
 import pandas as pd
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -178,13 +178,17 @@ def ask_matrix_percentages(categories: list[str]) -> dict[str, float]:
 
 
 def black_percentage_label(percentages: dict[str, float]) -> str:
-    """Return a folder label using the requested black-percentage naming convention."""
+    """Return a folder label based on total Black-category percentage."""
     black_share = sum(
-        value for category, value in percentages.items()
-        if "black" in category.lower()
+        value
+        for category, value in percentages.items()
+        if (
+            "black" in category.lower()
+            or category.lower().endswith("_b")
+        )
     )
-    value = float(black_share)
-    return f"{value:g}pct_black"
+
+    return f"{float(black_share):g}pct_black"
 
 
 def build_matrix_from_composition(
@@ -267,22 +271,27 @@ def build_matrix_from_composition(
 
         group = "white" if str(ethnicity).lower() in {"w", "white"} else "black"
         chosen_meta.append(
-            {
-                "cell_idx": index,
-                "path": image_path,
-                "face_luminance": float(face_luminance),
-                "group": group,
-            }
+        {
+            "cell_idx": index,
+            "source_filename": image_path.name,
+            "source_path": str(image_path),
+            "category": category,
+            "group": group,
+            "face_luminance": float(face_luminance),
+        }
+    
         )
 
     if chosen_meta:
         for row in chosen_meta[:10]:
             print(
-                row["path"].name,
+                row["source_filename"],
                 "| group =", row["group"],
                 "| face_luminance =", row["face_luminance"],
             )
         cell_info = pd.DataFrame(chosen_meta)
+        cell_info_path = output_path.parent / "cells.csv"
+        cell_info.to_csv(cell_info_path, index=False)
 
         face_matrix_dir = output_path.parent / f"{output_path.stem}_faces"
         if face_matrix_dir.exists():
@@ -293,7 +302,7 @@ def build_matrix_from_composition(
             target = face_matrix_dir / f"cell_{idx + 1:02d}_{image_path.name}"
             shutil.copy2(image_path, target)
 
-        face_matrix_path = output_path.parent / f"{output_path.stem}_face.jpg"
+        face_matrix_path = output_path.parent / "face.jpg"
         build_matrix(
             input_dir=face_matrix_dir,
             output_path=face_matrix_path,
@@ -313,8 +322,8 @@ def build_matrix_from_composition(
             color_scheme="green_blue",
         )
 
-        circle_output_standard = output_path.parent / f"{output_path.stem}_circles_blue_green.jpg"
-        circle_output_inverse = output_path.parent / f"{output_path.stem}_circles_green_blue.jpg"
+        circle_output_standard = output_path.parent / "circles_blue_green.jpg"
+        circle_output_inverse = output_path.parent / "circles_green_blue.jpg"
         circle_blue_green.save(circle_output_standard, format="JPEG", quality=100)
         circle_green_blue.save(circle_output_inverse, format="JPEG", quality=100)
 
@@ -324,7 +333,6 @@ def build_matrix_from_composition(
         return counts
 
     return counts
-
 
 def generate_matrices(
     stimuli_path: Path,
@@ -348,16 +356,41 @@ def generate_matrices(
 
     for matrix_index in range(1, n_matrices + 1):
         print(f"\nMatrix {matrix_index}/{n_matrices}")
+
         percentages = ask_matrix_percentages(categories)
 
         if matrix_size is None:
-            matrix_size = ask_matrix_size(category_files, percentages)
+            matrix_size = ask_matrix_size(
+                category_files,
+                percentages,
+            )
 
         black_label = black_percentage_label(percentages)
-        matrix_dir = output_dir / black_label
+
+
+        black_percentage = sum(
+            value
+            for category, value in percentages.items()
+            if (
+                "black" in category.lower()
+                or category.lower().endswith("_b")
+            )
+        )
+
+        black_count = round(matrix_size * black_percentage / 100)
+
+        matrix_id = (
+            f"mb{black_count:02d}"
+            f"_n{matrix_size:02d}"
+            f"_v{matrix_index:02d}"
+        )
+
+        condition_dir = output_dir / black_label
+        matrix_dir = condition_dir / matrix_id
         matrix_dir.mkdir(parents=True, exist_ok=True)
 
-        output_path = matrix_dir / f"matrix_{matrix_index:02d}.jpg"
+        output_path = matrix_dir / "matrix.jpg"
+
         counts = build_matrix_from_composition(
             category_files=category_files,
             percentages=percentages,
@@ -366,9 +399,45 @@ def generate_matrices(
             tile_size=tile_size,
         )
 
-        generated_paths.append(output_path)
+        black_percentage = sum(
+            value
+            for category, value in percentages.items()
+            if (
+                "black" in category.lower()
+                or category.lower().endswith("_b")
+            )
+        )
+        black_count = round(matrix_size * black_percentage / 100)
+
+        matrix_id = (
+            f"mb{black_count:02d}"
+            f"_n{matrix_size:02d}"
+            f"_v{matrix_index:02d}"
+        )
+        metadata = {
+            "matrix_id": matrix_id,
+            "matrix_size": matrix_size,
+            "black_percentage": black_percentage,
+            "percentages": percentages,
+            "counts": counts,
+            "tile_size": tile_size,
+        }
+
+        metadata_path = matrix_dir / "metadata.json"
+
+        with metadata_path.open("w", encoding="utf-8") as f:
+            json.dump(
+                metadata,
+                f,
+                indent=2,
+            )
+
+        generated_paths.append(matrix_dir)
+
         print(f"Created matrix set: {matrix_dir}")
+        print(f"Metadata saved to: {metadata_path}")
         print("Counts used:")
+
         for category, count in counts.items():
             print(f"  - {category}: {count}")
 
