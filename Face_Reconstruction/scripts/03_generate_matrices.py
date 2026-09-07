@@ -10,6 +10,7 @@ matrix builder to save a JPG collage.
 
 from __future__ import annotations
 
+from PIL import Image, ImageDraw, ImageFont
 import argparse
 import random
 import shutil
@@ -259,8 +260,10 @@ def build_matrix_from_composition(
             ]
             if luminance_pixels:
                 face_luminance = float(sum(luminance_pixels) / len(luminance_pixels))
-        except Exception:
-            face_luminance = 180.0
+        except Exception as e:
+            raise RuntimeError(
+                f"Failed to compute luminance for {image_path}: {e}"
+            )
 
         group = "white" if str(ethnicity).lower() in {"w", "white"} else "black"
         chosen_meta.append(
@@ -273,6 +276,12 @@ def build_matrix_from_composition(
         )
 
     if chosen_meta:
+        for row in chosen_meta[:10]:
+            print(
+                row["path"].name,
+                "| group =", row["group"],
+                "| face_luminance =", row["face_luminance"],
+            )
         cell_info = pd.DataFrame(chosen_meta)
 
         face_matrix_dir = output_path.parent / f"{output_path.stem}_faces"

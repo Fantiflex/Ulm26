@@ -7,7 +7,7 @@ extraction workflow used in 06_extract_landmarks.py.
 """
 
 from __future__ import annotations
-
+from PIL import Image, ImageDraw, ImageFont
 import argparse
 import csv
 from pathlib import Path
@@ -31,25 +31,26 @@ CELL_PX = 400
 GROUP_LUMINANCE_COLORS = {
     "white": {
         "base_rgb": (173, 216, 230),
-        "target_luminance": 180.0,
+        "target_luminance": 190.0,
     },
     "black": {
         "base_rgb": (30, 110, 70),
-        "target_luminance": 120.0,
+        "target_luminance": 130.0,
     },
 }
 
 GROUP_COLOR_SCHEMES = {
     "blue_green": {
-        "white": (200, 200, 200),  # gris très clair
-        "black": (100,100,100),     # gris très foncé
+        "white": 190,
+        "black": 90,
     },
-
     "green_blue": {
-        "white": (100, 100, 100),
-        "black": (200, 200, 200),
+        "white": 90,
+        "black": 190,
     },
 }
+
+WITHIN_GROUP_LUMINANCE_SCALE = 5
 
 
 def list_image_paths(input_dir: Path, recursive: bool = False) -> list[Path]:
@@ -350,12 +351,17 @@ def group_mean_luminance(cell_info: Any) -> dict[str, float]:
 
 def make_ethnicity_circle_cell(
     cell_px: int,
-    gray_value: float | int,
+    face_luminance: float,
     group: str,
-    target_luminance: float | None = None,
+    human_group_mean: float,
     color_scheme: str = "blue_green",
+    within_group_scale: float = WITHIN_GROUP_LUMINANCE_SCALE,
 ) -> Image.Image:
-    """Create a high-contrast grayscale circle according to group."""
+    """
+    Create a grayscale circle whose luminance:
+    - is centered around a group-specific display mean;
+    - preserves the face's luminance deviation from its human-group mean.
+    """
 
     group_key = str(group).strip().lower()
 
@@ -369,7 +375,22 @@ def make_ethnicity_circle_cell(
         GROUP_COLOR_SCHEMES["blue_green"],
     )
 
-    rgb = scheme.get(group_key, scheme["white"])
+    # Mean display luminance for this group
+    display_group_mean = float(scheme[group_key])
+
+    # How much lighter/darker this particular face is
+    # relative to the human faces of the same group
+    deviation = float(face_luminance) - float(human_group_mean)
+
+    # Transfer that deviation around the artificial group's mean
+    display_luminance = (
+        display_group_mean
+        + within_group_scale * deviation
+    )
+
+    # Keep RGB values valid
+    gray = int(np.clip(round(display_luminance), 0, 255))
+    rgb = (gray, gray, gray)
 
     img = Image.new(
         "RGB",
@@ -398,7 +419,6 @@ def make_ethnicity_circle_cell(
 
     return img
 
-
 def make_nonsocial_from_cell_info(
     cell_info: Any,
     cell_px: int,
@@ -420,13 +440,14 @@ def make_nonsocial_from_cell_info(
         elif group == "majority":
             group = "white"
 
-        target_luminance = targets.get(group, gray)
+        human_group_mean = targets.get(group, gray)
+
         cells.append(
             make_ethnicity_circle_cell(
-                cell_px,
-                gray,
-                group,
-                target_luminance,
+                cell_px=cell_px,
+                face_luminance=gray,
+                group=group,
+                human_group_mean=human_group_mean,
                 color_scheme=color_scheme,
             )
         )
