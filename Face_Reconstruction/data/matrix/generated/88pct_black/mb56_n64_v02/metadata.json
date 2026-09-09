@@ -1,0 +1,17 @@
+{
+  "matrix_id": "mb56_n64_v02",
+  "matrix_size": 64,
+  "black_percentage": 88.0,
+  "percentages": {
+    "M_B": 88.0,
+    "M_L": 0.0,
+    "M_W": 12.0
+  },
+  "counts": {
+    "M_B": 56,
+    "M_W": 8
+  },
+  "tile_size": 200,
+  "iteration": 2,
+  "n_iterations": 5
+}
