@@ -107,6 +107,25 @@ def ask_percentage(category: str) -> float:
 
         return value
 
+def ask_n_matrices() -> int:
+    """Ask how many independent matrix sets should be generated."""
+    while True:
+        raw = input(
+            "How many iterations do you want to generate? "
+            "(e.g. 5 = 5 independent matrix sets): "
+        ).strip()
+
+        try:
+            value = int(raw)
+        except ValueError:
+            print("Please enter a whole number.")
+            continue
+
+        if value <= 0:
+            print("The number of iterations must be positive.")
+            continue
+
+        return value
 
 def compute_max_matrix_size(
     category_files: dict[str, list[Path]],
@@ -337,47 +356,114 @@ def build_matrix_from_composition(
 def generate_matrices(
     stimuli_path: Path,
     matrix_root: Path,
-    n_matrices: int,
+    n_matrices: int | None,
     matrix_size: int | None,
     tile_size: int,
 ) -> list[Path]:
-    """Generate matrices based on user-defined category percentages."""
+    """Generate several independent matrix sets with one shared composition."""
+
     stimuli = load_stimuli(stimuli_path)
-    category_files = prepare_category_folders(stimuli, matrix_root)
+
+    category_files = prepare_category_folders(
+        stimuli=stimuli,
+        output_root=matrix_root,
+    )
+
     categories = sorted(category_files)
 
     if not categories:
-        raise ValueError("No categories found in the stimulus table.")
+        raise ValueError(
+            "No categories found in the stimulus table."
+        )
+
+    # -----------------------------------------------------
+    # Ask number of iterations if not provided
+    # -----------------------------------------------------
+    if n_matrices is None:
+        while True:
+            raw = input(
+                "How many iterations do you want to generate? "
+                "(e.g. 5 = 5 independent matrix sets): "
+            ).strip()
+
+            try:
+                n_matrices = int(raw)
+            except ValueError:
+                print("Please enter a whole number.")
+                continue
+
+            if n_matrices <= 0:
+                print("The number of iterations must be positive.")
+                continue
+
+            break
+
+    if n_matrices <= 0:
+        raise ValueError(
+            "n_matrices must be a positive integer."
+        )
 
     output_dir = matrix_root / "generated"
-    output_dir.mkdir(parents=True, exist_ok=True)
+    output_dir.mkdir(
+        parents=True,
+        exist_ok=True,
+    )
 
     generated_paths: list[Path] = []
 
-    for matrix_index in range(1, n_matrices + 1):
-        print(f"\nMatrix {matrix_index}/{n_matrices}")
+    # -----------------------------------------------------
+    # Ask composition only once
+    # -----------------------------------------------------
+    print("\nChoose the composition for this condition:")
+    percentages = ask_matrix_percentages(categories)
 
-        percentages = ask_matrix_percentages(categories)
-
-        if matrix_size is None:
-            matrix_size = ask_matrix_size(
-                category_files,
-                percentages,
-            )
-
-        black_label = black_percentage_label(percentages)
-
-
-        black_percentage = sum(
-            value
-            for category, value in percentages.items()
-            if (
-                "black" in category.lower()
-                or category.lower().endswith("_b")
-            )
+    # -----------------------------------------------------
+    # Ask matrix size only once
+    # -----------------------------------------------------
+    if matrix_size is None:
+        matrix_size = ask_matrix_size(
+            category_files=category_files,
+            percentages=percentages,
         )
 
-        black_count = round(matrix_size * black_percentage / 100)
+    if matrix_size <= 0:
+        raise ValueError(
+            "matrix_size must be a positive integer."
+        )
+
+    # -----------------------------------------------------
+    # Condition-level info
+    # -----------------------------------------------------
+    black_label = black_percentage_label(percentages)
+
+    black_percentage = sum(
+        value
+        for category, value in percentages.items()
+        if (
+            "black" in category.lower()
+            or category.lower().endswith("_b")
+        )
+    )
+
+    black_count = round(
+        matrix_size * black_percentage / 100
+    )
+
+    condition_dir = output_dir / black_label
+    condition_dir.mkdir(
+        parents=True,
+        exist_ok=True,
+    )
+
+    # -----------------------------------------------------
+    # Generate N independent iterations
+    # -----------------------------------------------------
+    for matrix_index in range(1, n_matrices + 1):
+        print(
+            f"\n{'=' * 50}\n"
+            f"Iteration {matrix_index}/{n_matrices}\n"
+            f"{'=' * 50}"
+        )
 
         matrix_id = (
             f"mb{black_count:02d}"
@@ -385,9 +471,11 @@ def generate_matrices(
             f"_v{matrix_index:02d}"
         )
 
-        condition_dir = output_dir / black_label
         matrix_dir = condition_dir / matrix_id
-        matrix_dir.mkdir(parents=True, exist_ok=True)
+        matrix_dir.mkdir(
+            parents=True,
+            exist_ok=True,
+        )
 
         output_path = matrix_dir / "matrix.jpg"
 
@@ -399,21 +487,6 @@ def generate_matrices(
             tile_size=tile_size,
         )
 
-        black_percentage = sum(
-            value
-            for category, value in percentages.items()
-            if (
-                "black" in category.lower()
-                or category.lower().endswith("_b")
-            )
-        )
-        black_count = round(matrix_size * black_percentage / 100)
-
-        matrix_id = (
-            f"mb{black_count:02d}"
-            f"_n{matrix_size:02d}"
-            f"_v{matrix_index:02d}"
-        )
         metadata = {
             "matrix_id": matrix_id,
             "matrix_size": matrix_size,
@@ -421,11 +494,16 @@ def generate_matrices(
             "percentages": percentages,
             "counts": counts,
             "tile_size": tile_size,
+            "iteration": matrix_index,
+            "n_iterations": n_matrices,
         }
 
         metadata_path = matrix_dir / "metadata.json"
 
-        with metadata_path.open("w", encoding="utf-8") as f:
+        with metadata_path.open(
+            "w",
+            encoding="utf-8",
+        ) as f:
             json.dump(
                 metadata,
                 f,
@@ -442,7 +520,6 @@ def generate_matrices(
             print(f"  - {category}: {count}")
 
     return generated_paths
-
 
 def main() -> None:
     parser = argparse.ArgumentParser(
@@ -466,8 +543,11 @@ def main() -> None:
     parser.add_argument(
         "--n-matrices",
         type=int,
-        default=1,
-        help="Number of matrices to generate.",
+        default=None,
+        help=(
+            "Number of independent matrix sets to generate. "
+            "If omitted, you will be prompted."
+        ),
     )
     parser.add_argument(
         "--matrix-size",
@@ -483,6 +563,8 @@ def main() -> None:
     )
 
     args = parser.parse_args()
+    if args.n_matrices is None:
+        args.n_matrices = ask_n_matrices()
 
     if args.n_matrices <= 0:
         raise ValueError("n_matrices must be a positive integer.")
