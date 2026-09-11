@@ -1,0 +1,17 @@
+{
+  "matrix_id": "mb38_n64_v03",
+  "matrix_size": 64,
+  "black_percentage": 59.0,
+  "percentages": {
+    "M_B": 59.0,
+    "M_L": 0.0,
+    "M_W": 41.0
+  },
+  "counts": {
+    "M_B": 38,
+    "M_W": 26
+  },
+  "tile_size": 200,
+  "iteration": 3,
+  "n_iterations": 5
+}

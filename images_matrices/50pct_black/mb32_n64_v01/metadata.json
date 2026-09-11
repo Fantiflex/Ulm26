@@ -11,5 +11,7 @@
     "M_B": 32,
     "M_W": 32
   },
-  "tile_size": 200
+  "tile_size": 200,
+  "iteration": 1,
+  "n_iterations": 5
 }

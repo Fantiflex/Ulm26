@@ -8,7 +8,8 @@ console.log("script.js chargé");
 const IMAGE_INSTRUCTION_DURATION_MS = 3000;
 
 const IMAGE_PRESENTATION_DURATION_MS = 2000;
-
+const IMAGE_RESPONSE_LIMIT_MS = 5000;
+const TIMEOUT_WARNING_DURATION_MS = 1000;
 const MATRIX_SIZE = 64;
 
 const MATRIX_ROWS = 8;
@@ -22,206 +23,259 @@ const MATRIX_COLUMNS = 8;
 // IMAGE TRIALS
 // =========================================================
 
-// Pourcentages utilisés dans l'expérience.
-// Garde seulement ceux pour lesquels un dossier existe
-// dans images_matrices.
-const TARGET_PERCENTAGES = [
-    10,
-    15,
+// Nombre exact de personnes noires parmi 64.
+// 8/64 puis incréments de 6 jusqu'à 56/64.
+const TARGET_COUNTS = [
+    8,
+    14,
     20,
-    25,
-    30,
-    35,
-    40,
-    45,
+    26,
+    32,
+    38,
+    44,
     50,
-    55,
-    60,
-    65,
-    70,
-    75,
-    80,
-    85,
-    90
-];
+    56
+    ];
+
+    // 5 versions différentes de chaque composition.
+    const N_VERSIONS = 5;
 
 
-const imageTrials = [];
+    // Les trials seront construits au début de l'expérience,
+    // une fois la condition non-sociale du participant choisie.
+    let imageTrials = [];
 
 
-TARGET_PERCENTAGES.forEach(percentage => {
+    // Un participant reçoit UNE SEULE condition non-sociale
+    // pour toute l'expérience :
+    // "blue_green" OU "green_blue".
+    let participantCircleScheme = null;
 
-    // -----------------------------------------------------
-    // Nombre de personnes noires sur 64
-    //
-    // Exemples :
-    // 10% -> 6
-    // 15% -> 10
-    // 20% -> 13
-    // -----------------------------------------------------
 
-    const targetCount =
-        Math.round(
-            percentage * MATRIX_SIZE / 100
+    // =========================================================
+    // CHOIX DE LA CONDITION NON-SOCIALE
+    // =========================================================
+
+    // Petit hash déterministe à partir du participant ID.
+    // Cela permet à un même participant d'avoir toujours
+    // la même condition s'il recharge l'expérience.
+
+    function hashString(str) {
+
+        let hash = 0;
+
+        for (let i = 0; i < str.length; i++) {
+
+            hash =
+                ((hash << 5) - hash) +
+                str.charCodeAt(i);
+
+            hash |= 0;
+        }
+
+        return Math.abs(hash);
+    }
+
+
+    function chooseParticipantCircleScheme() {
+
+        const hash =
+            hashString(
+                participantId || "anonymous"
+            );
+
+        return hash % 2 === 0
+            ? "blue_green"
+            : "green_blue";
+    }
+
+
+    // =========================================================
+    // CONSTRUCTION DES 90 TRIALS
+    // =========================================================
+
+    function buildImageTrials() {
+
+        const trials = [];
+
+
+        TARGET_COUNTS.forEach(
+            targetCount => {
+
+                // Pourcentage réellement représenté dans la matrice.
+                const truePercentage =
+                    100 * targetCount / MATRIX_SIZE;
+
+
+                // Nom du dossier :
+                //
+                // 8/64  = 12.5%   -> 13pct_black
+                // 14/64 = 21.875% -> 22pct_black
+                // ...
+                // 56/64 = 87.5%   -> 88pct_black
+
+                const folderPercentage =
+                    Math.round(
+                        truePercentage
+                    );
+
+
+                const folder =
+                    `${folderPercentage}pct_black`;
+
+
+                const paddedTargetCount =
+                    String(
+                        targetCount
+                    ).padStart(
+                        2,
+                        "0"
+                    );
+
+
+                // v01 à v05
+                for (
+                    let versionNumber = 1;
+                    versionNumber <= N_VERSIONS;
+                    versionNumber++
+                ) {
+
+                    const paddedVersion =
+                        String(
+                            versionNumber
+                        ).padStart(
+                            2,
+                            "0"
+                        );
+
+
+                    const version =
+                        `mb${paddedTargetCount}_n64_v${paddedVersion}`;
+
+
+                    const basePath =
+                        `images_matrices/${folder}/${version}`;
+
+
+                    // =========================================
+                    // 1. MATRICE SOCIALE
+                    // =========================================
+
+                    trials.push({
+
+                        id:
+                            `mb${paddedTargetCount}_face_v${paddedVersion}`,
+
+                        target_count:
+                            targetCount,
+
+                        total_count:
+                            MATRIX_SIZE,
+
+                        true_percentage:
+                            truePercentage,
+
+                        folder_percentage:
+                            folderPercentage,
+
+                        version:
+                            versionNumber,
+
+                        image_type:
+                            "face",
+
+                        color_scheme:
+                            null,
+
+                        target_group:
+                            "black",
+
+                        question:
+                            "Quel pourcentage des personnes étaient noires ?",
+
+                        image:
+                            `${basePath}/face.jpg`
+
+                    });
+
+
+                    // =========================================
+                    // 2. MATRICE NON-SOCIALE
+                    // =========================================
+
+                    const circleFile =
+                        participantCircleScheme === "blue_green"
+                            ? "circles_blue_green.jpg"
+                            : "circles_green_blue.jpg";
+
+
+                    const circleQuestion =
+                        participantCircleScheme === "blue_green"
+                            ? "Quel pourcentage des cercles étaient gris foncé ?"
+                            : "Quel pourcentage des cercles étaient gris clair ?";
+
+
+                    trials.push({
+
+                        id:
+                            `mb${paddedTargetCount}_${participantCircleScheme}_v${paddedVersion}`,
+
+                        target_count:
+                            targetCount,
+
+                        total_count:
+                            MATRIX_SIZE,
+
+                        true_percentage:
+                            truePercentage,
+
+                        folder_percentage:
+                            folderPercentage,
+
+                        version:
+                            versionNumber,
+
+                        image_type:
+                            "circles",
+
+                        color_scheme:
+                            participantCircleScheme,
+
+                        target_group:
+                            "black",
+
+                        question:
+                            circleQuestion,
+
+                        image:
+                            `${basePath}/${circleFile}`
+
+                    });
+
+                }
+
+            }
         );
 
 
-    // -----------------------------------------------------
-    // Construction automatique du nom du dossier version
-    //
-    // 6  -> "06"
-    // 10 -> "10"
-    // 13 -> "13"
-    // -----------------------------------------------------
-
-    const paddedTargetCount =
-        String(targetCount).padStart(2, "0");
+        console.log(
+            `${trials.length} trials générés.`
+        );
 
 
-    const folder =
-        `${percentage}pct_black`;
+        if (
+            trials.length !== 90
+        ) {
+
+            console.error(
+                "ERREUR : il devrait y avoir exactement 90 trials."
+            );
+
+        }
 
 
-    const version =
-        `mb${paddedTargetCount}_n64_v01`;
-
-
-    // -----------------------------------------------------
-    // Chemin jusqu'à la matrice
-    //
-    // Exemple :
-    //
-    // ../images_matrices/
-    //     10pct_black/
-    //     mb06_n64_v01/
-    // -----------------------------------------------------
-
-    const basePath =
-        `images_matrices/${folder}/${version}`;
-
-
-    const truePercentage =
-        100 * targetCount / MATRIX_SIZE;
-
-
-    // =====================================================
-    // 1. CIRCLES BLUE_GREEN
-    // =====================================================
-
-    imageTrials.push({
-
-        id:
-            `${percentage}pct_blue_green`,
-
-        target_count:
-            targetCount,
-
-        total_count:
-            MATRIX_SIZE,
-
-        true_percentage:
-            truePercentage,
-
-        nominal_percentage:
-            percentage,
-
-        image_type:
-            "circles_blue_green",
-
-        color_scheme:
-            "blue_green",
-
-        target_group:
-            "black",
-
-        question:
-            "Quel pourcentage des cercles étaient gris foncé ?",
-
-        image:
-            `${basePath}/circles_blue_green.jpg`
-
-    });
-
-
-    // =====================================================
-    // 2. CIRCLES GREEN_BLUE
-    // =====================================================
-
-    imageTrials.push({
-
-        id:
-            `${percentage}pct_green_blue`,
-
-        target_count:
-            targetCount,
-
-        total_count:
-            MATRIX_SIZE,
-
-        true_percentage:
-            truePercentage,
-
-        nominal_percentage:
-            percentage,
-
-        image_type:
-            "circles_green_blue",
-
-        color_scheme:
-            "green_blue",
-
-        target_group:
-            "black",
-
-        question:
-            "Quel pourcentage des cercles étaient gris clair ?",
-
-        image:
-            `${basePath}/circles_green_blue.jpg`
-
-    });
-
-
-    // =====================================================
-    // 3. FACES
-    // =====================================================
-
-    imageTrials.push({
-
-        id:
-            `${percentage}pct_face`,
-
-        target_count:
-            targetCount,
-
-        total_count:
-            MATRIX_SIZE,
-
-        true_percentage:
-            truePercentage,
-
-        nominal_percentage:
-            percentage,
-
-        image_type:
-            "face",
-
-        color_scheme:
-            null,
-
-        target_group:
-            "black",
-
-        question:
-            "Quel pourcentage des personnes étaient noires ?",
-
-        image:
-            `${basePath}/face.jpg`
-
-    });
-
-});
-
+        return trials;
+    }
 // =========================================================
 // THREAT QUESTIONNAIRE
 // =========================================================
@@ -337,7 +391,8 @@ const threatSections = [
 // =========================================================
 // STATE
 // =========================================================
-
+let imageResponseTimeoutId = null;
+let imageTrialResolved = false;
 let participantId = "";
 
 let studyStartedAt = null;
@@ -491,6 +546,7 @@ function initializeParticipantId() {
     ) {
 
         urlParticipantId =
+            jatos.urlQueryParameters.PROLIFIC_PID ||
             jatos.urlQueryParameters.participant_id ||
             jatos.urlQueryParameters.participant ||
             jatos.urlQueryParameters.pid ||
@@ -508,6 +564,7 @@ function initializeParticipantId() {
             );
 
         urlParticipantId =
+            params.get("PROLIFIC_PID") ||
             params.get("participant_id") ||
             params.get("participant") ||
             params.get("pid") ||
@@ -569,7 +626,7 @@ function startStudy() {
 
     if (!participantId) {
 
-            participantId =
+        participantId =
             input.value.trim();
 
     }
@@ -585,14 +642,34 @@ function startStudy() {
     }
 
 
+    // ==============================================
+    // Assigne UNE condition non-sociale au participant
+    // ==============================================
+
+    participantCircleScheme =
+        chooseParticipantCircleScheme();
+
+
+    console.log(
+        "Condition non-sociale :",
+        participantCircleScheme
+    );
+
+
+    // ==============================================
+    // Construit les 90 trials
+    // ==============================================
+
+    imageTrials =
+        buildImageTrials();
+
+
     studyStartedAt =
         new Date();
 
 
     startImageInstructions();
 }
-
-
 // =========================================================
 // IMAGE INSTRUCTIONS
 // =========================================================
@@ -644,6 +721,12 @@ function showImageTrial() {
     const trial =
         imageTrials[currentImageTrial];
 
+    imageTrialResolved = false;
+
+    if (imageResponseTimeoutId !== null) {
+        clearTimeout(imageResponseTimeoutId);
+        imageResponseTimeoutId = null;
+    }
 
     document
         .getElementById(
@@ -694,6 +777,18 @@ function showImageTrial() {
             "image-loading-message"
         );
 
+    const responseInstruction =
+    document.querySelector(
+        "#image-slider-container .response-instruction"
+    );
+
+
+    if (responseInstruction) {
+
+        responseInstruction.textContent =
+            trial.question;
+
+    }
 
     // Reset
     const randomStart =
@@ -772,18 +867,29 @@ function showImageTrial() {
                     .add("hidden");
 
 
-                sliderContainer
-                    .classList
-                    .remove("hidden");
+                        sliderContainer
+                .classList
+                .remove("hidden");
 
 
-                imageSliderStartedAt =
-                    performance.now();
+            imageSliderStartedAt =
+                performance.now();
 
-            },
 
-            IMAGE_PRESENTATION_DURATION_MS
-        );
+            // =====================================================
+            // LIMITE DE 5 SECONDES POUR RÉPONDRE
+            // =====================================================
+
+            imageResponseTimeoutId =
+                setTimeout(
+                    handleImageTimeout,
+                    IMAGE_RESPONSE_LIMIT_MS
+                );
+
+                        },
+
+                    IMAGE_PRESENTATION_DURATION_MS
+                );
 
     };
 
@@ -859,12 +965,208 @@ imageSlider.addEventListener(
 // SUBMIT IMAGE
 // =========================================================
 
-async function submitImageRating() {
+// =========================================================
+// IMAGE RESPONSE TIMEOUT
+// =========================================================
 
-    if (!imageSliderWasMoved) {
+async function handleImageTimeout() {
 
+    // Évite qu'un trial déjà validé soit traité une seconde fois.
+    if (imageTrialResolved) {
         return;
     }
+
+    imageTrialResolved = true;
+
+    imageResponseTimeoutId = null;
+
+
+    const trial =
+        imageTrials[currentImageTrial];
+
+
+    // -----------------------------------------------------
+    // Enregistre le trial comme timeout
+    // -----------------------------------------------------
+
+    imageRatings.push({
+
+        trial_id:
+            trial.id,
+
+        target_count:
+            trial.target_count,
+
+        total_count:
+            trial.total_count,
+
+        true_percentage:
+            trial.true_percentage,
+
+        folder_percentage:
+            trial.folder_percentage,
+
+        version:
+            trial.version,
+
+        image_type:
+            trial.image_type,
+
+        color_scheme:
+            trial.color_scheme,
+
+        target_group:
+            trial.target_group,
+
+        image:
+            trial.image,
+
+
+        // Pas de réponse valide
+        percentage:
+            null,
+
+
+        image_duration_ms:
+            IMAGE_PRESENTATION_DURATION_MS,
+
+
+        response_time_ms:
+            IMAGE_RESPONSE_LIMIT_MS,
+
+
+        timed_out:
+            true,
+
+
+        timestamp_utc:
+            new Date().toISOString(),
+
+
+        slider_start:
+            trial.slider_start,
+
+
+        presentation_order:
+            currentImageTrial + 1,
+
+    });
+
+
+    // -----------------------------------------------------
+    // Cache le slider
+    // -----------------------------------------------------
+
+    const sliderContainer =
+        document.getElementById(
+            "image-slider-container"
+        );
+
+    sliderContainer
+        .classList
+        .add("hidden");
+
+
+    // -----------------------------------------------------
+    // Message rouge
+    // -----------------------------------------------------
+
+    let warning =
+        document.getElementById(
+            "timeout-warning"
+        );
+
+
+    if (!warning) {
+
+        warning =
+            document.createElement("div");
+
+        warning.id =
+            "timeout-warning";
+
+        warning.textContent =
+            "Attention, vous avez pris trop longtemps à répondre.";
+
+        document
+            .getElementById(
+                "image-rating-section"
+            )
+            .appendChild(
+                warning
+            );
+    }
+
+
+    warning.classList.remove(
+        "hidden"
+    );
+
+
+    // Sauvegarde du timeout
+    await saveResults(false);
+
+
+    // -----------------------------------------------------
+    // Laisse le message visible brièvement,
+    // puis passe automatiquement au trial suivant
+    // -----------------------------------------------------
+
+    setTimeout(
+        function () {
+
+            warning.classList.add(
+                "hidden"
+            );
+
+
+            currentImageTrial++;
+
+
+            if (
+                currentImageTrial <
+                imageTrials.length
+            ) {
+
+                showImageTrial();
+
+            } else {
+
+                startPopulationQuestion();
+
+            }
+
+        },
+
+        TIMEOUT_WARNING_DURATION_MS
+    );
+
+}
+
+async function submitImageRating() {
+
+    if (
+    !imageSliderWasMoved ||
+    imageTrialResolved
+) {
+
+    return;
+}
+
+
+imageTrialResolved = true;
+
+
+// Annule le timeout de 5 secondes
+if (imageResponseTimeoutId !== null) {
+
+    clearTimeout(
+        imageResponseTimeoutId
+    );
+
+    imageResponseTimeoutId =
+        null;
+}
 
 
     const trial =
@@ -895,6 +1197,12 @@ async function submitImageRating() {
 
         true_percentage:
             trial.true_percentage,
+        
+        folder_percentage:
+            trial.folder_percentage,
+
+        version:
+            trial.version,
 
         image_type:
             trial.image_type,
@@ -925,6 +1233,9 @@ async function submitImageRating() {
 
         presentation_order:
             currentImageTrial + 1
+
+        timed_out:
+            false,
     });
 
 
@@ -975,8 +1286,13 @@ function startPopulationQuestion() {
         );
 
 
+    const randomStart =
+        Math.floor(
+            Math.random() * 101
+        );
+
     slider.value =
-        50;
+        randomStart;
 
 
     document
@@ -1425,7 +1741,18 @@ function buildResultData(completed) {
                 ? new Date().toISOString()
                 : null,
 
+        circle_condition:
+        participantCircleScheme,
 
+
+        expected_image_trials:
+            90,
+
+
+        completed_image_trials:
+            imageRatings.length,
+        
+        
         image_ratings:
             imageRatings,
 
