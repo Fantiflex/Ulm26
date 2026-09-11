@@ -1232,10 +1232,10 @@ if (imageResponseTimeoutId !== null) {
             trial.slider_start,
 
         presentation_order:
-            currentImageTrial + 1
+            currentImageTrial + 1,
 
         timed_out:
-            false,
+            false
     });
 
 
