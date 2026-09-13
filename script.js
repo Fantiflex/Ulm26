@@ -263,7 +263,7 @@ const TARGET_COUNTS = [
                                 "blue";
 
                             circleQuestion =
-                                "Quel pourcentage des cercles étaient bleus ?";
+                                "Quel pourcentage des cercles étaient clairs ?";
 
                             circleAskedGroupCount =
                                 targetCount;
@@ -275,7 +275,7 @@ const TARGET_COUNTS = [
                                 "green";
 
                             circleQuestion =
-                                "Quel pourcentage des cercles étaient verts ?";
+                                "Quel pourcentage des cercles étaient foncés ?";
 
                             circleAskedGroupCount =
                                 MATRIX_SIZE - targetCount;
@@ -298,7 +298,7 @@ const TARGET_COUNTS = [
                                 "green";
 
                             circleQuestion =
-                                "Quel pourcentage des cercles étaient verts ?";
+                                "Quel pourcentage des cercles étaient foncés ?";
 
                             circleAskedGroupCount =
                                 targetCount;
@@ -310,7 +310,7 @@ const TARGET_COUNTS = [
                                 "blue";
 
                             circleQuestion =
-                                "Quel pourcentage des cercles étaient bleus ?";
+                                "Quel pourcentage des cercles étaient clairs ?";
 
                             circleAskedGroupCount =
                                 MATRIX_SIZE - targetCount;
@@ -1213,9 +1213,15 @@ async function submitImageRating() {
 
     imageTrialResolved = true;
 
+
     if (imageResponseTimeoutId !== null) {
-        clearTimeout(imageResponseTimeoutId);
-        imageResponseTimeoutId = null;
+
+        clearTimeout(
+            imageResponseTimeoutId
+        );
+
+        imageResponseTimeoutId =
+            null;
     }
 
 
@@ -1244,6 +1250,9 @@ async function submitImageRating() {
 
         target_count:
             trial.target_count,
+
+        asked_group_count:
+            trial.asked_group_count,
 
         total_count:
             trial.total_count,
@@ -1297,13 +1306,21 @@ async function submitImageRating() {
     };
 
 
+    // =============================================
+    // STOCKAGE DE LA RÉPONSE
+    // =============================================
+
     if (isTraining) {
 
-        trainingRatings.push(rating);
+        trainingRatings.push(
+            rating
+        );
 
     } else {
 
-        imageRatings.push(rating);
+        imageRatings.push(
+            rating
+        );
 
     }
 
@@ -1311,24 +1328,41 @@ async function submitImageRating() {
     await saveResults(false);
 
 
-    if (
-        currentTrainingTrial <
-        trainingTrials.length
-    ) {
+    // =============================================
+    // ENTRAÎNEMENT
+    // =============================================
 
-        showImageTrial();
+    if (isTraining) {
 
-    } else {
+        currentTrainingTrial++;
 
-        showOnly(
-            "training-complete-section"
-        );
+
+        if (
+            currentTrainingTrial <
+            trainingTrials.length
+        ) {
+
+            showImageTrial();
+
+        } else {
+
+            showOnly(
+                "training-complete-section"
+            );
+
+        }
 
     }
 
-    } else {
+
+    // =============================================
+    // VRAIE EXPÉRIENCE
+    // =============================================
+
+    else {
 
         currentImageTrial++;
+
 
         if (
             currentImageTrial <
