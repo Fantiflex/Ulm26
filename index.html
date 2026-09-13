@@ -75,19 +75,51 @@
                 Tâche d'estimation
             </h2>
 
-            <p class="large-instruction">
+            <div class="task-instructions">
 
-                Pour chaque image, estimez le pourcentage
-                de personnes appartenant au groupe indiqué.
+                <p>
+                    Chaque grille apparaîtra brièvement à l'écran.
+                    Après chaque grille, il vous sera demandé d'estimer le pourcentage :
+                </p>
 
-            </p>
+                <ul>
+                    <li>
+                        de visages perçus comme appartenant à un groupe particulier
+                        (personnes noires ou personnes blanches)
+                    </li>
 
-            <p class="secondary-instruction">
-                L'image sera affichée brièvement.
-                Elle disparaîtra ensuite et vous pourrez
-                répondre à l'aide d'un curseur allant de
-                0 à 100 %.
-            </p>
+                    <li>
+                        ou de cercles appartenant à un groupe particulier
+                        (cercles clairs ou cercles foncés)
+                    </li>
+                </ul>
+
+                <p>
+                    Vous utiliserez le curseur pour indiquer votre estimation,
+                    de 0 % à 100 %.
+                </p>
+
+                <p class="important-instruction">
+                    <strong>Important :</strong>
+                    nous nous intéressons à la façon dont les gens perçoivent
+                    et catégorisent les visages. Il ne s’agit pas de dire que
+                    ces catégories sont fixes ou « réelles », mais simplement
+                    de comprendre comment elles sont perçues.
+                </p>
+
+                <p>
+                    Vous allez d'abord effectuer 3 essais d'entraînement.
+                </p>
+
+            </div>
+
+            <button
+                id="instruction-next-button"
+                type="button"
+                onclick="startTrainingTask()"
+            >
+                Suivant
+            </button>
 
         </div>
 

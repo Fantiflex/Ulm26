@@ -5,7 +5,7 @@ console.log("script.js chargé");
 // EXPERIMENT PARAMETERS
 // =========================================================
 
-const IMAGE_INSTRUCTION_DURATION_MS = 3000;
+
 
 const IMAGE_PRESENTATION_DURATION_MS = 2000;
 const IMAGE_RESPONSE_LIMIT_MS = 5000;
@@ -404,6 +404,18 @@ let currentImageTrial = 0;
 
 let imageRatings = [];
 
+// Training
+
+const N_TRAINING_TRIALS = 3;
+
+let trainingTrials = [];
+
+let currentTrainingTrial = 0;
+
+let trainingRatings = [];
+
+let isTraining = false;
+
 let imagePresentationStartedAt = null;
 
 let imageSliderStartedAt = null;
@@ -680,25 +692,59 @@ function startImageInstructions() {
         "image-instruction-section"
     );
 
-
-    setTimeout(
-        function () {
-
-            startImageTask();
-
-        },
-
-        IMAGE_INSTRUCTION_DURATION_MS
-    );
-
 }
 
+
+// =========================================================
+// TRAINING
+// =========================================================
+
+function startTrainingTask() {
+
+    isTraining = true;
+
+    currentTrainingTrial = 0;
+
+    trainingRatings = [];
+
+
+    // On prend 3 grilles aléatoires parmi les stimuli disponibles.
+    // On travaille sur une copie afin de ne pas modifier imageTrials.
+
+    const shuffledCopy =
+        shuffleArray(
+            [...imageTrials]
+        );
+
+
+    trainingTrials =
+        shuffledCopy.slice(
+            0,
+            N_TRAINING_TRIALS
+        );
+
+
+    console.log(
+        "Trials d'entraînement :",
+        trainingTrials
+    );
+
+
+    showOnly(
+        "image-rating-section"
+    );
+
+
+    showImageTrial();
+}
 
 // =========================================================
 // IMAGE TASK
 // =========================================================
 
 function startImageTask() {
+
+    isTraining = false;
 
     currentImageTrial = 0;
 
@@ -715,11 +761,48 @@ function startImageTask() {
 // =========================================================
 // SHOW IMAGE TRIAL
 // =========================================================
+function getCurrentTrial() {
+
+    if (isTraining) {
+
+        return trainingTrials[
+            currentTrainingTrial
+        ];
+
+    }
+
+    return imageTrials[
+        currentImageTrial
+    ];
+}
+
+
+function getCurrentTrialIndex() {
+
+    return isTraining
+        ? currentTrainingTrial
+        : currentImageTrial;
+}
+
+
+function getCurrentTrialTotal() {
+
+    return isTraining
+        ? trainingTrials.length
+        : imageTrials.length;
+}
+
 
 function showImageTrial() {
 
     const trial =
-        imageTrials[currentImageTrial];
+        getCurrentTrial();
+
+    const trialIndex =
+        getCurrentTrialIndex();
+
+    const trialTotal =
+        getCurrentTrialTotal();
 
     imageTrialResolved = false;
 
@@ -733,8 +816,9 @@ function showImageTrial() {
             "image-progress"
         )
         .textContent =
-        `Image ${currentImageTrial + 1} sur ${imageTrials.length}`;
-
+        isTraining
+            ? `Entraînement ${trialIndex + 1} sur ${trialTotal}`
+            : `Image ${trialIndex + 1} sur ${trialTotal}`;
 
     const image =
         document.getElementById(
@@ -964,32 +1048,42 @@ imageSlider.addEventListener(
 // =========================================================
 // SUBMIT IMAGE
 // =========================================================
+async function submitImageRating() {
 
-// =========================================================
-// IMAGE RESPONSE TIMEOUT
-// =========================================================
-
-async function handleImageTimeout() {
-
-    // Évite qu'un trial déjà validé soit traité une seconde fois.
-    if (imageTrialResolved) {
+    if (
+        !imageSliderWasMoved ||
+        imageTrialResolved
+    ) {
         return;
     }
 
     imageTrialResolved = true;
 
-    imageResponseTimeoutId = null;
+    if (imageResponseTimeoutId !== null) {
+        clearTimeout(imageResponseTimeoutId);
+        imageResponseTimeoutId = null;
+    }
 
 
     const trial =
-        imageTrials[currentImageTrial];
+        getCurrentTrial();
+
+    const trialIndex =
+        getCurrentTrialIndex();
 
 
-    // -----------------------------------------------------
-    // Enregistre le trial comme timeout
-    // -----------------------------------------------------
+    const slider =
+        document.getElementById(
+            "image-percentage-slider"
+        );
 
-    imageRatings.push({
+
+    const responseTimeMs =
+        performance.now() -
+        imageSliderStartedAt;
+
+
+    const rating = {
 
         trial_id:
             trial.id,
@@ -1021,36 +1115,188 @@ async function handleImageTimeout() {
         image:
             trial.image,
 
+        percentage:
+            Number(slider.value),
+
+        image_duration_ms:
+            IMAGE_PRESENTATION_DURATION_MS,
+
+        response_time_ms:
+            Math.round(responseTimeMs),
+
+        timestamp_utc:
+            new Date().toISOString(),
+
+        slider_start:
+            trial.slider_start,
+
+        presentation_order:
+            trialIndex + 1,
+
+        timed_out:
+            false,
+
+        phase:
+            isTraining
+                ? "training"
+                : "experiment"
+    };
+
+
+    if (isTraining) {
+
+        trainingRatings.push(rating);
+
+    } else {
+
+        imageRatings.push(rating);
+
+    }
+
+
+    await saveResults(false);
+
+
+    if (isTraining) {
+
+        currentTrainingTrial++;
+
+        if (
+            currentTrainingTrial <
+            trainingTrials.length
+        ) {
+
+            showImageTrial();
+
+        } else {
+
+            startImageTask();
+
+        }
+
+    } else {
+
+        currentImageTrial++;
+
+        if (
+            currentImageTrial <
+            imageTrials.length
+        ) {
+
+            showImageTrial();
+
+        } else {
+
+            startPopulationQuestion();
+
+        }
+
+    }
+}
+// =========================================================
+// IMAGE RESPONSE TIMEOUT
+// =========================================================
+
+async function handleImageTimeout() {
+
+    // Évite qu'un trial déjà validé soit traité une seconde fois.
+    if (imageTrialResolved) {
+        return;
+    }
+
+    imageTrialResolved = true;
+    imageResponseTimeoutId = null;
+
+
+    const trial =
+        getCurrentTrial();
+
+    const trialIndex =
+        getCurrentTrialIndex();
+
+
+    // -----------------------------------------------------
+    // Construit la réponse timeout
+    // -----------------------------------------------------
+
+    const rating = {
+
+        trial_id:
+            trial.id,
+
+        target_count:
+            trial.target_count,
+
+        total_count:
+            trial.total_count,
+
+        true_percentage:
+            trial.true_percentage,
+
+        folder_percentage:
+            trial.folder_percentage,
+
+        version:
+            trial.version,
+
+        image_type:
+            trial.image_type,
+
+        color_scheme:
+            trial.color_scheme,
+
+        target_group:
+            trial.target_group,
+
+        image:
+            trial.image,
 
         // Pas de réponse valide
         percentage:
             null,
 
-
         image_duration_ms:
             IMAGE_PRESENTATION_DURATION_MS,
-
 
         response_time_ms:
             IMAGE_RESPONSE_LIMIT_MS,
 
-
         timed_out:
             true,
-
 
         timestamp_utc:
             new Date().toISOString(),
 
-
         slider_start:
             trial.slider_start,
 
-
         presentation_order:
-            currentImageTrial + 1,
+            trialIndex + 1,
 
-    });
+        phase:
+            isTraining
+                ? "training"
+                : "experiment"
+    };
+
+
+    // -----------------------------------------------------
+    // Stocke séparément entraînement et vraie expérience
+    // -----------------------------------------------------
+
+    if (isTraining) {
+
+        trainingRatings.push(
+            rating
+        );
+
+    } else {
+
+        imageRatings.push(
+            rating
+        );
+
+    }
 
 
     // -----------------------------------------------------
@@ -1103,13 +1349,15 @@ async function handleImageTimeout() {
     );
 
 
-    // Sauvegarde du timeout
+    // -----------------------------------------------------
+    // Sauvegarde
+    // -----------------------------------------------------
+
     await saveResults(false);
 
 
     // -----------------------------------------------------
-    // Laisse le message visible brièvement,
-    // puis passe automatiquement au trial suivant
+    // Attend brièvement puis passe au trial suivant
     // -----------------------------------------------------
 
     setTimeout(
@@ -1120,19 +1368,55 @@ async function handleImageTimeout() {
             );
 
 
-            currentImageTrial++;
+            // =============================================
+            // ENTRAÎNEMENT
+            // =============================================
+
+            if (isTraining) {
+
+                currentTrainingTrial++;
 
 
-            if (
-                currentImageTrial <
-                imageTrials.length
-            ) {
+                if (
+                    currentTrainingTrial <
+                    trainingTrials.length
+                ) {
 
-                showImageTrial();
+                    showImageTrial();
 
-            } else {
+                } else {
 
-                startPopulationQuestion();
+                    // Les 3 essais d'entraînement sont terminés.
+                    // On lance maintenant la vraie expérience.
+
+                    startImageTask();
+
+                }
+
+            }
+
+
+            // =============================================
+            // VRAIE EXPÉRIENCE
+            // =============================================
+
+            else {
+
+                currentImageTrial++;
+
+
+                if (
+                    currentImageTrial <
+                    imageTrials.length
+                ) {
+
+                    showImageTrial();
+
+                } else {
+
+                    startPopulationQuestion();
+
+                }
 
             }
 
@@ -1142,18 +1426,6 @@ async function handleImageTimeout() {
     );
 
 }
-
-async function submitImageRating() {
-
-    if (
-    !imageSliderWasMoved ||
-    imageTrialResolved
-) {
-
-    return;
-}
-
-
 imageTrialResolved = true;
 
 
@@ -1745,14 +2017,22 @@ function buildResultData(completed) {
         participantCircleScheme,
 
 
+        expected_training_trials:
+            N_TRAINING_TRIALS,
+
+        completed_training_trials:
+            trainingRatings.length,
+
+        training_ratings:
+            trainingRatings,
+
+
         expected_image_trials:
             90,
 
-
         completed_image_trials:
             imageRatings.length,
-        
-        
+
         image_ratings:
             imageRatings,
 
