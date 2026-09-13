@@ -694,7 +694,13 @@ function startImageInstructions() {
 
 }
 
+function showSecondInstructions() {
 
+    showOnly(
+        "image-second-instruction-section"
+    );
+
+}
 // =========================================================
 // TRAINING
 // =========================================================
@@ -1157,22 +1163,20 @@ async function submitImageRating() {
     await saveResults(false);
 
 
-    if (isTraining) {
+    if (
+        currentTrainingTrial <
+        trainingTrials.length
+    ) {
 
-        currentTrainingTrial++;
+        showImageTrial();
 
-        if (
-            currentTrainingTrial <
-            trainingTrials.length
-        ) {
+    } else {
 
-            showImageTrial();
+        showOnly(
+            "training-complete-section"
+        );
 
-        } else {
-
-            startImageTask();
-
-        }
+    }
 
     } else {
 
@@ -1378,20 +1382,19 @@ async function handleImageTimeout() {
 
 
                 if (
-                    currentTrainingTrial <
-                    trainingTrials.length
-                ) {
+                currentTrainingTrial <
+                trainingTrials.length
+            ) {
 
-                    showImageTrial();
+                showImageTrial();
 
-                } else {
+            } else {
 
-                    // Les 3 essais d'entraînement sont terminés.
-                    // On lance maintenant la vraie expérience.
+                showOnly(
+                    "training-complete-section"
+                );
 
-                    startImageTask();
-
-                }
+            }
 
             }
 

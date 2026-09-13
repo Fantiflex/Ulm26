@@ -114,17 +114,96 @@
             </div>
 
             <button
-                id="instruction-next-button"
-                type="button"
-                onclick="startTrainingTask()"
-            >
-                Suivant
-            </button>
+            id="instruction-next-button"
+            type="button"
+            onclick="showSecondInstructions()"
+        >
+            Suivant
+        </button>
 
         </div>
 
     </section>
 
+<!-- ================================================= -->
+<!-- 2B. SECOND IMAGE INSTRUCTIONS -->
+<!-- ================================================= -->
+
+<section
+    id="image-second-instruction-section"
+    class="study-section hidden"
+>
+
+    <div class="centered-content">
+
+        <h2>
+            Attention
+        </h2>
+
+        <div class="task-instructions">
+
+            <p>
+                <strong>Lisez bien la consigne à chaque fois.</strong>
+            </p>
+
+            <p>
+                Il vous sera demandé à certains moments d'estimer le pourcentage
+                de visages perçus comme noirs et à d'autres moments d'estimer
+                le pourcentage de visages perçus comme blancs.
+            </p>
+
+            <p>
+                De la même manière, pour les cercles, il pourra vous être demandé
+                d'estimer le pourcentage de cercles clairs ou de cercles foncés.
+            </p>
+
+            <p class="important-instruction">
+                Répondez spontanément, nous nous intéressons à votre première impression.
+            </p>
+
+        </div>
+
+        <button
+            type="button"
+            onclick="startTrainingTask()"
+        >
+            Commencer l'entraînement
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- ================================================= -->
+<!-- TRAINING COMPLETE -->
+<!-- ================================================= -->
+
+<section
+    id="training-complete-section"
+    class="study-section hidden"
+>
+
+    <div class="centered-content">
+
+        <h2>
+            Bravo, vous avez fini l'entraînement !
+        </h2>
+
+        <p class="large-instruction">
+            La tâche va maintenant commencer.
+        </p>
+
+        <button
+            type="button"
+            onclick="startImageTask()"
+        >
+            Commencer la tâche
+        </button>
+
+    </div>
+
+</section>
 
 
     <!-- ================================================= -->
