@@ -98,25 +98,21 @@ const TARGET_COUNTS = [
 
         const trials = [];
 
+        let pairIndex = 0;
+
 
         TARGET_COUNTS.forEach(
             targetCount => {
 
-                // Pourcentage réellement représenté dans la matrice.
-                const truePercentage =
+                // Nombre de personnes/cercle du groupe "principal"
+                // dans la matrice.
+                const basePercentage =
                     100 * targetCount / MATRIX_SIZE;
 
 
-                // Nom du dossier :
-                //
-                // 8/64  = 12.5%   -> 13pct_black
-                // 14/64 = 21.875% -> 22pct_black
-                // ...
-                // 56/64 = 87.5%   -> 88pct_black
-
                 const folderPercentage =
                     Math.round(
-                        truePercentage
+                        basePercentage
                     );
 
 
@@ -133,7 +129,6 @@ const TARGET_COUNTS = [
                     );
 
 
-                // v01 à v05
                 for (
                     let versionNumber = 1;
                     versionNumber <= N_VERSIONS;
@@ -157,23 +152,58 @@ const TARGET_COUNTS = [
                         `images_matrices/${folder}/${version}`;
 
 
-                    // =========================================
+                    // =================================================
+                    // On alterne le groupe demandé
+                    // =================================================
+
+                    const askPrimaryGroup =
+                        pairIndex % 2 === 0;
+
+
+                    // =================================================
                     // 1. MATRICE SOCIALE
-                    // =========================================
+                    // =================================================
+
+                    const faceTargetGroup =
+                        askPrimaryGroup
+                            ? "black"
+                            : "white";
+
+
+                    const faceQuestion =
+                        askPrimaryGroup
+                            ? "Quel pourcentage des visages étaient perçus comme noirs ?"
+                            : "Quel pourcentage des visages étaient perçus comme blancs ?";
+
+
+                    const faceAskedGroupCount =
+                        askPrimaryGroup
+                            ? targetCount
+                            : MATRIX_SIZE - targetCount;
+
+
+                    const faceTruePercentage =
+                        100 *
+                        faceAskedGroupCount /
+                        MATRIX_SIZE;
+
 
                     trials.push({
 
                         id:
-                            `mb${paddedTargetCount}_face_v${paddedVersion}`,
+                            `mb${paddedTargetCount}_face_${faceTargetGroup}_v${paddedVersion}`,
 
                         target_count:
                             targetCount,
+
+                        asked_group_count:
+                            faceAskedGroupCount,
 
                         total_count:
                             MATRIX_SIZE,
 
                         true_percentage:
-                            truePercentage,
+                            faceTruePercentage,
 
                         folder_percentage:
                             folderPercentage,
@@ -188,10 +218,10 @@ const TARGET_COUNTS = [
                             null,
 
                         target_group:
-                            "black",
+                            faceTargetGroup,
 
                         question:
-                            "Quel pourcentage des personnes étaient noires ?",
+                            faceQuestion,
 
                         image:
                             `${basePath}/face.jpg`
@@ -199,9 +229,13 @@ const TARGET_COUNTS = [
                     });
 
 
-                    // =========================================
+                    // =================================================
                     // 2. MATRICE NON-SOCIALE
-                    // =========================================
+                    // =================================================
+
+                    // IMPORTANT :
+                    // le fichier affiché dépend UNIQUEMENT
+                    // de la condition attribuée au participant.
 
                     const circleFile =
                         participantCircleScheme === "blue_green"
@@ -209,25 +243,105 @@ const TARGET_COUNTS = [
                             : "circles_green_blue.jpg";
 
 
-                    const circleQuestion =
+                    let circleTargetGroup;
+                    let circleQuestion;
+                    let circleAskedGroupCount;
+
+
+                    // -------------------------------------------------
+                    // CONDITION BLUE_GREEN
+                    // -------------------------------------------------
+
+                    if (
                         participantCircleScheme === "blue_green"
-                            ? "Quel pourcentage des cercles étaient gris foncé ?"
-                            : "Quel pourcentage des cercles étaient gris clair ?";
+                    ) {
+
+                        if (askPrimaryGroup) {
+
+                            // targetCount correspond aux bleus
+                            circleTargetGroup =
+                                "blue";
+
+                            circleQuestion =
+                                "Quel pourcentage des cercles étaient bleus ?";
+
+                            circleAskedGroupCount =
+                                targetCount;
+
+                        } else {
+
+                            // Le reste correspond aux verts
+                            circleTargetGroup =
+                                "green";
+
+                            circleQuestion =
+                                "Quel pourcentage des cercles étaient verts ?";
+
+                            circleAskedGroupCount =
+                                MATRIX_SIZE - targetCount;
+
+                        }
+
+                    }
+
+
+                    // -------------------------------------------------
+                    // CONDITION GREEN_BLUE
+                    // -------------------------------------------------
+
+                    else {
+
+                        if (askPrimaryGroup) {
+
+                            // targetCount correspond aux verts
+                            circleTargetGroup =
+                                "green";
+
+                            circleQuestion =
+                                "Quel pourcentage des cercles étaient verts ?";
+
+                            circleAskedGroupCount =
+                                targetCount;
+
+                        } else {
+
+                            // Le reste correspond aux bleus
+                            circleTargetGroup =
+                                "blue";
+
+                            circleQuestion =
+                                "Quel pourcentage des cercles étaient bleus ?";
+
+                            circleAskedGroupCount =
+                                MATRIX_SIZE - targetCount;
+
+                        }
+
+                    }
+
+
+                    const circleTruePercentage =
+                        100 *
+                        circleAskedGroupCount /
+                        MATRIX_SIZE;
 
 
                     trials.push({
 
                         id:
-                            `mb${paddedTargetCount}_${participantCircleScheme}_v${paddedVersion}`,
+                            `mb${paddedTargetCount}_${participantCircleScheme}_${circleTargetGroup}_v${paddedVersion}`,
 
                         target_count:
                             targetCount,
+
+                        asked_group_count:
+                            circleAskedGroupCount,
 
                         total_count:
                             MATRIX_SIZE,
 
                         true_percentage:
-                            truePercentage,
+                            circleTruePercentage,
 
                         folder_percentage:
                             folderPercentage,
@@ -242,7 +356,7 @@ const TARGET_COUNTS = [
                             participantCircleScheme,
 
                         target_group:
-                            "black",
+                            circleTargetGroup,
 
                         question:
                             circleQuestion,
@@ -252,6 +366,8 @@ const TARGET_COUNTS = [
 
                     });
 
+
+                    pairIndex++;
                 }
 
             }
@@ -272,6 +388,38 @@ const TARGET_COUNTS = [
             );
 
         }
+
+
+        // =====================================================
+        // DIAGNOSTIC
+        // =====================================================
+
+        const counts = {};
+
+
+        trials.forEach(
+            trial => {
+
+                const key =
+                    `${trial.image_type}_${trial.target_group}`;
+
+                counts[key] =
+                    (counts[key] || 0) + 1;
+
+            }
+        );
+
+
+        console.log(
+            "Condition cercles du participant :",
+            participantCircleScheme
+        );
+
+
+        console.log(
+            "Répartition des questions :",
+            counts
+        );
 
 
         return trials;
