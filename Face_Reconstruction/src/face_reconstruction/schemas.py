@@ -8,6 +8,8 @@ import pandas as pd
 CFD_REQUIRED_COLUMNS = [
     "Model",
     "GenderSelf",
+    "FemaleProb",
+    "MaleProb",
     "EthnicitySelf",
     "AsianProb",
     "MiddleEasternProb",
@@ -21,6 +23,8 @@ CFD_REQUIRED_COLUMNS = [
 STIMULUS_REQUIRED_COLUMNS = [
     "face_id",
     "gender_self",
+    "gender_perceived",
+    "gender_perceived_probability",
     "ethnicity_self",
     "ethnicity_perceived",
     "ethnicity_perceived_probability",

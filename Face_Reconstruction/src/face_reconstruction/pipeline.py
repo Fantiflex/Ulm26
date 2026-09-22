@@ -45,6 +45,9 @@ def prepare_stimuli(
         manifest=manifest,
         image_directory=Path(selection["image_directory"]),
         genders=selection.get("genders"),
+        minimum_perceived_gender=selection.get(
+            "minimum_perceived_gender"
+        ),
         ethnicities_self=selection.get("ethnicities_self"),
         ethnicities_perceived=selection.get("ethnicities_perceived"),
         minimum_perceived_probability=selection.get(

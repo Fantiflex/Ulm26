@@ -17,6 +17,8 @@ CFD_SHEET_NAME = "CFD U.S. Norming Data"
 CFD_COLUMN_MAPPING = {
     "Model": "face_id",
     "GenderSelf": "gender_self",
+    "FemaleProb": "female_prob",
+    "MaleProb": "male_prob",
     "EthnicitySelf": "ethnicity_self",
     "AgeSelf": "age_self",
     "AsianProb": "asian_prob",
@@ -35,6 +37,8 @@ CFD_COLUMN_MAPPING = {
 CFD_REQUIRED_COLUMNS = [
     "Model",
     "GenderSelf",
+    "FemaleProb",
+    "MaleProb",
     "EthnicitySelf",
     "AsianProb",
     "MiddleEasternProb",
@@ -172,26 +176,54 @@ def harmonize_cfd_manifest(
                 .str.strip()
             )
 
-    probability_columns = [
+    gender_probability_columns = [
+        "female_prob",
+        "male_prob",
+    ]
+    ethnicity_probability_columns = [
         column
         for column in PERCEIVED_ETHNICITY_COLUMNS.values()
         if column in manifest.columns
     ]
 
-    for column in probability_columns:
+    for column in gender_probability_columns + ethnicity_probability_columns:
         manifest[column] = pd.to_numeric(
             manifest[column],
             errors="coerce",
         )
 
+    gender_has_perceived_data = (
+        manifest[gender_probability_columns]
+        .notna()
+        .any(axis=1)
+    )
+    gender_probability_column = (
+        manifest[gender_probability_columns]
+        .idxmax(axis=1)
+    )
+    gender_probability_to_label = {
+        "female_prob": "F",
+        "male_prob": "M",
+    }
+    manifest["gender_perceived"] = (
+        gender_probability_column
+        .map(gender_probability_to_label)
+        .where(gender_has_perceived_data)
+    )
+    manifest["gender_perceived_probability"] = (
+        manifest[gender_probability_columns]
+        .max(axis=1)
+        .where(gender_has_perceived_data)
+    )
+
     has_perceived_data = (
-        manifest[probability_columns]
+        manifest[ethnicity_probability_columns]
         .notna()
         .any(axis=1)
     )
 
     dominant_probability_column = (
-        manifest[probability_columns]
+        manifest[ethnicity_probability_columns]
         .idxmax(axis=1)
     )
 
@@ -208,7 +240,7 @@ def harmonize_cfd_manifest(
     )
 
     manifest["ethnicity_perceived_probability"] = (
-        manifest[probability_columns]
+        manifest[ethnicity_probability_columns]
         .max(axis=1)
         .where(has_perceived_data)
     )

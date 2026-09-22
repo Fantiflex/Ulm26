@@ -191,6 +191,7 @@ def attach_images_to_manifest(
 def filter_stimuli(
     stimuli: pd.DataFrame,
     genders: list[str] | None = None,
+    minimum_perceived_gender: float | None = None,
     ethnicities_self: list[str] | None = None,
     ethnicities_perceived: list[str] | None = None,
     minimum_perceived_probability: float | None = None,
@@ -213,6 +214,13 @@ def filter_stimuli(
             "minimum_perceived_probability must be between 0 and 1."
         )
 
+    if minimum_perceived_gender is not None and not (
+        0.0 <= minimum_perceived_gender <= 1.0
+    ):
+        raise ValueError(
+            "minimum_perceived_gender must be between 0 and 1."
+        )
+
     selected = stimuli.copy()
 
     if require_existing_image:
@@ -220,6 +228,12 @@ def filter_stimuli(
 
     if genders:
         selected = selected.loc[selected["gender_self"].isin(genders)]
+
+    if minimum_perceived_gender is not None:
+        selected = selected.loc[
+            selected["gender_perceived_probability"]
+            > minimum_perceived_gender
+        ]
 
     if ethnicity_selection_mode in {"self", "both"} and ethnicities_self:
         selected = selected.loc[
@@ -246,6 +260,7 @@ def build_stimuli_table(
     manifest: pd.DataFrame,
     image_directory: Path,
     genders: list[str] | None = None,
+    minimum_perceived_gender: float | None = None,
     ethnicities_self: list[str] | None = None,
     ethnicities_perceived: list[str] | None = None,
     minimum_perceived_probability: float | None = None,
@@ -280,6 +295,7 @@ def build_stimuli_table(
     return filter_stimuli(
         stimuli=stimuli,
         genders=genders,
+        minimum_perceived_gender=minimum_perceived_gender,
         ethnicities_self=ethnicities_self,
         ethnicities_perceived=ethnicities_perceived,
         minimum_perceived_probability=minimum_perceived_probability,

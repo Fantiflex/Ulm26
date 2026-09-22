@@ -47,6 +47,8 @@ def validate_stimuli(stimuli: pd.DataFrame) -> None:
         [
             "face_id",
             "gender_self",
+            "gender_perceived",
+            "gender_perceived_probability",
             "ethnicity_self",
             "ethnicity_perceived",
             "ethnicity_perceived_probability",
@@ -70,7 +72,10 @@ def validate_stimuli(stimuli: pd.DataFrame) -> None:
         raise ValueError("The same image path is assigned to several face IDs.")
     validate_probability_range(
         stimuli,
-        ["ethnicity_perceived_probability"],
+        [
+            "gender_perceived_probability",
+            "ethnicity_perceived_probability",
+        ],
     )
     validate_image_paths(stimuli)
 

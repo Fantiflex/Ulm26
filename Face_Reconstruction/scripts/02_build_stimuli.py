@@ -48,6 +48,8 @@ ETHNICITY_SELECTION_MODE = "perceived"
 
 MINIMUM_PERCEIVED_PROBABILITY = 0.9
 
+MINIMUM_PERCEIVED_GENDER = 0.9
+
 
 def build_selection_summary(
     stimuli: pd.DataFrame,
@@ -210,6 +212,7 @@ def main() -> None:
         manifest=manifest,
         image_directory=IMAGE_DIRECTORY,
         genders=GENDERS,
+        minimum_perceived_gender=MINIMUM_PERCEIVED_GENDER,
         ethnicities_self=ETHNICITIES_SELF,
         ethnicities_perceived=(
             ETHNICITIES_PERCEIVED

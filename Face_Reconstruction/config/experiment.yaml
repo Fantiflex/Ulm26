@@ -10,6 +10,7 @@ paths:
 
 stimuli:
   genders: null
+  minimum_perceived_gender: 0.9
   ethnicities_self: null
   ethnicities_perceived: null
   ethnicity_selection_mode: none
