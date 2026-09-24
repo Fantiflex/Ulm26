@@ -1,0 +1,24 @@
+# Python
+.venv/
+venv/
+__pycache__/
+*.pyc
+
+# macOS
+.DS_Store
+
+# Raw/private datasets
+data/raw/
+
+# Generated intermediate data
+data/interim/faces_only/
+
+# Generated experiment matrices
+experiment/images_matrices/
+
+# Results / generated outputs
+results/raw/
+
+# IDE
+.vscode/
+.idea/
