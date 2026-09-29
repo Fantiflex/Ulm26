@@ -70,51 +70,176 @@ def normalize_group(value: str) -> str:
 
 
 def load_data() -> pd.DataFrame:
-    """Load stimuli and corresponding face-luminance measurements."""
+    """
+    Load selected stimuli and their face-luminance measurements.
 
-    stimuli = pd.read_csv(STIMULI_PATH)
-    luminance = pd.read_csv(FACE_LUMINANCE_PATH)
+    Every selected stimulus must have exactly one corresponding
+    face-processing record, a successful face detection, and valid
+    luminance measurements.
+    """
 
-    # Keep only successfully detected faces
-    if "face_detected" in luminance.columns:
-        luminance = luminance.loc[
-            luminance["face_detected"] == True
-        ].copy()
+    if not STIMULI_PATH.exists():
+        raise FileNotFoundError(
+            f"Stimulus table not found: {STIMULI_PATH}"
+        )
 
-    # Match using filename rather than machine-specific absolute path
+    if not FACE_LUMINANCE_PATH.exists():
+        raise FileNotFoundError(
+            f"Face luminance table not found: "
+            f"{FACE_LUMINANCE_PATH}"
+        )
+
+    stimuli = pd.read_csv(
+        STIMULI_PATH
+    )
+
+    luminance = pd.read_csv(
+        FACE_LUMINANCE_PATH
+    )
+
+    if stimuli.empty:
+        raise ValueError(
+            "Stimulus table is empty."
+        )
+
+    if luminance.empty:
+        raise ValueError(
+            "Face-luminance table is empty."
+        )
+
+    # --------------------------------------------------------
+    # Create machine-independent matching identifiers
+    # --------------------------------------------------------
+
     stimuli["image_name"] = (
         stimuli["image_path"]
         .astype(str)
-        .map(lambda path: Path(path).stem)
+        .map(
+            lambda path: Path(path).stem
+        )
     )
 
     luminance["image_name"] = (
         luminance["image_path"]
         .astype(str)
-        .map(lambda path: Path(path).stem)
+        .map(
+            lambda path: Path(path).stem
+        )
     )
+
+    # --------------------------------------------------------
+    # Merge without silently dropping selected stimuli
+    # --------------------------------------------------------
 
     data = stimuli.merge(
         luminance[
             [
                 "image_name",
+                "face_detected",
                 "luminance_mean",
                 "luminance_median",
             ]
         ],
         on="image_name",
-        how="inner",
+        how="left",
         validate="one_to_one",
     )
 
-    if data.empty:
+    # A left join should preserve every selected stimulus.
+    if len(data) != len(stimuli):
         raise RuntimeError(
-            "No stimuli matched the face-luminance measurements."
+            "Merge changed the number of selected stimuli: "
+            f"{len(stimuli)} before merge, "
+            f"{len(data)} after merge."
         )
+
+    # --------------------------------------------------------
+    # Check that every selected stimulus was processed
+    # --------------------------------------------------------
+
+    missing_processing = (
+        data["face_detected"].isna()
+    )
+
+    if missing_processing.any():
+
+        missing_names = (
+            data.loc[
+                missing_processing,
+                "image_name",
+            ]
+            .tolist()
+        )
+
+        raise RuntimeError(
+            "Some selected stimuli have no corresponding "
+            "face-processing record: "
+            f"{missing_names[:10]}"
+        )
+
+    # --------------------------------------------------------
+    # Check face detection
+    # --------------------------------------------------------
+
+    failed_detection = (
+        data["face_detected"] != True
+    )
+
+    if failed_detection.any():
+
+        failed_names = (
+            data.loc[
+                failed_detection,
+                "image_name",
+            ]
+            .tolist()
+        )
+
+        raise RuntimeError(
+            f"Face detection failed for "
+            f"{len(failed_names)} selected stimuli: "
+            f"{failed_names[:10]}"
+        )
+
+    # --------------------------------------------------------
+    # Check luminance values
+    # --------------------------------------------------------
+
+    missing_luminance = (
+        data[
+            [
+                "luminance_mean",
+                "luminance_median",
+            ]
+        ]
+        .isna()
+        .any(axis=1)
+    )
+
+    if missing_luminance.any():
+
+        missing_names = (
+            data.loc[
+                missing_luminance,
+                "image_name",
+            ]
+            .tolist()
+        )
+
+        raise RuntimeError(
+            f"Missing luminance measurements for "
+            f"{len(missing_names)} selected stimuli: "
+            f"{missing_names[:10]}"
+        )
+
+    # --------------------------------------------------------
+    # Experimental group
+    # --------------------------------------------------------
 
     if "ethnicity_perceived" not in data.columns:
         raise ValueError(
-            "stimuli.csv must contain 'ethnicity_perceived'."
+            "stimuli.csv must contain "
+            "'ethnicity_perceived'."
         )
 
     data["group"] = (
@@ -123,7 +248,6 @@ def load_data() -> pd.DataFrame:
     )
 
     return data
-
 
 # ============================================================
 # ANALYSIS
