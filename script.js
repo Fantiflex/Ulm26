@@ -25,17 +25,17 @@ const MATRIX_COLUMNS = 8;
 
 // Nombre exact de personnes noires parmi 64.
 // 8/64 puis incréments de 6 jusqu'à 56/64.
-const TARGET_COUNTS = [
-    8,
-    14,
-    20,
-    26,
-    32,
-    38,
-    44,
-    50,
-    56
-    ];
+const TARGETS = [
+    { count: 8,  folder: "12pct_black" },
+    { count: 14, folder: "22pct_black" },
+    { count: 20, folder: "31pct_black" },
+    { count: 26, folder: "41pct_black" },
+    { count: 32, folder: "50pct_black" },
+    { count: 38, folder: "59pct_black" },
+    { count: 44, folder: "69pct_black" },
+    { count: 50, folder: "78pct_black" },
+    { count: 56, folder: "88pct_black" }
+];
 
     // 5 versions différentes de chaque composition.
     const N_VERSIONS = 5;
@@ -65,18 +65,14 @@ const TARGET_COUNTS = [
 
                 // Nombre de personnes/cercle du groupe "principal"
                 // dans la matrice.
-                const basePercentage =
-                    100 * targetCount / MATRIX_SIZE;
+                TARGETS.forEach(
+                    target => {
 
+                        const targetCount =
+                            target.count;
 
-                const folderPercentage =
-                    Math.round(
-                        basePercentage
-                    );
-
-
-                const folder =
-                    `${folderPercentage}pct_black`;
+                        const folder =
+                            target.folder;
 
 
                 const paddedTargetCount =
@@ -108,7 +104,7 @@ const TARGET_COUNTS = [
 
 
                     const basePath =
-                        `images_matrices/${folder}/${version}`;
+                        `experiment/images_matrices/${folder}/${version}`;
 
 
                     // =================================================
