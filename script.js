@@ -46,8 +46,6 @@ const TARGETS = [
     let imageTrials = [];
 
 
-    let participantCircleScheme = null;
-
 
     // =========================================================
     // CONSTRUCTION DES 90 TRIALS
@@ -55,30 +53,20 @@ const TARGETS = [
 
     function buildImageTrials() {
 
-        const trials = [];
+            const trials = [];
 
-        let pairIndex = 0;
+            let pairIndex = 0;
 
+            TARGETS.forEach(target => {
 
-        TARGET_COUNTS.forEach(
-            targetCount => {
+                const targetCount =
+                    target.count;
 
-                // Nombre de personnes/cercle du groupe "principal"
-                // dans la matrice.
-                TARGETS.forEach(
-                    target => {
-
-                        const targetCount =
-                            target.count;
-
-                        const folder =
-                            target.folder;
-
+                const folder =
+                    target.folder;
 
                 const paddedTargetCount =
-                    String(
-                        targetCount
-                    ).padStart(
+                    String(targetCount).padStart(
                         2,
                         "0"
                     );
@@ -160,8 +148,6 @@ const TARGETS = [
                         true_percentage:
                             faceTruePercentage,
 
-                        folder_percentage:
-                            folderPercentage,
 
                         version:
                             versionNumber,
@@ -230,9 +216,6 @@ const TARGETS = [
 
                         true_percentage:
                             circleTruePercentage,
-
-                        folder_percentage:
-                            folderPercentage,
 
                         version:
                             versionNumber,
@@ -1126,9 +1109,6 @@ async function submitImageRating() {
         true_percentage:
             trial.true_percentage,
 
-        folder_percentage:
-            trial.folder_percentage,
-
         version:
             trial.version,
 
@@ -1282,8 +1262,6 @@ async function handleImageTimeout() {
         true_percentage:
             trial.true_percentage,
 
-        folder_percentage:
-            trial.folder_percentage,
 
         version:
             trial.version,
