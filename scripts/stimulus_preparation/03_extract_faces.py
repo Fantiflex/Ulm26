@@ -18,8 +18,18 @@ import mediapipe as mp
 import numpy as np
 import pandas as pd
 
-FINAL_CELL_PX = 100
-FACE_WITH_HAIR_ZOOM = 1.10
+from minority_estimation.config import (
+    CELL_PX,
+    FACE_CENTER_Y_RATIO,
+    FACE_WITH_HAIR_ZOOM,
+    LUMINANCE_BLUE_WEIGHT,
+    LUMINANCE_GREEN_WEIGHT,
+    LUMINANCE_RED_WEIGHT,
+    MIN_FACE_DETECTION_CONFIDENCE,
+    MIN_FACE_PRESENCE_CONFIDENCE,
+    MIN_TRACKING_CONFIDENCE,
+    NUM_FACES,
+)
 
 
 # ============================================================
@@ -131,10 +141,10 @@ def build_face_landmarker(
             delegate=BaseOptions.Delegate.CPU,
         ),
         running_mode=mp.tasks.vision.RunningMode.IMAGE,
-        num_faces=1,
-        min_face_detection_confidence=0.5,
-        min_face_presence_confidence=0.5,
-        min_tracking_confidence=0.5,
+        num_faces=NUM_FACES,
+        min_face_detection_confidence=MIN_FACE_DETECTION_CONFIDENCE,
+        min_face_presence_confidence=MIN_FACE_PRESENCE_CONFIDENCE,
+        min_tracking_confidence=MIN_TRACKING_CONFIDENCE,
         output_face_blendshapes=False,
         output_facial_transformation_matrixes=False,
     )
@@ -231,7 +241,7 @@ def compute_face_mask(
 
 def compute_displayed_face_area(
     mask: np.ndarray,
-    cell_px: int = FINAL_CELL_PX,
+    cell_px: int = CELL_PX,
     zoom: float = FACE_WITH_HAIR_ZOOM,
 ) -> int:
     """
@@ -250,7 +260,7 @@ def compute_displayed_face_area(
 
     center_x = width // 2
     center_y = int(
-        height * 0.42
+        height * FACE_CENTER_Y_RATIO
     )
 
     left = (
@@ -330,10 +340,10 @@ def compute_luminance_statistics(
     )
 
     luminance = (
-        0.299 * pixels[:, 0]
-        + 0.587 * pixels[:, 1]
-        + 0.114 * pixels[:, 2]
-    )
+    LUMINANCE_RED_WEIGHT * pixels[:, 0]
+    + LUMINANCE_GREEN_WEIGHT * pixels[:, 1]
+    + LUMINANCE_BLUE_WEIGHT * pixels[:, 2]
+)
 
     return (
         float(np.mean(luminance)),
