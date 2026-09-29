@@ -16,13 +16,24 @@ from face_reconstruction.cfd_manifest import (
 )
 
 
-WORKBOOK_PATH = Path(
-    "data/raw/cfd/CFD_codebook.xlsx"
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+
+WORKBOOK_PATH = (
+    PROJECT_ROOT
+    / "data"
+    / "raw"
+    / "cfd"
+    / "CFD_codebook.xlsx"
 )
 
-OUTPUT_DIRECTORY = Path(
-    "data/interim/cfd_audit"
+OUTPUT_DIRECTORY = (
+    PROJECT_ROOT
+    / "data"
+    / "interim"
+    / "cfd_audit"
 )
+
+
 
 
 def build_demographic_counts(
