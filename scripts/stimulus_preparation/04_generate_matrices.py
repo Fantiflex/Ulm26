@@ -154,9 +154,28 @@ def load_data() -> pd.DataFrame:
             ]
         ],
         on="image_name",
-        how="inner",
+        how="left",
         validate="one_to_one",
     )
+
+    if len(merged) != len(stimuli):
+        raise RuntimeError(
+            "Merge changed the number of selected stimuli."
+        )
+
+    missing_luminance = merged["luminance_mean"].isna()
+
+    if missing_luminance.any():
+        missing = merged.loc[
+            missing_luminance,
+            "image_name",
+        ].tolist()
+
+        raise RuntimeError(
+            f"Missing luminance measurements for "
+            f"{len(missing)} selected stimuli: "
+            f"{missing[:10]}"
+        )
 
 
     if merged.empty:
