@@ -18,6 +18,10 @@ import mediapipe as mp
 import numpy as np
 import pandas as pd
 
+FINAL_CELL_PX = 100
+FACE_WITH_HAIR_ZOOM = 1.10
+
+
 # ============================================================
 # PROJECT PATHS
 # ============================================================
@@ -225,6 +229,88 @@ def compute_face_mask(
     return mask
 
 
+def compute_displayed_face_area(
+    mask: np.ndarray,
+    cell_px: int = FINAL_CELL_PX,
+    zoom: float = FACE_WITH_HAIR_ZOOM,
+) -> int:
+    """
+    Compute the detected face area after applying the same crop
+    and resize used for the final displayed face stimulus.
+
+    Returns the number of face-mask pixels in final cell coordinates.
+    """
+
+    height, width = mask.shape[:2]
+
+    # Same crop used by prepare_face_cell_with_hair()
+    crop_size = int(
+        min(width, height) / zoom
+    )
+
+    center_x = width // 2
+    center_y = int(
+        height * 0.42
+    )
+
+    left = (
+        center_x
+        - crop_size // 2
+    )
+
+    top = (
+        center_y
+        - crop_size // 2
+    )
+
+    left = max(
+        0,
+        min(
+            left,
+            width - crop_size,
+        ),
+    )
+
+    top = max(
+        0,
+        min(
+            top,
+            height - crop_size,
+        ),
+    )
+
+    right = (
+        left
+        + crop_size
+    )
+
+    bottom = (
+        top
+        + crop_size
+    )
+
+    cropped_mask = mask[
+        top:bottom,
+        left:right
+    ]
+
+    resized_mask = cv2.resize(
+        cropped_mask,
+        (
+            cell_px,
+            cell_px,
+        ),
+        interpolation=cv2.INTER_NEAREST,
+    )
+
+    face_area_px = int(
+        np.count_nonzero(
+            resized_mask > 0
+        )
+    )
+
+    return face_area_px
+
 # ============================================================
 # LUMINANCE
 # ============================================================
@@ -294,6 +380,10 @@ def extract_face(
             "output_path": None,
         }
 
+    face_area_px = compute_displayed_face_area(
+        mask
+    )
+
     rgb = cv2.cvtColor(
         image_bgr,
         cv2.COLOR_BGR2RGB,
@@ -346,6 +436,7 @@ def extract_face(
         "face_detected": True,
         "luminance_mean": mean_luminance,
         "luminance_median": median_luminance,
+        "face_area_px": face_area_px,
         "output_path": str(output_path),
     }
 
@@ -391,9 +482,19 @@ def load_selected_image_paths(
                 str(value)
             )
 
-            # If the CSV contains a relative path, try resolving
-            # it from the project root.
-            if not path.is_absolute():
+            # --------------------------------------------------------
+            # 1. Existing absolute path
+            # --------------------------------------------------------
+
+            if path.is_absolute() and path.exists():
+
+                resolved_path = path
+
+            # --------------------------------------------------------
+            # 2. Try path relative to project root
+            # --------------------------------------------------------
+
+            elif not path.is_absolute():
 
                 project_relative = (
                     PROJECT_ROOT
@@ -401,18 +502,28 @@ def load_selected_image_paths(
                 )
 
                 if project_relative.exists():
-                    path = project_relative
+                    resolved_path = project_relative
 
                 else:
-                    path = (
+                    resolved_path = (
                         image_directory
                         / path.name
                     )
 
-            image_paths.append(
-                path
-            )
+            # --------------------------------------------------------
+            # 3. Stale absolute path from another machine/repo
+            # --------------------------------------------------------
 
+            else:
+
+                resolved_path = (
+                    image_directory
+                    / path.name
+                )
+
+            image_paths.append(
+                resolved_path
+            )
     # --------------------------------------------------------
     # Fallback:
     # construct paths from face_id.
@@ -577,6 +688,7 @@ def write_csv(
         "face_detected",
         "luminance_mean",
         "luminance_median",
+        "face_area_px",
         "output_path",
     ]
 

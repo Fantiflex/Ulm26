@@ -5,7 +5,7 @@ This script loads and harmonises the CFD norming data, reports the available
 self-reported demographic categories, examines perceived-ethnicity
 probabilities, and saves audit tables for reproducibility.
 """
-from face_reconstruction.stimuli import build_stimuli_table
+
 from pathlib import Path
 
 import pandas as pd
