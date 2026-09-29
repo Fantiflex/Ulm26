@@ -9,7 +9,7 @@ from pathlib import Path
 
 import pandas as pd
 
-from face_reconstruction.schemas import require_columns
+from minority_estimation.schemas import require_columns
 
 
 CFD_SHEET_NAME = "CFD U.S. Norming Data"
@@ -21,6 +21,7 @@ CFD_COLUMN_MAPPING = {
     "MaleProb": "male_prob",
     "EthnicitySelf": "ethnicity_self",
     "AgeSelf": "age_self",
+    "AgeRated": "age_rated",
     "AsianProb": "asian_prob",
     "ChineseAsianProb": "chinese_asian_prob",
     "JapaneseAsianProb": "japanese_asian_prob",
@@ -47,6 +48,7 @@ CFD_REQUIRED_COLUMNS = [
     "MultiProb",
     "OtherProb",
     "WhiteProb",
+    "AgeRated"
 ]
 
 PERCEIVED_ETHNICITY_COLUMNS = {
