@@ -33,6 +33,21 @@ FACE_LUMINANCE_PATH = (
     / "face_luminance.csv"
 )
 
+SUMMARY_OUTPUT_PATH = (
+    PROJECT_ROOT
+    / "data"
+    / "interim"
+    / "calibration"
+    / "face_luminance_summary.csv"
+)
+
+FIGURE_OUTPUT_PATH = (
+    PROJECT_ROOT
+    / "results"
+    / "stimulus_qc"
+    / "face_luminance_distribution.png"
+)
+
 
 # ============================================================
 # DATA LOADING
@@ -137,6 +152,15 @@ def main() -> None:
 
     print(summary)
 
+    SUMMARY_OUTPUT_PATH.parent.mkdir(
+        parents=True,
+        exist_ok=True,
+    )
+
+    summary.to_csv(
+        SUMMARY_OUTPUT_PATH
+    )
+
     black_luminance = data.loc[
         data["group"] == "black",
         "luminance_mean",
@@ -184,7 +208,28 @@ def main() -> None:
 
     plt.legend()
     plt.tight_layout()
+    FIGURE_OUTPUT_PATH.parent.mkdir(
+        parents=True,
+        exist_ok=True,
+    )
+
+    plt.savefig(
+        FIGURE_OUTPUT_PATH,
+        dpi=300,
+        bbox_inches="tight",
+    )
+    print(
+        f"\nSummary saved to: "
+        f"{SUMMARY_OUTPUT_PATH}"
+    )
+
+    print(
+        f"Figure saved to: "
+        f"{FIGURE_OUTPUT_PATH}"
+    )
+
     plt.show()
+
 
 
 if __name__ == "__main__":
