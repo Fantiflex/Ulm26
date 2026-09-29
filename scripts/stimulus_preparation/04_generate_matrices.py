@@ -22,6 +22,19 @@ import numpy as np
 import pandas as pd
 from PIL import Image, ImageDraw
 
+from minority_estimation.config import (
+    BACKGROUND_GRAY_VALUE,
+    CELL_PX,
+    CIRCLE_RADIUS_PX,
+    FACE_CENTER_Y_RATIO,
+    FACE_WITH_HAIR_ZOOM,
+    GRID_COLS,
+    GRID_ROWS,
+    MATRIX_SIZE,
+    N_VERSIONS,
+    RANDOM_SEED,
+    TARGET_BLACK_COUNTS,
+)
 
 # ============================================================
 # PROJECT PATHS
@@ -51,39 +64,6 @@ OUTPUT_DIR = (
 )
 
 
-# ============================================================
-# EXPERIMENT PARAMETERS
-# ============================================================
-
-MATRIX_SIZE = 64
-
-GRID_ROWS = 8
-GRID_COLS = 8
-
-CELL_PX = 100
-
-TARGET_COUNTS = [
-    8,
-    14,
-    20,
-    26,
-    32,
-    38,
-    44,
-    50,
-    56,
-]
-
-N_VERSIONS = 5
-
-RANDOM_SEED = 42
-
-
-# ============================================================
-# NON-SOCIAL STIMULI
-# ============================================================
-
-CIRCLE_RADIUS_PX = 29
 
 # ============================================================
 # DATA LOADING
@@ -248,7 +228,7 @@ def prepare_face_cell_with_hair(
         # Shift upward slightly because the face/head is above
         # the geometric centre of a CFD portrait.
         center_y = int(
-            height * 0.42
+            height * FACE_CENTER_Y_RATIO
         )
 
         left = (
@@ -335,9 +315,9 @@ def assemble_matrix(
             GRID_ROWS * CELL_PX,
         ),
         color=(
-            255,
-            255,
-            255,
+            BACKGROUND_GRAY_VALUE,
+            BACKGROUND_GRAY_VALUE,
+            BACKGROUND_GRAY_VALUE,
         ),
     )
 
@@ -435,7 +415,11 @@ def make_circle_cell(
             CELL_PX,
             CELL_PX,
         ),
-        color=(255, 255, 255),
+        color=(
+            BACKGROUND_GRAY_VALUE,
+            BACKGROUND_GRAY_VALUE,
+            BACKGROUND_GRAY_VALUE,
+        ),
     )
 
     draw = ImageDraw.Draw(image)
@@ -877,10 +861,10 @@ def generate_matrices() -> None:
 
     rng = np.random.default_rng(RANDOM_SEED)
 
-    total = len(TARGET_COUNTS) * N_VERSIONS
+    total = len(TARGET_BLACK_COUNTS) * N_VERSIONS
     generated = 0
 
-    for target_black in TARGET_COUNTS:
+    for target_black in TARGET_BLACK_COUNTS:
         for version in range(1, N_VERSIONS + 1):
 
             generate_one_matrix(
