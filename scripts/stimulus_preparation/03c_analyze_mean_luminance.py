@@ -22,7 +22,7 @@ STIMULI_PATH = (
     PROJECT_ROOT
     / "data"
     / "processed"
-    / "stimuli.csv"
+    / "stimuli_matched.csv"
 )
 
 FACE_LUMINANCE_PATH = (
