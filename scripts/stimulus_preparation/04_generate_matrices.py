@@ -191,8 +191,6 @@ def normalize_group(
 # FACE CELLS
 # ============================================================
 
-FACE_WITH_HAIR_ZOOM = 1.10
-
 
 
 def prepare_face_cell_with_hair(
@@ -675,7 +673,8 @@ def make_metadata(
             False,
 
         "circle_radius_px": CIRCLE_RADIUS_PX,
-        "circle_radius_ratio": CIRCLE_RADIUS_PX / CELL_PX,
+
+        "circle_radius_ratio":CIRCLE_RADIUS_PX / CELL_PX, 
 
         "circle_luminance_mapping":
             "direct_face_luminance",
