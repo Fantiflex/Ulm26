@@ -10,7 +10,7 @@ from pathlib import Path
 
 import pandas as pd
 
-from face_reconstruction.cfd_manifest import (
+from minority_estimation.cfd_manifest import (
     harmonize_cfd_manifest,
     load_cfd_data,
 )
@@ -32,7 +32,6 @@ OUTPUT_DIRECTORY = (
     / "interim"
     / "cfd_audit"
 )
-
 
 
 
