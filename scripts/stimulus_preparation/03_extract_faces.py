@@ -256,8 +256,6 @@ def compute_displayed_face_area(
 
     height, width = mask.shape[:2]
 
-    # Same crop used by prepare_face_cell_with_hair()
-    height, width = mask.shape[:2]
 
     left, top, right, bottom = compute_face_crop_box(
         width=width,
@@ -265,10 +263,6 @@ def compute_displayed_face_area(
         zoom=zoom,
     )
 
-    cropped_mask = mask[
-        top:bottom,
-        left:right
-    ]
 
     cropped_mask = mask[
         top:bottom,
