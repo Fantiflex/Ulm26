@@ -33,9 +33,7 @@ MINIMUM_PERCEIVED_GENDER: Final[float] = 0.90
 # ============================================================
 # FACE PROCESSING
 # ============================================================
-
 CELL_PX: Final[int] = 100
-
 FACE_WITH_HAIR_ZOOM: Final[float] = 1.10
 
 FACE_CENTER_Y_RATIO: Final[float] = 0.42
@@ -86,7 +84,7 @@ RANDOM_SEED: Final[int] = 42
 # NON-SOCIAL STIMULI
 # ============================================================
 
-CIRCLE_RADIUS_PX: Final[int] = 29
+
 
 BACKGROUND_GRAY_VALUE: Final[int] = 255
 
