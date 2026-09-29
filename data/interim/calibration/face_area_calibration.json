@@ -1,0 +1,11 @@
+{
+  "n_faces": 135,
+  "cell_px": 100,
+  "median_face_area_px": 2571.0,
+  "mean_face_area_px": 2570.2296296296295,
+  "theoretical_radius_from_median_px": 28.607249385051436,
+  "theoretical_radius_from_mean_px": 28.6029631484854,
+  "median_radius_ratio": 0.28607249385051436,
+  "mean_radius_ratio": 0.286029631484854,
+  "rendered_circle_radius_px": 29
+}

@@ -2,7 +2,7 @@ from pathlib import Path
 
 import numpy as np
 import pandas as pd
-
+import json
 
 from minority_estimation.config import CELL_PX
 
@@ -16,6 +16,14 @@ FACE_LUMINANCE_PATH = (
     / "face_luminance.csv"
 )
 
+
+CALIBRATION_OUTPUT_PATH = (
+    PROJECT_ROOT
+    / "data"
+    / "interim"
+    / "calibration"
+    / "face_area_calibration.json"
+)
 
 
 df = pd.read_csv(FACE_LUMINANCE_PATH)
@@ -45,6 +53,7 @@ median_equivalent_radius = np.sqrt(
     median_face_area / np.pi
 )
 
+
 mean_equivalent_radius = np.sqrt(
     mean_face_area / np.pi
 )
@@ -60,6 +69,41 @@ mean_radius_ratio = (
     / CELL_PX
 )
 
+rendered_radius_px = int(
+    round(median_equivalent_radius)
+)
+
+calibration = {
+    "n_faces": int(len(df)),
+    "cell_px": CELL_PX,
+    "median_face_area_px": median_face_area,
+    "mean_face_area_px": mean_face_area,
+    "theoretical_radius_from_median_px":
+        float(median_equivalent_radius),
+    "theoretical_radius_from_mean_px":
+        float(mean_equivalent_radius),
+    "median_radius_ratio":
+        float(median_radius_ratio),
+    "mean_radius_ratio":
+        float(mean_radius_ratio),
+    "rendered_circle_radius_px":
+        rendered_radius_px,
+}
+
+CALIBRATION_OUTPUT_PATH.parent.mkdir(
+    parents=True,
+    exist_ok=True,
+)
+
+with CALIBRATION_OUTPUT_PATH.open(
+    "w",
+    encoding="utf-8",
+) as handle:
+    json.dump(
+        calibration,
+        handle,
+        indent=2,
+    )
 
 print("\n=== EQUIVALENT CIRCLE ===")
 
@@ -92,4 +136,9 @@ print(
 print(
     f"Mean-based radius ratio: "
     f"{mean_radius_ratio:.3f}"
+)
+
+print(
+    f"\nCalibration saved to: "
+    f"{CALIBRATION_OUTPUT_PATH}"
 )
