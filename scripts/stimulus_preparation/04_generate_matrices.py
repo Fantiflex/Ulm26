@@ -22,10 +22,11 @@ import numpy as np
 import pandas as pd
 from PIL import Image, ImageDraw
 
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+
 from minority_estimation.config import (
     BACKGROUND_GRAY_VALUE,
     CELL_PX,
-    CIRCLE_RADIUS_PX,
     FACE_CENTER_Y_RATIO,
     FACE_WITH_HAIR_ZOOM,
     GRID_COLS,
@@ -40,11 +41,19 @@ from minority_estimation.image_processing import (
     compute_face_crop_box,
 )
 
+FACE_AREA_CALIBRATION_PATH = (
+    PROJECT_ROOT
+    / "data"
+    / "interim"
+    / "calibration"
+    / "face_area_calibration.json"
+)
+
 # ============================================================
 # PROJECT PATHS
 # ============================================================
 
-PROJECT_ROOT = Path(__file__).resolve().parents[2]
+
 
 STIMULI_PATH = (
     PROJECT_ROOT
@@ -226,15 +235,25 @@ def prepare_face_cell_with_hair(
             zoom=zoom,
         )
 
-        cropped = image.crop(
-            (
-                left,
-                top,
-                right,
-                bottom,
-            )
+    cropped = image.crop(
+        (
+            left,
+            top,
+            right,
+            bottom,
         )
-        return cropped
+    )
+
+    cropped = cropped.resize(
+        (
+            cell_px,
+            cell_px,
+        ),
+        Image.Resampling.LANCZOS,
+    )
+
+    return cropped
+
 
 
 
@@ -341,9 +360,57 @@ def build_face_matrix_with_hair(
 # NON-SOCIAL CIRCLE
 # ============================================================
 
+def load_circle_radius() -> int:
+    """
+    Load the empirically calibrated circle radius.
+
+    The radius is derived from the median detected face area
+    by 03b_analyze_face_area.py.
+    """
+
+    if not FACE_AREA_CALIBRATION_PATH.exists():
+        raise FileNotFoundError(
+            "Face-area calibration file not found: "
+            f"{FACE_AREA_CALIBRATION_PATH}. "
+            "Run 03b_analyze_face_area.py first."
+        )
+
+    with FACE_AREA_CALIBRATION_PATH.open(
+        "r",
+        encoding="utf-8",
+    ) as handle:
+        calibration = json.load(handle)
+
+    required_key = "rendered_circle_radius_px"
+
+    if required_key not in calibration:
+        raise KeyError(
+            f"Calibration file is missing '{required_key}'."
+        )
+
+    radius = calibration[required_key]
+
+    if not isinstance(radius, int):
+        raise TypeError(
+            "rendered_circle_radius_px must be an integer."
+        )
+
+    if radius <= 0:
+        raise ValueError(
+            "Circle radius must be strictly positive."
+        )
+
+    if radius * 2 > CELL_PX:
+        raise ValueError(
+            "Circle diameter exceeds cell size."
+        )
+
+    return radius
+
 def make_circle_cell(
     *,
     face_luminance: float,
+    circle_radius_px: int,
 ) -> Image.Image:
     """
     Generate one non-social circle whose grayscale intensity
@@ -373,7 +440,7 @@ def make_circle_cell(
 
     draw = ImageDraw.Draw(image)
 
-    radius = CIRCLE_RADIUS_PX
+    radius = circle_radius_px
 
     center_x = CELL_PX // 2
     center_y = CELL_PX // 2
@@ -397,6 +464,7 @@ def make_circle_cell(
 
 def build_circle_matrix(
     cells: pd.DataFrame,
+    circle_radius_px: int,
 ) -> Image.Image:
     """
     Generate the non-social equivalent of one face matrix.
@@ -412,6 +480,7 @@ def build_circle_matrix(
         images.append(
             make_circle_cell(
                 face_luminance=row["luminance_mean"],
+                circle_radius_px=circle_radius_px,
             )
         )
 
@@ -557,7 +626,9 @@ def make_metadata(
     target_black: int,
     version: int,
     cells: pd.DataFrame,
+    circle_radius_px: int,
 ) -> dict:
+    """Build metadata for one generated matrix."""
 
     target_white = MATRIX_SIZE - target_black
 
@@ -584,7 +655,6 @@ def make_metadata(
     )
 
     return {
-
         "matrix_size": MATRIX_SIZE,
         "grid_rows": GRID_ROWS,
         "grid_columns": GRID_COLS,
@@ -593,20 +663,13 @@ def make_metadata(
         "social_image": "face.png",
         "non_social_image": "circles.png",
 
-        "face_with_hair_zoom":
-            FACE_WITH_HAIR_ZOOM,
+        "face_with_hair_zoom": FACE_WITH_HAIR_ZOOM,
 
-        "target_black_count":
-            target_black,
+        "target_black_count": target_black,
+        "target_white_count": target_white,
 
-        "target_white_count":
-            target_white,
-
-        "actual_black_count":
-            actual_black,
-
-        "actual_white_count":
-            actual_white,
+        "actual_black_count": actual_black,
+        "actual_white_count": actual_white,
 
         "black_percentage":
             100 * target_black / MATRIX_SIZE,
@@ -614,18 +677,19 @@ def make_metadata(
         "white_percentage":
             100 * target_white / MATRIX_SIZE,
 
-        "version":
-            version,
+        "version": version,
 
-        "random_seed":
-            RANDOM_SEED,
+        "random_seed": RANDOM_SEED,
 
-        "sampling_with_replacement":
-            False,
+        "sampling_with_replacement": False,
 
-        "circle_radius_px": CIRCLE_RADIUS_PX,
+        "circle_radius_px": circle_radius_px,
 
-        "circle_radius_ratio":CIRCLE_RADIUS_PX / CELL_PX, 
+        "circle_radius_ratio":
+            circle_radius_px / CELL_PX,
+
+        "circle_size_calibration":
+            "median_mediapipe_face_area",
 
         "circle_luminance_mapping":
             "direct_face_luminance",
@@ -646,6 +710,7 @@ def generate_one_matrix(
     target_black: int,
     version: int,
     rng: np.random.Generator,
+    circle_radius_px: int,
 ) -> None:
     """
     Generate one social matrix and one non-social matrix.
@@ -726,8 +791,9 @@ def generate_one_matrix(
     # Non-social circles
     # --------------------------------------------------------
 
-    circle_matrix = build_circle_matrix(
-        cells
+    circle_matrix = circle_matrix = build_circle_matrix(
+        cells,
+        circle_radius_px=circle_radius_px,
     )
 
     circle_matrix.save(
@@ -754,6 +820,7 @@ def generate_one_matrix(
         target_black=target_black,
         version=version,
         cells=cells,
+        circle_radius_px=circle_radius_px,
     )
 
 
@@ -783,7 +850,12 @@ def generate_matrices() -> None:
     """
 
     data = load_data()
+    circle_radius_px = load_circle_radius()
 
+    print(
+        f"Using calibrated circle radius: "
+        f"{circle_radius_px} px"
+    )
 
     # --------------------------------------------------------
     # Determine experimental group
@@ -822,6 +894,7 @@ def generate_matrices() -> None:
                 target_black=target_black,
                 version=version,
                 rng=rng,
+                circle_radius_px=circle_radius_px,
             )
 
             generated += 1
