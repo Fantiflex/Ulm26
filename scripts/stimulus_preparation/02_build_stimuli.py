@@ -9,15 +9,14 @@ the selected stimuli, and saves the resulting study manifest.
 from pathlib import Path
 
 import pandas as pd
-
-from face_reconstruction.cfd_manifest import (
+from minority_estimation.cfd_manifest import (
     harmonize_cfd_manifest,
     load_cfd_data,
 )
-from face_reconstruction.stimuli import (
+from minority_estimation.stimuli import (
     build_stimuli_table,
 )
-from face_reconstruction.validation import (
+from minority_estimation.validation import (
     validate_stimuli,
 )
 
@@ -55,17 +54,14 @@ OUTPUT_PATH = (
     / "stimuli.csv"
 )
 
-GENDERS = ["M"] #options are M, F, or None for all self-reported
-
-ETHNICITIES_SELF = None # options are B, W, H, A, O, or None for all self-reported
-
-ETHNICITIES_PERCEIVED = ["Black", "White"] # options are Black, White, Hispanic, Asian, Other, or None for all perceived
-
-ETHNICITY_SELECTION_MODE = "perceived"
-
-MINIMUM_PERCEIVED_PROBABILITY = 0.9
-
-MINIMUM_PERCEIVED_GENDER = 0.9
+from minority_estimation.config import (
+    ETHNICITIES_PERCEIVED,
+    ETHNICITIES_SELF,
+    ETHNICITY_SELECTION_MODE,
+    GENDERS,
+    MINIMUM_PERCEIVED_GENDER,
+    MINIMUM_PERCEIVED_PROBABILITY,
+)
 
 
 def build_selection_summary(
