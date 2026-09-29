@@ -476,7 +476,205 @@
     </section>
 
 
+    <!-- ================================================= -->
+    <!-- 7. DEBRIEF OPEN QUESTIONS -->
+    <!-- ================================================= -->
 
+    <section
+        id="debrief-section"
+        class="study-section hidden"
+    >
+
+        <div class="question-card">
+
+            <h2>
+                Quelques questions pour terminer
+            </h2>
+
+            <p class="intro-text">
+                Merci de répondre librement aux questions suivantes.
+            </p>
+
+
+            <div class="item-block">
+
+                <p class="item-text">
+                    1. Selon vous, qu'est-ce que cette étude cherchait à mesurer ?
+                </p>
+
+                <textarea
+                    id="debrief-q1"
+                    rows="5"
+                    placeholder="Votre réponse..."
+                ></textarea>
+
+            </div>
+
+
+            <div class="item-block">
+
+                <p class="item-text">
+                    2. Comment avez-vous procédé pour estimer les pourcentages ?
+                    Avez-vous utilisé une stratégie particulière ?
+                </p>
+
+                <textarea
+                    id="debrief-q2"
+                    rows="5"
+                    placeholder="Votre réponse..."
+                ></textarea>
+
+            </div>
+
+
+            <div class="item-block">
+
+                <p class="item-text">
+                    3. Avez-vous remarqué quelque chose de particulier
+                    à propos des grilles de cercles ?
+                </p>
+
+                <textarea
+                    id="debrief-q3"
+                    rows="5"
+                    placeholder="Votre réponse..."
+                ></textarea>
+
+            </div>
+
+
+            <div class="item-block">
+
+                <p class="item-text">
+                    4. En regardant les grilles de cercles,
+                    les cercles vous ont-ils fait penser à quelque chose ?
+                    Si oui, à quoi ?
+                </p>
+
+                <textarea
+                    id="debrief-q4"
+                    rows="5"
+                    placeholder="Votre réponse..."
+                ></textarea>
+
+            </div>
+
+
+            <div class="item-block">
+
+                <p class="item-text">
+                    5. Avez-vous fait un lien entre les grilles de visages
+                    et les grilles de cercles ?
+                    Si oui, lequel ?
+                </p>
+
+                <textarea
+                    id="debrief-q5"
+                    rows="5"
+                    placeholder="Votre réponse..."
+                ></textarea>
+
+            </div>
+
+
+            <button
+                type="button"
+                onclick="submitDebriefOpenQuestions()"
+            >
+                Suivant
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================================================= -->
+    <!-- 8. DEBRIEF SCALE -->
+    <!-- ================================================= -->
+
+    <section
+        id="debrief-scale-section"
+        class="study-section hidden"
+    >
+
+        <div class="question-card">
+
+            <h2>
+                Dernière question
+            </h2>
+
+            <p class="item-text">
+                Pendant la tâche, vous est-il arrivé de voir les cercles foncés
+                comme représentant des personnes noires, et les cercles clairs
+                comme représentant des personnes blanches ?
+            </p>
+
+
+            <div class="likert-scale">
+
+                <label class="likert-option">
+                    <input
+                        type="radio"
+                        name="debrief_symbolic_link"
+                        value="1"
+                    >
+                    <span>Jamais</span>
+                </label>
+
+
+                <label class="likert-option">
+                    <input
+                        type="radio"
+                        name="debrief_symbolic_link"
+                        value="2"
+                    >
+                    <span>Rarement</span>
+                </label>
+
+
+                <label class="likert-option">
+                    <input
+                        type="radio"
+                        name="debrief_symbolic_link"
+                        value="3"
+                    >
+                    <span>Parfois</span>
+                </label>
+
+
+                <label class="likert-option">
+                    <input
+                        type="radio"
+                        name="debrief_symbolic_link"
+                        value="4"
+                    >
+                    <span>Souvent</span>
+                </label>
+
+
+                <label class="likert-option">
+                    <input
+                        type="radio"
+                        name="debrief_symbolic_link"
+                        value="5"
+                    >
+                    <span>Tout le temps</span>
+                </label>
+
+            </div>
+
+
+            <button
+                type="button"
+                onclick="submitDebriefScale()"
+            >
+                Terminer
+            </button>
+
+        </div>
+
+    </section>
     <!-- ================================================= -->
     <!-- SAVING -->
     <!-- ================================================= -->

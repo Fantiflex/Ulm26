@@ -15,6 +15,8 @@ const MATRIX_SIZE = 64;
 const MATRIX_ROWS = 8;
 
 const MATRIX_COLUMNS = 8;
+// Debrief
+
 
 
 
@@ -457,6 +459,14 @@ let groupApartStartedAt = null;
 let currentThreatSection = 0;
 
 let threatResponses = [];
+
+let debriefOpenResponses = null;
+
+let debriefScaleResponse = null;
+
+let debriefStartedAt = null;
+
+let debriefScaleStartedAt = null;
 
 let threatSectionStartedAt = null;
 
@@ -1917,10 +1927,172 @@ async function submitThreatSection() {
 
     } else {
 
-        finishStudy();
+        startDebrief();
 
     }
 
+}
+
+// =========================================================
+// DEBRIEF
+// =========================================================
+
+function startDebrief() {
+
+    debriefStartedAt =
+        performance.now();
+
+    showOnly(
+        "debrief-section"
+    );
+
+    window.scrollTo(
+        0,
+        0
+    );
+}
+
+
+// =========================================================
+// SUBMIT DEBRIEF OPEN QUESTIONS
+// =========================================================
+
+async function submitDebriefOpenQuestions() {
+
+    const q1 =
+        document
+            .getElementById("debrief-q1")
+            .value
+            .trim();
+
+    const q2 =
+        document
+            .getElementById("debrief-q2")
+            .value
+            .trim();
+
+    const q3 =
+        document
+            .getElementById("debrief-q3")
+            .value
+            .trim();
+
+    const q4 =
+        document
+            .getElementById("debrief-q4")
+            .value
+            .trim();
+
+    const q5 =
+        document
+            .getElementById("debrief-q5")
+            .value
+            .trim();
+
+
+    debriefOpenResponses = {
+
+        study_measure_guess:
+            q1,
+
+        estimation_strategy:
+            q2,
+
+        circle_observations:
+            q3,
+
+        circle_associations:
+            q4,
+
+        face_circle_link:
+            q5,
+
+        response_time_ms:
+            Math.round(
+                performance.now() -
+                debriefStartedAt
+            ),
+
+        timestamp_utc:
+            new Date().toISOString()
+
+    };
+
+
+    await saveResults(false);
+
+
+    debriefScaleStartedAt =
+        performance.now();
+
+
+    showOnly(
+        "debrief-scale-section"
+    );
+
+
+    window.scrollTo(
+        0,
+        0
+    );
+}
+
+
+// =========================================================
+// SUBMIT DEBRIEF SCALE
+// =========================================================
+
+async function submitDebriefScale() {
+
+    const selected =
+        document.querySelector(
+            'input[name="debrief_symbolic_link"]:checked'
+        );
+
+
+    if (!selected) {
+
+        alert(
+            "Veuillez sélectionner une réponse."
+        );
+
+        return;
+    }
+
+
+    debriefScaleResponse = {
+
+        item_id:
+            "circle_race_symbolic_link",
+
+        response:
+            Number(selected.value),
+
+        response_label:
+            {
+                1: "Jamais",
+                2: "Rarement",
+                3: "Parfois",
+                4: "Souvent",
+                5: "Tout le temps"
+            }[Number(selected.value)],
+
+        response_time_ms:
+            Math.round(
+                performance.now() -
+                debriefScaleStartedAt
+            ),
+
+        timestamp_utc:
+            new Date().toISOString()
+
+    };
+
+
+    await saveResults(false);
+
+
+    finishStudy();
 }
 
 
@@ -1988,8 +2160,15 @@ function buildResultData(completed) {
 
 
         threat_responses:
-            threatResponses
+            threatResponses,
 
+
+        debrief_open_responses:
+            debriefOpenResponses,
+
+
+        debrief_symbolic_link:
+            debriefScaleResponse
     };
 
 }
