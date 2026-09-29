@@ -417,7 +417,7 @@ let imageRatings = [];
 
 // Training
 
-const N_TRAINING_TRIALS = 3;
+const N_TRAINING_TRIALS = 2;
 
 let trainingTrials = [];
 
@@ -711,20 +711,43 @@ function startTrainingTask() {
     trainingRatings = [];
 
 
-    // On prend 3 grilles aléatoires parmi les stimuli disponibles.
-    // On travaille sur une copie afin de ne pas modifier imageTrials.
+    // Sépare les trials sociaux et non-sociaux.
+    const faceTrials =
+        imageTrials.filter(
+            trial => trial.image_type === "face"
+        );
 
-    const shuffledCopy =
-        shuffleArray(
-            [...imageTrials]
+    const circleTrials =
+        imageTrials.filter(
+            trial => trial.image_type === "circles"
         );
 
 
-    trainingTrials =
-        shuffledCopy.slice(
-            0,
-            N_TRAINING_TRIALS
-        );
+    // Choisit un essai aléatoire de chaque type.
+    const randomFaceTrial =
+        faceTrials[
+            Math.floor(
+                Math.random() * faceTrials.length
+            )
+        ];
+
+    const randomCircleTrial =
+        circleTrials[
+            Math.floor(
+                Math.random() * circleTrials.length
+            )
+        ];
+
+
+    // Training = exactement 1 visage + 1 cercle.
+    trainingTrials = [
+        randomFaceTrial,
+        randomCircleTrial
+    ];
+
+
+    // Randomise simplement leur ordre.
+    shuffleArray(trainingTrials);
 
 
     console.log(
@@ -740,7 +763,6 @@ function startTrainingTask() {
 
     showImageTrial();
 }
-
 // =========================================================
 // IMAGE TASK
 // =========================================================
