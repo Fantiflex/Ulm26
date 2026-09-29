@@ -83,8 +83,7 @@ RANDOM_SEED = 42
 # NON-SOCIAL STIMULI
 # ============================================================
 
-CIRCLE_RADIUS_RATIO = 0.30
-
+CIRCLE_RADIUS_PX = 29
 
 # ============================================================
 # DATA LOADING
@@ -213,7 +212,7 @@ def normalize_group(
 # ============================================================
 
 FACE_WITH_HAIR_ZOOM = 1.10
-FACE_NO_HAIR_PADDING = 0.06
+
 
 
 def prepare_face_cell_with_hair(
@@ -441,9 +440,7 @@ def make_circle_cell(
 
     draw = ImageDraw.Draw(image)
 
-    radius = int(
-        CELL_PX * CIRCLE_RADIUS_RATIO
-    )
+    radius = CIRCLE_RADIUS_PX
 
     center_x = CELL_PX // 2
     center_y = CELL_PX // 2
@@ -871,123 +868,7 @@ def generate_matrices() -> None:
         )
     )
 
-    # ============================================================
-    # LUMINANCE DISTRIBUTION ANALYSIS
-    # ============================================================
-
-    print("\n=== FACE LUMINANCE DISTRIBUTIONS ===")
-
-    summary = (
-        data
-        .groupby("group")["luminance_mean"]
-        .agg([
-            "count",
-            "mean",
-            "std",
-            "median",
-            "min",
-            "max",
-        ])
-    )
-
-    print(summary)
-
-    import matplotlib.pyplot as plt
-
-    black_luminance = data.loc[
-        data["group"] == "black",
-        "luminance_mean",
-    ]
-
-    white_luminance = data.loc[
-        data["group"] == "white",
-        "luminance_mean",
-    ]
-
-    plt.figure(figsize=(9, 5))
-
-    plt.hist(
-        black_luminance,
-        bins=20,
-        alpha=0.5,
-        label="Black-perceived faces",
-    )
-
-    plt.hist(
-        white_luminance,
-        bins=20,
-        alpha=0.5,
-        label="White-perceived faces",
-    )
-
-    plt.axvline(
-        black_luminance.mean(),
-        linestyle="--",
-        label=f"Black mean = {black_luminance.mean():.1f}",
-    )
-
-    plt.axvline(
-        white_luminance.mean(),
-        linestyle="--",
-        label=f"White mean = {white_luminance.mean():.1f}",
-    )
-
-    plt.xlabel("Mean face-region luminance")
-    plt.ylabel("Number of faces")
-    plt.title("Distribution of face luminance by perceived group")
-
-    plt.legend()
-    plt.tight_layout()
-    plt.show()
-
-    rng = np.random.default_rng(
-        RANDOM_SEED
-    )
-
-    total = (
-        len(TARGET_COUNTS)
-        * N_VERSIONS
-    )
-
-    generated = 0
-
-    for target_black in TARGET_COUNTS:
-
-        for version in range(
-            1,
-            N_VERSIONS + 1,
-        ):
-
-            generate_one_matrix(
-                data=data,
-                target_black=target_black,
-                version=version,
-                rng=rng,
-            )
-
-            generated += 1
-
-            print(
-                f"[{generated:02d}/{total}] "
-                f"Black={target_black:02d}/64 | "
-                f"version={version:02d}"
-            )
-
-    print(
-        "\nMatrix generation complete."
-    )
-
-    print(
-        f"Generated social matrices: {total}"
-    )
-
-    print(
-        f"Generated non-social matrices: {total}"
-    )
-
-    print(
-        f"Output directory: {OUTPUT_DIR}"
-    )
+    
 # ============================================================
 # ENTRY POINT
 # ============================================================
