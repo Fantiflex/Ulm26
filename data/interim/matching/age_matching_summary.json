@@ -1,0 +1,18 @@
+{
+  "matching_method": "minimum_cost_one_to_one_assignment",
+  "matching_variable": "age_rated",
+  "distance_metric": "absolute_age_difference",
+  "replacement": false,
+  "n_black_candidates": 61,
+  "n_white_candidates": 74,
+  "n_black_final": 61,
+  "n_white_final": 61,
+  "black_age_mean": 29.12293284315401,
+  "black_age_sd": 6.960887016319444,
+  "white_age_mean": 28.600698806791307,
+  "white_age_sd": 6.302549632647046,
+  "mean_absolute_pair_age_difference": 0.652532846423426,
+  "median_absolute_pair_age_difference": 0.26495726495729954,
+  "max_absolute_pair_age_difference": 4.8910256410256,
+  "standardized_mean_difference": 0.07865109575278259
+}

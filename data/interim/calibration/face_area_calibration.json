@@ -1,11 +1,11 @@
 {
-  "n_faces": 135,
+  "n_faces": 122,
   "cell_px": 100,
-  "median_face_area_px": 2571.0,
-  "mean_face_area_px": 2570.2296296296295,
-  "theoretical_radius_from_median_px": 28.607249385051436,
-  "theoretical_radius_from_mean_px": 28.6029631484854,
-  "median_radius_ratio": 0.28607249385051436,
-  "mean_radius_ratio": 0.286029631484854,
+  "median_face_area_px": 2579.5,
+  "mean_face_area_px": 2575.8278688524592,
+  "theoretical_radius_from_median_px": 28.654499671274806,
+  "theoretical_radius_from_mean_px": 28.63409638461571,
+  "median_radius_ratio": 0.2865449967127481,
+  "mean_radius_ratio": 0.2863409638461571,
   "rendered_circle_radius_px": 29
 }

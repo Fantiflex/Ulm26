@@ -53,7 +53,7 @@ STIMULI_PATH = (
     PROJECT_ROOT
     / "data"
     / "processed"
-    / "stimuli.csv"
+    / "stimuli_matched.csv"
 )
 
 DEFAULT_OUTPUT_DIR = (
@@ -425,7 +425,8 @@ def load_selected_image_paths(
     image_directory: Path,
 ) -> list[Path]:
     """
-    Load only the CFD images selected by 02_build_stimuli.py.
+    Load only the final age-matched CFD stimuli selected by
+02b_age_match_stimuli.py.
     """
 
     if not stimuli_path.exists():
