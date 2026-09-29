@@ -6,7 +6,7 @@ For each target Black-face count, this script:
 1. samples Black and White CFD stimuli;
 2. arranges 64 stimuli in a randomized 8x8 matrix;
 3. generates the corresponding social face matrix;
-4. generates the corresponding non-social circle matrices:
+4. generates the corresponding non-social circle matrix:
 5. saves cell-level metadata and matrix-level metadata.
 
 The generated directory structure is directly compatible with the
@@ -529,6 +529,17 @@ def sample_matrix(
         )
 
 
+    if len(black) < target_black:
+        raise RuntimeError(
+            f"Need {target_black} unique Black stimuli, "
+            f"but only {len(black)} are available."
+        )
+
+    if len(white) < target_white:
+        raise RuntimeError(
+            f"Need {target_white} unique White stimuli, "
+            f"but only {len(white)} are available."
+        )
     
 
     black_indices = rng.choice(
@@ -544,6 +555,7 @@ def sample_matrix(
         replace=False,
     )
 
+    
 
     sampled = pd.concat(
         [
@@ -645,7 +657,7 @@ def make_metadata(
         "grid_columns": GRID_COLS,
         "cell_px": CELL_PX,
 
-        "social_image": "face.jpg",
+        "social_image": "face.png",
         "non_social_image": "circles.png",
 
         "face_with_hair_zoom":
@@ -678,13 +690,8 @@ def make_metadata(
         "sampling_with_replacement":
             False,
 
-        "circle_radius_ratio":
-            CIRCLE_RADIUS_RATIO,
-
-        "circle_radius_px":
-            int(
-                CELL_PX * CIRCLE_RADIUS_RATIO
-            ),
+        "circle_radius_px": CIRCLE_RADIUS_PX,
+        "circle_radius_ratio": CIRCLE_RADIUS_PX / CELL_PX,
 
         "circle_luminance_mapping":
             "direct_face_luminance",
@@ -707,7 +714,7 @@ def generate_one_matrix(
     rng: np.random.Generator,
 ) -> None:
     """
-    Generate one social matrix and one non-social matrices.
+    Generate one social matrix and one non-social matrix.
     """
 
     folder_percentage = round(
@@ -774,7 +781,7 @@ def generate_one_matrix(
 
     face_matrix.save(
         output_directory
-        / "face.jpg",
+        / "face.png",
         quality=95,
     )
 
@@ -867,6 +874,32 @@ def generate_matrices() -> None:
             normalize_group
         )
     )
+
+    rng = np.random.default_rng(RANDOM_SEED)
+
+    total = len(TARGET_COUNTS) * N_VERSIONS
+    generated = 0
+
+    for target_black in TARGET_COUNTS:
+        for version in range(1, N_VERSIONS + 1):
+
+            generate_one_matrix(
+                data=data,
+                target_black=target_black,
+                version=version,
+                rng=rng,
+            )
+
+            generated += 1
+
+            print(
+                f"[{generated:02d}/{total}] "
+                f"Black={target_black:02d}/64 | "
+                f"version={version:02d}"
+            )
+
+    print(f"\nGenerated {generated} matrix pairs.")
+    print(f"Output directory: {OUTPUT_DIR}")
 
     
 # ============================================================
