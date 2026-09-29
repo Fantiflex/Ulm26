@@ -36,6 +36,10 @@ from minority_estimation.config import (
     TARGET_BLACK_COUNTS,
 )
 
+from minority_estimation.image_processing import (
+    compute_face_crop_box,
+)
+
 # ============================================================
 # PROJECT PATHS
 # ============================================================
@@ -216,54 +220,10 @@ def prepare_face_cell_with_hair(
 
         width, height = image.size
 
-        # Smaller crop => larger apparent face
-        crop_size = int(
-            min(width, height) / zoom
-        )
-
-        center_x = width // 2
-
-        # Shift upward slightly because the face/head is above
-        # the geometric centre of a CFD portrait.
-        center_y = int(
-            height * FACE_CENTER_Y_RATIO
-        )
-
-        left = (
-            center_x
-            - crop_size // 2
-        )
-
-        top = (
-            center_y
-            - crop_size // 2
-        )
-
-        # Keep crop inside image bounds
-        left = max(
-            0,
-            min(
-                left,
-                width - crop_size,
-            ),
-        )
-
-        top = max(
-            0,
-            min(
-                top,
-                height - crop_size,
-            ),
-        )
-
-        right = (
-            left
-            + crop_size
-        )
-
-        bottom = (
-            top
-            + crop_size
+        left, top, right, bottom = compute_face_crop_box(
+            width=width,
+            height=height,
+            zoom=zoom,
         )
 
         cropped = image.crop(
@@ -274,15 +234,6 @@ def prepare_face_cell_with_hair(
                 bottom,
             )
         )
-
-        cropped = cropped.resize(
-            (
-                cell_px,
-                cell_px,
-            ),
-            Image.Resampling.LANCZOS,
-        )
-
         return cropped
 
 

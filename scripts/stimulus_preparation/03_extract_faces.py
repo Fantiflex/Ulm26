@@ -31,6 +31,9 @@ from minority_estimation.config import (
     NUM_FACES,
 )
 
+from minority_estimation.image_processing import (
+    compute_face_crop_box,
+)
 
 # ============================================================
 # PROJECT PATHS
@@ -254,50 +257,18 @@ def compute_displayed_face_area(
     height, width = mask.shape[:2]
 
     # Same crop used by prepare_face_cell_with_hair()
-    crop_size = int(
-        min(width, height) / zoom
+    height, width = mask.shape[:2]
+
+    left, top, right, bottom = compute_face_crop_box(
+        width=width,
+        height=height,
+        zoom=zoom,
     )
 
-    center_x = width // 2
-    center_y = int(
-        height * FACE_CENTER_Y_RATIO
-    )
-
-    left = (
-        center_x
-        - crop_size // 2
-    )
-
-    top = (
-        center_y
-        - crop_size // 2
-    )
-
-    left = max(
-        0,
-        min(
-            left,
-            width - crop_size,
-        ),
-    )
-
-    top = max(
-        0,
-        min(
-            top,
-            height - crop_size,
-        ),
-    )
-
-    right = (
-        left
-        + crop_size
-    )
-
-    bottom = (
-        top
-        + crop_size
-    )
+    cropped_mask = mask[
+        top:bottom,
+        left:right
+    ]
 
     cropped_mask = mask[
         top:bottom,
