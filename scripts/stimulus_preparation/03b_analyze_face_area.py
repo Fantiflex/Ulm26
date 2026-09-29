@@ -4,6 +4,8 @@ import numpy as np
 import pandas as pd
 
 
+from minority_estimation.config import CELL_PX
+
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 
 FACE_LUMINANCE_PATH = (
@@ -14,7 +16,6 @@ FACE_LUMINANCE_PATH = (
     / "face_luminance.csv"
 )
 
-CELL_PX = 100
 
 
 df = pd.read_csv(FACE_LUMINANCE_PATH)
