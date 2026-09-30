@@ -10,38 +10,43 @@ The repository is designed to make the full stimulus-generation pipeline reprodu
 
 ## Study overview
 
-Participants complete **90 estimation trials**.
+Each participant completes one of three study conditions:
 
-On each trial, they briefly view an **8 × 8 grid containing 64 stimuli** for **2 seconds**. The grid then disappears, and participants estimate the percentage of a requested category using a continuous **0–100% slider**.
+| Study condition | Stimuli presented | Main trials |
+| --- | --- | ---: |
+| Mixed | Face grids and grayscale circle grids | 90 |
+| Social only | Face grids only | 45 |
+| Non-social only | Grayscale circle grids only | 45 |
 
-The experiment contains two conditions:
+Each grid contains 64 elements arranged in an 8 × 8 layout.
+Images are presented for 2 seconds, followed by a percentage
+estimate using a continuous 0–100% slider. Participants have
+10 seconds to submit each main-task estimate.
 
-- **Social condition:** grids of Black-perceived and White-perceived male faces.
-- **Non-social condition:** grids of grayscale circles derived from the visual properties of the corresponding face stimuli.
+Nine compositions are used: 8, 14, 20, 26, 32, 38, 44, 50,
+and 56 elements from the primary category out of 64.
+Five versions per composition yield 45 face grids and
+45 corresponding circle grids.
 
-There are nine target proportions:
+The three conditions use the same underlying stimulus set.
+Experiment files are located in:
 
-```text
-8 / 64
-14 / 64
-20 / 64
-26 / 64
-32 / 64
-38 / 64
-44 / 64
-50 / 64
-56 / 64
-```
+- `experiment/mixed/`
+- `experiment/social_only/`
+- `experiment/nonsocial_only/`
 
-Five matrices are generated for each proportion level, yielding:
+Generated matrices are shared in `experiment/images_matrices/`.
 
-```
-9 proportion levels × 5 versions = 45 social matrices
-9 proportion levels × 5 versions = 45 non-social matrices
-```
+After the estimation task, participants complete a condition-specific
+funnel debrief, presented one question at a time without a response
+deadline. In conditions containing circles, open-ended association
+questions precede an explicit question about interpreting circles
+as representing Black or White people.
 
-for a total of **90 experimental matrices**.
-
+The perceived-threat questionnaires and the symbolic “separate group”
+question have been removed from the pilot protocol.
+The numerical estimate of the Black population in France and
+the demographic questions remain.
 ---
 
 ## Face stimulus selection
@@ -260,6 +265,18 @@ Minority_estimation/
 │
 ├── experiment/
 │   └── images_matrices/
+│   └── mixed/
+│       ├── index.html
+│       ├── script.js
+│       └── style.css
+│   └── social_only/
+├       ├── index.html
+│       ├── script.js
+│       └── style.css
+│   └── nonsocial_only/
+├       ├── index.html
+│       ├── script.js
+│       └── style.css
 │
 ├── models/
 │   └── face_landmarker.task

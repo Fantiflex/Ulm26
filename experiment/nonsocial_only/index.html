@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Questionnaire</title>
+
+    <link
+        rel="stylesheet"
+        href="nonsocial_only/style.css"
+    >
+
+    <!-- JATOS -->
+    <script src="jatos.js"></script>
+</head>
+
+
+<body>
+
+<div class="container">
+
+
+    <!-- ================================================= -->
+    <!-- 1. PARTICIPANT ID -->
+    <!-- ================================================= -->
+
+    <section
+        id="start-section"
+        class="study-section"
+    >
+
+        <h1>Questionnaire</h1>
+
+        <p class="intro-text">
+            Veuillez indiquer votre <strong>ID Prolific</strong>
+            (24 caractères).
+        </p>
+
+        <input
+            id="participant-id"
+            type="text"
+            placeholder="Votre ID Prolific (24 caractères)"
+            maxlength="40"
+            autocomplete="off"
+            spellcheck="false"
+        >
+
+        <p
+            id="participant-id-error"
+            class="field-error hidden"
+        ></p>
+
+        <button
+            id="start-button"
+            type="button"
+            onclick="startStudy()"
+        >
+            Commencer
+        </button>
+
+    </section>
+
+
+    <!-- ================================================= -->
+    <!-- 1B. PAGE D'ACCUEIL / PRESENTATION GENERALE -->
+    <!-- ================================================= -->
+
+    <section
+        id="study-intro-section"
+        class="study-section hidden"
+    >
+
+        <div class="centered-content">
+
+            <h1>
+                Merci pour votre participation à l'expérience.
+            </h1>
+
+            <div class="task-instructions">
+
+                <p>
+                    Vous allez voir une série de grilles contenant des cercles.
+                </p>
+
+            </div>
+
+            <button
+                type="button"
+                onclick="startImageInstructions()"
+            >
+                Suivant
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================================================= -->
+    <!-- 2. INSTRUCTIONS IMAGES -->
+    <!-- ================================================= -->
+
+    <section
+        id="image-instruction-section"
+        class="study-section hidden"
+    >
+
+        <div class="centered-content">
+
+            <h2>
+                Tâche d'estimation
+            </h2>
+
+            <div class="task-instructions">
+
+                <p>
+                    Chaque grille apparaîtra brièvement à l'écran.
+                    Après chaque grille, il vous sera demandé d'estimer le pourcentage
+                    de cercles appartenant à un groupe particulier
+                    (cercles clairs ou cercles foncés).
+                </p>
+
+                <p>
+                    Vous utiliserez le curseur pour indiquer votre estimation,
+                    de 0 % à 100 %.
+                </p>
+
+                <p>
+                    Vous allez d'abord effectuer 2 essais d'entraînement.
+                </p>
+
+            </div>
+
+            <button
+            id="instruction-next-button"
+            type="button"
+            onclick="showSecondInstructions()"
+        >
+            Suivant
+        </button>
+
+        </div>
+
+    </section>
+
+<!-- ================================================= -->
+<!-- 2B. SECOND IMAGE INSTRUCTIONS -->
+<!-- ================================================= -->
+
+<section
+    id="image-second-instruction-section"
+    class="study-section hidden"
+>
+
+    <div class="centered-content">
+
+        <h2>
+            Attention
+        </h2>
+
+        <div class="task-instructions">
+
+            <p>
+                <strong>Lisez bien la consigne à chaque fois.</strong>
+            </p>
+
+            <p>
+                Il vous sera demandé à certains moments d'estimer le pourcentage
+                de cercles clairs et à d'autres moments d'estimer
+                le pourcentage de cercles foncés.
+            </p>
+
+            <p class="important-instruction">
+                Répondez spontanément, nous nous intéressons à votre première impression.
+            </p>
+
+        </div>
+
+        <button
+            type="button"
+            onclick="startTrainingTask()"
+        >
+            Commencer l'entraînement
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- ================================================= -->
+<!-- TRAINING COMPLETE -->
+<!-- ================================================= -->
+
+<section
+    id="training-complete-section"
+    class="study-section hidden"
+>
+
+    <div class="centered-content">
+
+        <h2>
+            Bravo, vous avez fini l'entraînement !
+        </h2>
+
+        <p class="large-instruction">
+            La tâche va maintenant commencer.
+        </p>
+
+        <button
+            type="button"
+            onclick="startImageTask()"
+        >
+            Commencer la tâche
+        </button>
+
+    </div>
+
+</section>
+
+
+    <!-- ================================================= -->
+    <!-- 3. IMAGE TASK -->
+    <!-- ================================================= -->
+
+    <section
+        id="image-rating-section"
+        class="study-section hidden"
+    >
+
+        <!--
+            La progression ("Image X sur Y") n'est volontairement
+            plus affichée aux participants. L'élément est conservé
+            vide dans le DOM pour ne rien casser au niveau du CSS.
+        -->
+        <div
+            id="image-progress"
+            class="progress"
+        ></div>
+
+
+        <!-- Image -->
+        <div
+            id="stimulus-container"
+            class="stimulus-container"
+        >
+
+            <p
+                id="image-loading-message"
+                class="loading-message hidden"
+            >
+                Chargement...
+            </p>
+
+            <img
+                id="stimulus-image"
+                src=""
+                alt="Stimulus"
+            >
+
+        </div>
+
+
+        <!-- Slider caché pendant l'image -->
+        <div
+            id="image-slider-container"
+            class="slider-section hidden"
+        >
+
+            <p class="response-instruction">
+                Quelle est votre estimation ?
+            </p>
+
+
+            <div class="slider-value-display">
+
+                <span id="image-slider-value">
+                    — %
+                </span>
+
+            </div>
+
+
+            <input
+            id="image-percentage-slider"
+            class="percentage-slider"
+            type="range"
+            min="0"
+            max="100"
+            step="1"
+            >
+
+
+            <div class="slider-labels">
+
+                <span>0 %</span>
+                <span>100 %</span>
+
+            </div>
+
+
+            <button
+                id="image-next-button"
+                type="button"
+                onclick="submitImageRating()"
+                disabled
+            >
+                Suivant
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================================================= -->
+    <!-- 3B. TRANSITION VERS LES QUESTIONNAIRES -->
+    <!-- ================================================= -->
+
+    <section
+        id="questionnaire-transition-section"
+        class="study-section hidden"
+    >
+
+        <div class="centered-content">
+
+            <p class="large-instruction">
+                Merci pour votre participation jusqu'ici.
+            </p>
+
+            <p class="large-instruction">
+                Il ne vous reste que quelques questions à
+                compléter pour terminer l'expérience
+                (moins de 5 minutes).
+            </p>
+
+            <button
+                type="button"
+                onclick="startDebrief()"
+            >
+                Suivant
+            </button>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ================================================= -->
+    <!-- 3C. DEBRIEF EN ENTONNOIR (1 question par page, -->
+    <!--     contenu généré par script.js)               -->
+    <!-- ================================================= -->
+
+    <section
+        id="debrief-section"
+        class="study-section hidden"
+    >
+
+        <div id="debrief-question-container"></div>
+
+
+        <div class="navigation">
+
+            <button
+                id="debrief-next-button"
+                type="button"
+                onclick="submitDebriefQuestion()"
+            >
+                Suivant
+            </button>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ================================================= -->
+    <!-- 4. ESTIMATION POPULATION FRANÇAISE -->
+    <!-- ================================================= -->
+
+    <section
+        id="population-section"
+        class="study-section hidden"
+    >
+
+        <div class="question-card">
+
+            <h2>
+                À votre avis, quel pourcentage de la
+                population française est noire ?
+            </h2>
+
+
+            <p class="scale-reminder">
+                Réponse de 0 à 100 %
+            </p>
+
+
+            <div class="slider-value-display">
+
+                <span id="population-slider-value">
+                    — %
+                </span>
+
+            </div>
+
+
+            <input
+                id="population-slider"
+                class="percentage-slider"
+                type="range"
+                min="0"
+                max="100"
+                step="1"
+                value="50"
+            >
+
+
+            <div class="slider-labels">
+
+                <span>0 %</span>
+                <span>100 %</span>
+
+            </div>
+
+
+            <button
+                id="population-next-button"
+                type="button"
+                onclick="submitPopulationEstimate()"
+                disabled
+            >
+                Suivant
+            </button>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ================================================= -->
+    <!-- 5. DEMOGRAPHICS (une seule page) -->
+    <!-- ================================================= -->
+
+    <section
+        id="demographics-section"
+        class="study-section hidden"
+    >
+
+        <div class="section-header">
+
+            <h2>
+                Pour terminer, quelques informations vous concernant
+            </h2>
+
+        </div>
+
+
+        <!-- Genre -->
+        <div class="item-block">
+
+            <p class="item-text">
+                <strong>Genre :</strong>
+            </p>
+
+            <div class="choice-row">
+
+                <label class="choice-option">
+                    <input type="radio" name="demo_gender" value="feminin">
+                    <span>Féminin</span>
+                </label>
+
+                <label class="choice-option">
+                    <input type="radio" name="demo_gender" value="masculin">
+                    <span>Masculin</span>
+                </label>
+
+                <label class="choice-option">
+                    <input type="radio" name="demo_gender" value="autre">
+                    <span>Autre</span>
+                </label>
+
+                <label class="choice-option">
+                    <input type="radio" name="demo_gender" value="ne_se_prononce_pas">
+                    <span>Je ne souhaite pas me prononcer</span>
+                </label>
+
+            </div>
+
+        </div>
+
+
+        <!-- Âge -->
+        <div class="item-block">
+
+            <p class="item-text">
+                <label for="demo-age"><strong>Âge</strong> (en années) :</label>
+            </p>
+
+            <div class="age-input-row">
+
+                <input
+                    id="demo-age"
+                    type="number"
+                    inputmode="numeric"
+                    min="18"
+                    max="80"
+                    step="1"
+                    placeholder="Ex. 25"
+                    autocomplete="off"
+                >
+
+                <span>ans</span>
+
+            </div>
+
+            <p
+                id="demo-age-error"
+                class="field-error hidden"
+            >
+                Veuillez indiquer un âge en années, entre 18 et 80.
+            </p>
+
+        </div>
+
+
+        <!-- Niveau d'études -->
+        <div class="item-block">
+
+            <p class="item-text">
+                <strong>Niveau d'études :</strong>
+            </p>
+
+            <div class="choice-list">
+
+                <label class="choice-option">
+                    <input type="radio" name="demo_education" value="doctorat">
+                    <span>Diplôme de 3ème cycle universitaire (doctorat)</span>
+                </label>
+
+                <label class="choice-option">
+                    <input type="radio" name="demo_education" value="master">
+                    <span>Diplôme de 2ème cycle universitaire (master)</span>
+                </label>
+
+                <label class="choice-option">
+                    <input type="radio" name="demo_education" value="licence_bac2">
+                    <span>Diplôme du 1er cycle universitaire (licence), BTS, DUT, ou équivalent niveau BAC+2</span>
+                </label>
+
+                <label class="choice-option">
+                    <input type="radio" name="demo_education" value="baccalaureat">
+                    <span>Baccalauréat général, technologique, professionnel ou équivalent</span>
+                </label>
+
+                <label class="choice-option">
+                    <input type="radio" name="demo_education" value="cap_bep">
+                    <span>CAP, BEP ou diplôme de même niveau</span>
+                </label>
+
+                <label class="choice-option">
+                    <input type="radio" name="demo_education" value="brevet">
+                    <span>Brevet des collèges</span>
+                </label>
+
+                <label class="choice-option">
+                    <input type="radio" name="demo_education" value="aucun">
+                    <span>Aucun diplôme</span>
+                </label>
+
+                <label class="choice-option">
+                    <input type="radio" name="demo_education" value="ne_se_prononce_pas">
+                    <span>Je ne souhaite pas me prononcer</span>
+                </label>
+
+            </div>
+
+        </div>
+
+
+        <!-- Appareil utilisé -->
+        <div class="item-block">
+
+            <p class="item-text">
+                <strong>Avez-vous effectué la tâche sur :</strong>
+            </p>
+
+            <div class="choice-row">
+
+                <label class="choice-option">
+                    <input type="radio" name="demo_device" value="ordinateur">
+                    <span>Un ordinateur</span>
+                </label>
+
+                <label class="choice-option">
+                    <input type="radio" name="demo_device" value="tablette">
+                    <span>Une tablette</span>
+                </label>
+
+                <label class="choice-option">
+                    <input type="radio" name="demo_device" value="telephone">
+                    <span>Un téléphone</span>
+                </label>
+
+                <label class="choice-option">
+                    <input type="radio" name="demo_device" value="autre">
+                    <span>Autre</span>
+                </label>
+
+            </div>
+
+        </div>
+
+
+        <div class="navigation">
+
+            <button
+                id="demographics-submit-button"
+                type="button"
+                onclick="submitDemographics()"
+            >
+                Terminer
+            </button>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ================================================= -->
+    <!-- SAVING -->
+    <!-- ================================================= -->
+
+    <section
+        id="saving-section"
+        class="study-section hidden"
+    >
+
+        <div class="centered-content">
+
+            <h2>
+                Enregistrement...
+            </h2>
+
+            <p>
+                Veuillez ne pas fermer cette page.
+            </p>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ================================================= -->
+    <!-- END -->
+    <!-- ================================================= -->
+
+    <section
+        id="end-section"
+        class="study-section hidden"
+    >
+
+        <div class="centered-content">
+
+            <h1>
+                Merci pour votre participation.
+            </h1>
+
+            <p>
+                Vos réponses ont bien été enregistrées.
+            </p>
+
+            <p class="large-instruction">
+                Vous allez être redirigé(e) automatiquement vers Prolific
+                dans quelques secondes.
+            </p>
+
+            <p class="secondary-instruction">
+                Si rien ne se passe,
+                <a id="prolific-return-link" href="#" onclick="redirectToProlific(); return false;">cliquez ici pour retourner sur Prolific</a>.
+                <br>
+                Code de complétion :
+                <strong id="prolific-completion-code"></strong>
+            </p>
+
+        </div>
+
+    </section>
+
+
+</div>
+
+
+<script src="nonsocial_only/script.js"></script>
+
+</body>
+
+</html>
