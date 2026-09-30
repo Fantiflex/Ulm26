@@ -8,7 +8,7 @@ console.log("script.js chargé");
 
 
 const IMAGE_PRESENTATION_DURATION_MS = 2000;
-const IMAGE_RESPONSE_LIMIT_MS = 5000;
+const IMAGE_RESPONSE_LIMIT_MS = 10000;
 const TIMEOUT_WARNING_DURATION_MS = 1000;
 const MATRIX_SIZE = 64;
 
