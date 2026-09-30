@@ -94,7 +94,7 @@ const TARGETS = [
 
 
                     const basePath =
-                        `experiment/images_matrices/${folder}/${version}`;
+                        `../images_matrices/${folder}/${version}`;
 
 
                     // =================================================
