@@ -485,10 +485,10 @@ The Chicago Face Database: A free stimulus set of faces and norming data.
 *Behavior Research Methods, 47*, 1122–1135.
 
 Kardosh, R., et al. (2022).  
-[Add full reference.]
+
 
 Gayet, S., et al. (2022).  
-[Add full reference.]
+
 
 ---
 
