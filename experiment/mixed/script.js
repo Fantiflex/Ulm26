@@ -117,8 +117,7 @@ const TARGET_COUNTS = [
                         `mb${paddedTargetCount}_n64_v${paddedVersion}`;
 
 
-                    const basePath =
-                        `../images_matrices/${folder}/${version}`;
+                    const basePath =`images_matrices/${folder}/${version}`;
 
 
                     // =================================================

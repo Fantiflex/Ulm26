@@ -131,7 +131,7 @@ const TARGET_COUNTS = [
 
 
                     const basePath =
-                        `../images_matrices/${folder}/${version}`;
+                        const basePath =`images_matrices/${folder}/${version}`;
 
 
                     // =================================================
