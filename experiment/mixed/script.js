@@ -1,5 +1,5 @@
 console.log("script.js chargé");
-
+const STUDY_VERSION = "mixed";
 
 // =========================================================
 // EXPERIMENT PARAMETERS
@@ -2208,6 +2208,7 @@ async function submitDemographics() {
 function buildResultData(completed) {
 
     return {
+        study_version: STUDY_VERSION,
 
         // ID lus automatiquement dans le lien Prolific
         prolific_pid_url:
@@ -2297,6 +2298,7 @@ function buildResultData(completed) {
             demographicsResponse
 
     };
+    
 
 }
 
