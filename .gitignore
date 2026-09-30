@@ -22,3 +22,6 @@ results/raw/
 # IDE
 .vscode/
 .idea/
+
+
+*.egg-info/
