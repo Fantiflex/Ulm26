@@ -4,7 +4,7 @@ This repository contains the stimulus preparation pipeline and experimental mate
 
 The project extends the minority estimation paradigm introduced by Kardosh et al. (2022) by comparing estimates made from grids of human faces with estimates made from visually analogous non-social stimuli.
 
-The repository is designed to make the full stimulus-generation pipeline reproducible, from Chicago Face Database (CFD) metadata to the final experimental matrices.
+The repository provides a reproducible stimulus-generation pipeline, three pilot experiments for JATOS, and aggregate quality-control tables and figures. Pilot data collection is underway.
 
 ---
 
@@ -53,11 +53,16 @@ the demographic questions remain.
 
 Face stimuli are drawn from the **Chicago Face Database (CFD), Version 3.0**.
 
-Eligible stimuli are restricted to faces that:
+The current selection code retains models that:
 
-- are perceived as **Black or White**;
-- are perceived as **Male**;
-- reach at least a **90% perceived-category probability threshold**.
+- have self-reported gender `M`;
+- have a dominant perceived-gender response proportion **strictly greater than 0.90**;
+- have dominant perceived ethnicity **Black or White**, with a response proportion **at least 0.90**;
+- have an associated local image.
+
+The perceived-gender threshold is applied to the largest gender response proportion; the code does not separately require the dominant perceived label to be `M`. These criteria describe the current implementation.
+
+CFD perceptual proportions describe norming responses, not classifier confidence scores.
 
 This produces an initial eligible pool of:
 
@@ -68,7 +73,7 @@ White-perceived male faces: 74
 
 To obtain balanced groups, all 61 eligible Black-perceived faces are retained and 61 White-perceived faces are selected using **optimal one-to-one age matching without replacement**.
 
-Matching is based on mean rated age (`R002 Age rated`) and minimizes the total absolute age difference between matched Black- and White-perceived faces using a minimum-cost assignment algorithm.
+Matching is based on mean rated age (`age_rated` in the harmonised manifest) and minimizes the total absolute age difference between matched Black- and White-perceived faces using a minimum-cost assignment algorithm.
 
 The final social stimulus pool therefore contains:
 
@@ -158,7 +163,7 @@ scripts/stimulus_preparation/03c_analyze_mean_luminance.py
 
 ## Non-social stimulus generation
 
-The non-social condition uses grayscale circles to preserve selected low-level visual properties while removing socially meaningful facial content.
+The non-social condition uses grayscale circles to preserve selected visual properties while removing facial structure. Whether participants attribute social meaning to these circles is assessed through the pilot debrief.
 
 Each circle is displayed within a:
 
@@ -246,116 +251,26 @@ A fixed random seed is used for reproducibility.
 
 ## Repository structure
 
-```
-Minority_estimation/
-│
-├── data/
-│   ├── raw/
-│   │   └── cfd/
-│   │
-│   ├── interim/
-│   │   ├── cfd_audit/
-│   │   ├── matching/
-│   │   ├── faces_only/
-│   │   └── calibration/
-│   │
-│   └── processed/
-│       ├── stimuli.csv
-│       └── stimuli_matched.csv
-│
-├── experiment/
-│   └── images_matrices/
-│   └── mixed/
-│       ├── index.html
-│       ├── script.js
-│       └── style.css
-│   └── social_only/
-├       ├── index.html
-│       ├── script.js
-│       └── style.css
-│   └── nonsocial_only/
-├       ├── index.html
-│       ├── script.js
-│       └── style.css
-│
-├── models/
-│   └── face_landmarker.task
-│
-├── results/
-│   └── stimulus_qc/
-│
-├── scripts/
-│   └── stimulus_preparation/
-│       ├── 01_audit_cfd_manifest.py
-│       ├── 02_build_stimuli.py
-│       ├── 02b_age_match_stimuli.py
-│       ├── 03_extract_faces.py
-│       ├── 03b_analyze_face_area.py
-│       ├── 03c_analyze_mean_luminance.py
-│       └── 04_generate_matrices.py
-│
-├── src/
-│   └── minority_estimation/
-│       ├── __init__.py
-│       ├── config.py
-│       ├── cfd_manifest.py
-│       ├── image_processing.py
-│       ├── stimuli.py
-│       └── validation.py
-│
-├── pyproject.toml
-├── requirements.txt
-└── README.md
-```
+| Path | Contents |
+| --- | --- |
+| `src/minority_estimation/` | Reusable Python functions, schemas, validation and stimulus configuration |
+| `scripts/stimulus_preparation/` | Metadata audit, stimulus selection, age matching, QC, extraction and matrix generation |
+| `data/raw/cfd/` | Local CFD workbook and image inputs; excluded from Git |
+| `data/interim/cfd_audit/` | Harmonised manifest and audit summaries |
+| `data/interim/matching/` | Age-matching diagnostics |
+| `data/interim/faces_only/` | Extracted face outputs; excluded from Git |
+| `data/interim/calibration/` | Face-area and luminance calibration outputs |
+| `data/processed/` | Eligible and age-matched stimulus manifests |
+| `experiment/mixed/` | HTML, JavaScript and CSS for the mixed condition |
+| `experiment/social_only/` | HTML, JavaScript and CSS for faces only |
+| `experiment/nonsocial_only/` | HTML, JavaScript and CSS for circles only |
+| `experiment/images_matrices/` | Generated paired matrices; excluded from Git |
+| `models/face_landmarker.task` | MediaPipe model asset |
+| `results/stimulus_qc/audit_and_selection/` | Aggregate audit and selection figures, tables and explanatory README |
+| `results/stimulus_qc/face_luminance_distribution.png` | Luminance QC figure |
+| `pyproject.toml`, `requirements.txt` | Package configuration and dependencies |
 
----
-
-## Stimulus preparation pipeline
-
-The full pipeline is:
-
-```
-CFD metadata
-    │
-    ▼
-01_audit_cfd_manifest.py
-    │
-    │ harmonize and audit CFD metadata
-    ▼
-02_build_stimuli.py
-    │
-    │ apply perceptual inclusion criteria
-    ▼
-135 eligible faces
-61 Black + 74 White
-    │
-    ▼
-02b_age_match_stimuli.py
-    │
-    │ optimal one-to-one rated-age matching
-    ▼
-122 final faces
-61 Black + 61 White
-    │
-    ▼
-03_extract_faces.py
-    │
-    │ MediaPipe face detection
-    │ face area + luminance
-    ▼
-03b_analyze_face_area.py
-    │
-    │ calibrate circle size
-    ▼
-03c_analyze_mean_luminance.py
-    │
-    │ luminance QC
-    ▼
-04_generate_matrices.py
-    │
-    ▼
-45 social + 45 non-social matrices
-```
+Generated `*.egg-info/` directories are excluded from Git.
 
 ---
 
@@ -373,13 +288,14 @@ source .venv/bin/activate
 Install the project:
 
 ```bash
-pip install -e .
+python -m pip install -e .
 ```
 
 Install the required dependencies:
 
 ```bash
-pip install -r requirements.txt
+python -m pip install -r requirements.txt
+python -m pip install matplotlib
 ```
 
 ---
@@ -400,31 +316,39 @@ python scripts/stimulus_preparation/01_audit_cfd_manifest.py
 python scripts/stimulus_preparation/02_build_stimuli.py
 ```
 
-### 3. Perform age matching
+### 3. Generate audit and selection QC
+
+```bash
+python scripts/stimulus_preparation/02c_plot_stimulus_qc.py
+```
+
+This script reads the outputs of steps 01 and 02. Its summaries describe the **135 eligible stimuli before age matching**, not the final 122-face pool.
+
+### 4. Perform age matching
 
 ```bash
 python scripts/stimulus_preparation/02b_age_match_stimuli.py
 ```
 
-### 4. Extract faces and compute luminance
+### 5. Extract faces and compute luminance
 
 ```bash
 python scripts/stimulus_preparation/03_extract_faces.py
 ```
 
-### 5. Calibrate circle size
+### 6. Calibrate circle size
 
 ```bash
 python scripts/stimulus_preparation/03b_analyze_face_area.py
 ```
 
-### 6. Inspect luminance distributions
+### 7. Inspect luminance distributions
 
 ```bash
 python scripts/stimulus_preparation/03c_analyze_mean_luminance.py
 ```
 
-### 7. Generate experimental matrices
+### 8. Generate experimental matrices
 
 ```bash
 python scripts/stimulus_preparation/04_generate_matrices.py
@@ -434,24 +358,86 @@ python scripts/stimulus_preparation/04_generate_matrices.py
 
 ## Generated matrix structure
 
-Each generated matrix directory contains:
+Each matrix is stored under:
 
-```
-mb##_n64_v##/
-├── face.png
-├── circles.png
-├── cells.csv
-└── metadata.json
+```text
+experiment/images_matrices/<rounded_percentage>pct_black/mb<count>_n64_v<version>/
 ```
 
-where:
+For example, composition 8/64, version 1 is stored in `12pct_black/mb08_n64_v01/`.
 
-- `face.png` is the social stimulus;
-- `circles.png` is the corresponding non-social stimulus;
-- `cells.csv` records the identity, group, luminance, and position of every cell;
-- `metadata.json` records the matrix composition and generation parameters.
+| File | Contents |
+| --- | --- |
+| `face.png` | Social grid |
+| `circles.png` | Corresponding grayscale circle grid |
+| `cells.csv` | Cell identity, category, luminance and position |
+| `metadata.json` | Composition and generation parameters |
+
+Folder percentages use Python's `round()` rule: exact half values are rounded to the nearest even integer. For the nine compositions, folder prefixes are **12, 22, 31, 41, 50, 59, 69, 78 and 88**. JavaScript uses the same rule for file lookup. This rounding affects folder names only; true stimulus percentages retain their exact values.
 
 The social and non-social matrices share the same cell-level composition and spatial arrangement.
+
+---
+
+## Audit and selection results
+
+The harmonised manifest contains **597 models**. Dominant perceived categories are White (196), Black (183), Asian (103), Latino (90), Multiracial (22) and Other (3). Selection produces **135 eligible models: 61 Black-perceived and 74 White-perceived**.
+
+Browse the [QC results and aggregate CSV tables](results/stimulus_qc/audit_and_selection/README.md). Each figure is available as PNG and PDF.
+
+### Database composition
+
+![CFD composition by self-reported category and gender](results/stimulus_qc/audit_and_selection/01_demographic_counts.png)
+
+### Self-reported and perceived categories
+
+![Self-reported versus dominant perceived categories](results/stimulus_qc/audit_and_selection/02_self_perceived_categories.png)
+
+Percentages are calculated within each self-reported category; counts are displayed in each cell. This describes correspondence between category systems, not classification accuracy.
+
+### Missing metadata
+
+![Missing values in the harmonised manifest](results/stimulus_qc/audit_and_selection/03_missingness.png)
+
+Missingness is assessed in the harmonised table, rather than across every column of the original workbook.
+
+### Selection counts
+
+![Category counts before and after stimulus selection](results/stimulus_qc/audit_and_selection/04_selection_counts.png)
+
+This compares the original manifest with the eligible pool. It does not isolate the contribution of individual exclusion criteria.
+
+### Perceptual response proportions
+
+![Dominant perceived-category response proportions in selected stimuli](results/stimulus_qc/audit_and_selection/05_selected_perceptual_proportions.png)
+
+The dashed line marks the category-selection threshold. These values are proportions of CFD norming responses.
+
+### Rated age before matching
+
+![Cumulative rated-age distributions in the eligible pool](results/stimulus_qc/audit_and_selection/06_selected_rated_age.png)
+
+This figure describes the eligible pool **before** age matching. Age summary statistics are provided in the accompanying CSV.
+
+---
+
+## Running the pilot experiments in JATOS
+
+Place the contents of the repository's `experiment/` directory in the study assets root. The three condition folders and `images_matrices/` must be siblings.
+
+| Condition | Component HTML file path | CSS reference | Experiment script reference |
+| --- | --- | --- | --- |
+| Mixed | `mixed/index.html` | `mixed/style.css` | `mixed/script.js` |
+| Social only | `social_only/index.html` | `social_only/style.css` | `social_only/script.js` |
+| Non-social only | `nonsocial_only/index.html` | `nonsocial_only/style.css` | `nonsocial_only/script.js` |
+
+These versions use paths relative to the JATOS study assets root. All three scripts load matrices from `images_matrices/...`; the HTML loads the JATOS library with `src="jatos.js"`. Direct browsing of the nested HTML through a generic static server requires a separate path configuration.
+
+Each participant completes **one condition**. Having three components in one JATOS study does not, by itself, randomly assign participants to them. Configure study entry links or an explicit assignment mechanism accordingly.
+
+Exports identify the condition through `study_version`: `mixed`, `social_only` or `nonsocial_only`. They include training and main-task responses, requested categories, true percentages, response times and timeouts, funnel-debrief answers, population estimates, demographics, and the technical/Prolific metadata collected by the scripts.
+
+Check the Prolific completion code for each deployed study. Validate asset loading, saving and completion redirection in JATOS before using a newly deployed version. GitHub pushes do not automatically update JATOS assets.
 
 ---
 
@@ -471,7 +457,7 @@ Relevant provenance information includes:
 - cell-level matrix metadata;
 - matrix-level metadata.
 
-Generated outputs should be regenerated whenever upstream stimulus-selection criteria change.
+For a new stimulus version, regenerate downstream outputs whenever upstream selection criteria change. Preserve the exact stimuli, configuration and code version used for pilots already collected. Aggregate QC summaries do not establish that the CFD sample represents a population.
 
 ---
 
@@ -510,6 +496,5 @@ Gayet, S., et al. (2022).
 
 This repository is currently under active development as part of an academic research project.
 
-The stimulus-generation pipeline is being finalized prior to experimental data collection.
-```
+Pilot data collection is underway for the three study conditions. Audit and selection QC results are available in `results/stimulus_qc/audit_and_selection/`.
 
