@@ -88,10 +88,14 @@ const TARGET_COUNTS = [
                     100 * targetCount / MATRIX_SIZE;
 
 
+                // Même règle d'arrondi que round() en Python.
+                const lower = Math.floor(basePercentage);
+                const fraction = basePercentage - lower;
+
                 const folderPercentage =
-                    Math.round(
-                        basePercentage
-                    );
+                    fraction === 0.5
+                        ? (lower % 2 === 0 ? lower : lower + 1)
+                        : Math.round(basePercentage);
 
 
                 const folder =
