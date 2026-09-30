@@ -2,6 +2,19 @@ console.log("script.js chargé");
 
 
 // =========================================================
+// VERSION DE L'ÉTUDE
+// =========================================================
+// Cette version : condition SOCIALE uniquement (grilles de visages).
+// Enregistré dans les données pour distinguer les 3 études
+// ("mixed", "social_only", "nonsocial_only").
+
+const STUDY_VERSION = "social_only";
+
+// 9 niveaux x 5 versions = 45 grilles de visages
+const EXPECTED_IMAGE_TRIALS = 45;
+
+
+// =========================================================
 // EXPERIMENT PARAMETERS
 // =========================================================
 
@@ -45,18 +58,8 @@ const TARGET_COUNTS = [
     let imageTrials = [];
 
 
-    // Il n'y a plus de manipulation entre-sujets sur la couleur
-    // des cercles : tous les participants voient le même fichier,
-    // "circle.jpg", où les cercles sont en niveaux de gris
-    // (visages noirs -> cercles FONCÉS, visages blancs -> cercles CLAIRS).
-    // On garde ce nom de variable pour ne pas casser le reste du code
-    // (identifiants de trial, champ "color_scheme" enregistré dans
-    // les données), mais sa valeur est fixe.
-    const participantCircleScheme = "grey";
-
-
     // =========================================================
-    // CONSTRUCTION DES 90 TRIALS
+    // CONSTRUCTION DES 45 TRIALS (visages uniquement)
     // =========================================================
 
     function buildImageTrials() {
@@ -69,7 +72,7 @@ const TARGET_COUNTS = [
         TARGET_COUNTS.forEach(
             targetCount => {
 
-                // Nombre de personnes/cercle du groupe "principal"
+                // Nombre de personnes du groupe "principal"
                 // dans la matrice.
                 const basePercentage =
                     100 * targetCount / MATRIX_SIZE;
@@ -194,97 +197,7 @@ const TARGET_COUNTS = [
                             faceQuestion,
 
                         image:
-                            `${basePath}/face.jpg`
-
-                    });
-
-
-                    // =================================================
-                    // 2. MATRICE NON-SOCIALE
-                    // =================================================
-
-                    // Un seul fichier de cercles par matrice
-                    // (généré par 03_generate_matrices.py).
-                    const circleFile =
-                        "circle.jpg";
-
-
-                    let circleTargetGroup;
-                    let circleQuestion;
-                    let circleAskedGroupCount;
-
-
-                    if (askPrimaryGroup) {
-
-                        // targetCount = nombre de visages noirs
-                        // = nombre de cercles FONCÉS dans circle.jpg
-                        circleTargetGroup =
-                            "dark";
-
-                        circleQuestion =
-                            "Quel pourcentage des cercles étaient perçus comme <strong>foncés</strong> ?";
-
-                        circleAskedGroupCount =
-                            targetCount;
-
-                    } else {
-
-                        // Le reste = visages blancs = cercles CLAIRS
-                        circleTargetGroup =
-                            "light";
-
-                        circleQuestion =
-                            "Quel pourcentage des cercles étaient perçus comme <strong>clairs</strong> ?";
-
-                        circleAskedGroupCount =
-                            MATRIX_SIZE - targetCount;
-
-                    }
-
-
-                    const circleTruePercentage =
-                        100 *
-                        circleAskedGroupCount /
-                        MATRIX_SIZE;
-
-
-                    trials.push({
-
-                        id:
-                            `mb${paddedTargetCount}_${participantCircleScheme}_${circleTargetGroup}_v${paddedVersion}`,
-
-                        target_count:
-                            targetCount,
-
-                        asked_group_count:
-                            circleAskedGroupCount,
-
-                        total_count:
-                            MATRIX_SIZE,
-
-                        true_percentage:
-                            circleTruePercentage,
-
-                        folder_percentage:
-                            folderPercentage,
-
-                        version:
-                            versionNumber,
-
-                        image_type:
-                            "circles",
-
-                        color_scheme:
-                            participantCircleScheme,
-
-                        target_group:
-                            circleTargetGroup,
-
-                        question:
-                            circleQuestion,
-
-                        image:
-                            `${basePath}/${circleFile}`
+                            `${basePath}/face.png`
 
                     });
 
@@ -302,11 +215,11 @@ const TARGET_COUNTS = [
 
 
         if (
-            trials.length !== 90
+            trials.length !== EXPECTED_IMAGE_TRIALS
         ) {
 
             console.error(
-                "ERREUR : il devrait y avoir exactement 90 trials."
+                `ERREUR : il devrait y avoir exactement ${EXPECTED_IMAGE_TRIALS} trials.`
             );
 
         }
@@ -333,12 +246,6 @@ const TARGET_COUNTS = [
 
 
         console.log(
-            "Condition cercles du participant :",
-            participantCircleScheme
-        );
-
-
-        console.log(
             "Répartition des questions :",
             counts
         );
@@ -347,7 +254,9 @@ const TARGET_COUNTS = [
         return trials;
     }
 // =========================================================
-// DEBRIEF EN ENTONNOIR (juste après la tâche, 1 question par page)
+// DEBRIEF (juste après la tâche, 1 question par page)
+// Version sociale : les questions sur les cercles (Q4-Q6 de la
+// version mixte) sont retirées ; les identifiants sont conservés.
 // =========================================================
 // Du plus ouvert au plus explicite. Pas de retour en arrière :
 // le participant ne voit jamais la question suivante avant
@@ -371,36 +280,9 @@ const debriefQuestions = [
     },
 
     {
-        id: "debrief_3_circles_noticed",
+        id: "debrief_3_circles_noticed",   // même identifiant que la version mixte
         type: "text",
-        text: "Avez-vous remarqué quelque chose de particulier à propos des grilles de cercles ?"
-    },
-
-    {
-        id: "debrief_4_circles_association",
-        type: "yesno_text",
-        text: "En regardant les grilles de cercles, les cercles vous ont-ils fait penser à quelque chose ?",
-        followup: "Si oui, à quoi ?"
-    },
-
-    {
-        id: "debrief_5_faces_circles_link",
-        type: "yesno_text",
-        text: "Avez-vous fait un lien entre les grilles de visages et les grilles de cercles ?",
-        followup: "Si oui, lequel ?"
-    },
-
-    {
-        id: "debrief_6_explicit_projection",
-        type: "scale",
-        text: "Pendant la tâche, vous est-il arrivé de voir les cercles <strong>foncés</strong> comme représentant des <strong>personnes noires</strong>, et les cercles <strong>clairs</strong> comme représentant des <strong>personnes blanches</strong> ?",
-        options: [
-            "Jamais",
-            "Rarement",
-            "Parfois",
-            "Souvent",
-            "Tout le temps"
-        ]
+        text: "Avez-vous remarqué quelque chose de particulier à propos des grilles ?"
     },
 
 
@@ -437,6 +319,8 @@ const debriefQuestions = [
 let imageResponseTimeoutId = null;
 let imageTrialResolved = false;
 // Fin de l'étude : retour vers Prolific (code de complétion de l'étude)
+// !!! À REMPLACER par le code de complétion de l'étude Prolific
+// !!! "sociale uniquement" (différent de celui de la version mixte).
 const PROLIFIC_COMPLETION_CODE = "C1Q6XPPW";
 
 const PROLIFIC_COMPLETION_URL =
@@ -473,7 +357,7 @@ let imageRatings = [];
 
 // Training
 
-// 2 essais d'entraînement : 1 social (visages) + 1 non-social (cercles)
+// 2 essais d'entraînement (grilles de visages)
 const N_TRAINING_TRIALS = 2;
 
 let trainingTrials = [];
@@ -756,11 +640,8 @@ function startStudy() {
 
 
     // ==============================================
-    // Construit les 90 trials
+    // Construit les 45 trials (visages uniquement)
     // ==============================================
-    // (plus de condition non-sociale à assigner : tous
-    // les participants voient les mêmes cercles, cf.
-    // participantCircleScheme = "blue_green" plus haut)
 
     imageTrials =
         buildImageTrials();
@@ -773,7 +654,7 @@ function startStudy() {
         getScreenInfo();
 
 
-    // Page d'accueil générale (visages / cercles),
+    // Page d'accueil générale,
     // avant les instructions détaillées de la tâche.
     showOnly(
         "study-intro-section"
@@ -811,23 +692,15 @@ function startTrainingTask() {
     trainingRatings = [];
 
 
-    // 1 grille de visages + 1 grille de cercles, tirées au hasard
-    // parmi les stimuli, présentées dans un ordre aléatoire.
-    // On travaille sur des copies afin de ne pas modifier imageTrials.
-
-    const randomFaceTrial =
-        shuffleArray(
-            imageTrials.filter(t => t.image_type === "face")
-        )[0];
-
-    const randomCircleTrial =
-        shuffleArray(
-            imageTrials.filter(t => t.image_type === "circles")
-        )[0];
+    // 2 grilles de visages tirées au hasard parmi les stimuli.
+    // On travaille sur une copie afin de ne pas modifier imageTrials.
 
     trainingTrials =
         shuffleArray(
-            [randomFaceTrial, randomCircleTrial]
+            [...imageTrials]
+        ).slice(
+            0,
+            N_TRAINING_TRIALS
         );
 
 
@@ -2250,8 +2123,8 @@ function buildResultData(completed) {
                 ? new Date().toISOString()
                 : null,
 
-        circle_condition:
-        participantCircleScheme,
+        study_version:
+            STUDY_VERSION,
 
 
         expected_training_trials:
@@ -2265,7 +2138,7 @@ function buildResultData(completed) {
 
 
         expected_image_trials:
-            90,
+            EXPECTED_IMAGE_TRIALS,
 
         completed_image_trials:
             imageRatings.length,

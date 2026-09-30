@@ -60,7 +60,7 @@ const TARGET_COUNTS = [
 
     // Il n'y a plus de manipulation entre-sujets sur la couleur
     // des cercles : tous les participants voient le même fichier,
-    // "circle.jpg", où les cercles sont en niveaux de gris
+    // "circles.png", où les cercles sont en niveaux de gris
     // (visages noirs -> cercles FONCÉS, visages blancs -> cercles CLAIRS).
     // On garde ce nom de variable pour ne pas casser le reste du code
     // (identifiants de trial, champ "color_scheme" enregistré dans
@@ -145,7 +145,7 @@ const TARGET_COUNTS = [
                     // Un seul fichier de cercles par matrice
                     // (généré par 03_generate_matrices.py).
                     const circleFile =
-                        "circle.jpg";
+                        "circles.png";
 
 
                     let circleTargetGroup;
@@ -156,7 +156,7 @@ const TARGET_COUNTS = [
                     if (askPrimaryGroup) {
 
                         // targetCount = nombre de visages noirs
-                        // = nombre de cercles FONCÉS dans circle.jpg
+                        // = nombre de cercles FONCÉS dans circles.png
                         circleTargetGroup =
                             "dark";
 

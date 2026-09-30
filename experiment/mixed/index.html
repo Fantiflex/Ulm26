@@ -38,15 +38,23 @@
         <h1>Questionnaire</h1>
 
         <p class="intro-text">
-            Veuillez entrer votre identifiant participant.
+            Veuillez indiquer votre <strong>ID Prolific</strong>
+            (24 caractères).
         </p>
 
         <input
             id="participant-id"
             type="text"
-            placeholder="Ex. P001"
+            placeholder="Votre ID Prolific (24 caractères)"
+            maxlength="40"
             autocomplete="off"
+            spellcheck="false"
         >
+
+        <p
+            id="participant-id-error"
+            class="field-error hidden"
+        ></p>
 
         <button
             id="start-button"
@@ -58,6 +66,49 @@
 
     </section>
 
+
+    <!-- ================================================= -->
+    <!-- 1B. PAGE D'ACCUEIL / PRESENTATION GENERALE -->
+    <!-- ================================================= -->
+
+    <section
+        id="study-intro-section"
+        class="study-section hidden"
+    >
+
+        <div class="centered-content">
+
+            <h1>
+                Merci pour votre participation à l'expérience.
+            </h1>
+
+            <div class="task-instructions">
+
+                <p>
+                    Vous allez voir une série de grilles :
+                </p>
+
+                <ul>
+                    <li>
+                        contenant des visages
+                    </li>
+                    <li>
+                        ou contenant des cercles
+                    </li>
+                </ul>
+
+            </div>
+
+            <button
+                type="button"
+                onclick="startImageInstructions()"
+            >
+                Suivant
+            </button>
+
+        </div>
+
+    </section>
 
 
     <!-- ================================================= -->
@@ -108,8 +159,8 @@
                 </p>
 
                 <p>
-                    Vous allez d'abord effectuer 2 essais d'entraînement :
-                    un avec des visages et un avec des cercles.
+                    Vous allez d'abord effectuer 2 essais d'entraînement
+                    (une grille de visages et une grille de cercles).
                 </p>
 
             </div>
@@ -216,14 +267,15 @@
         class="study-section hidden"
     >
 
+        <!--
+            La progression ("Image X sur Y") n'est volontairement
+            plus affichée aux participants. L'élément est conservé
+            vide dans le DOM pour ne rien casser au niveau du CSS.
+        -->
         <div
             id="image-progress"
             class="progress"
         ></div>
-
-
-        <!-- Question générale toujours visible -->
-    
 
 
         <!-- Image -->
@@ -300,6 +352,68 @@
     </section>
 
 
+    <!-- ================================================= -->
+    <!-- 3B. TRANSITION VERS LES QUESTIONNAIRES -->
+    <!-- ================================================= -->
+
+    <section
+        id="questionnaire-transition-section"
+        class="study-section hidden"
+    >
+
+        <div class="centered-content">
+
+            <p class="large-instruction">
+                Merci pour votre participation jusqu'ici.
+            </p>
+
+            <p class="large-instruction">
+                Il ne vous reste que quelques questions à
+                compléter pour terminer l'expérience
+                (moins de 5 minutes).
+            </p>
+
+            <button
+                type="button"
+                onclick="startDebrief()"
+            >
+                Suivant
+            </button>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ================================================= -->
+    <!-- 3C. DEBRIEF EN ENTONNOIR (1 question par page, -->
+    <!--     contenu généré par script.js)               -->
+    <!-- ================================================= -->
+
+    <section
+        id="debrief-section"
+        class="study-section hidden"
+    >
+
+        <div id="debrief-question-container"></div>
+
+
+        <div class="navigation">
+
+            <button
+                id="debrief-next-button"
+                type="button"
+                onclick="submitDebriefQuestion()"
+            >
+                Suivant
+            </button>
+
+        </div>
+
+    </section>
+
+
 
     <!-- ================================================= -->
     <!-- 4. ESTIMATION POPULATION FRANÇAISE -->
@@ -367,307 +481,185 @@
 
 
     <!-- ================================================= -->
-    <!-- 5. GROUP APART -->
+    <!-- 5. DEMOGRAPHICS (une seule page) -->
     <!-- ================================================= -->
 
     <section
-        id="group-apart-section"
+        id="demographics-section"
         class="study-section hidden"
     >
-
-        <div class="question-card">
-
-            <p class="likert-instruction">
-                Indiquez dans quelle mesure vous êtes
-                d'accord avec l'affirmation suivante.
-            </p>
-
-
-            <h2>
-                Les personnes noires forment un groupe
-                à part dans la société française.
-            </h2>
-
-
-            <div
-                id="group-apart-scale"
-                class="likert-scale"
-            ></div>
-
-
-            <div class="anchors">
-
-                <span>
-                    1 — Pas du tout d'accord
-                </span>
-
-                <span>
-                    7 — Totalement d'accord
-                </span>
-
-            </div>
-
-
-            <button
-                type="button"
-                onclick="submitGroupApart()"
-            >
-                Suivant
-            </button>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- ================================================= -->
-    <!-- 6. THREAT QUESTIONNAIRE -->
-    <!-- ================================================= -->
-
-    <section
-        id="threat-section"
-        class="study-section hidden"
-    >
-
-        <div
-            id="threat-progress"
-            class="progress"
-        ></div>
-
 
         <div class="section-header">
 
-            <h2 id="threat-title"></h2>
+            <h2>
+                Pour terminer, quelques informations vous concernant
+            </h2>
 
-            <p>
-                Indiquez dans quelle mesure vous êtes
-                d'accord avec chacune des affirmations
-                suivantes.
+        </div>
+
+
+        <!-- Genre -->
+        <div class="item-block">
+
+            <p class="item-text">
+                <strong>Genre :</strong>
             </p>
 
+            <div class="choice-row">
 
-            <p class="scale-reminder">
+                <label class="choice-option">
+                    <input type="radio" name="demo_gender" value="feminin">
+                    <span>Féminin</span>
+                </label>
 
-                1 = Pas du tout d'accord
-                &nbsp; • &nbsp;
-                7 = Totalement d'accord
+                <label class="choice-option">
+                    <input type="radio" name="demo_gender" value="masculin">
+                    <span>Masculin</span>
+                </label>
 
+                <label class="choice-option">
+                    <input type="radio" name="demo_gender" value="autre">
+                    <span>Autre</span>
+                </label>
+
+                <label class="choice-option">
+                    <input type="radio" name="demo_gender" value="ne_se_prononce_pas">
+                    <span>Je ne souhaite pas me prononcer</span>
+                </label>
+
+            </div>
+
+        </div>
+
+
+        <!-- Âge -->
+        <div class="item-block">
+
+            <p class="item-text">
+                <label for="demo-age"><strong>Âge</strong> (en années) :</label>
+            </p>
+
+            <div class="age-input-row">
+
+                <input
+                    id="demo-age"
+                    type="number"
+                    inputmode="numeric"
+                    min="18"
+                    max="80"
+                    step="1"
+                    placeholder="Ex. 25"
+                    autocomplete="off"
+                >
+
+                <span>ans</span>
+
+            </div>
+
+            <p
+                id="demo-age-error"
+                class="field-error hidden"
+            >
+                Veuillez indiquer un âge en années, entre 18 et 80.
             </p>
 
         </div>
 
 
-        <div id="threat-items"></div>
+        <!-- Niveau d'études -->
+        <div class="item-block">
+
+            <p class="item-text">
+                <strong>Niveau d'études :</strong>
+            </p>
+
+            <div class="choice-list">
+
+                <label class="choice-option">
+                    <input type="radio" name="demo_education" value="doctorat">
+                    <span>Diplôme de 3ème cycle universitaire (doctorat)</span>
+                </label>
+
+                <label class="choice-option">
+                    <input type="radio" name="demo_education" value="master">
+                    <span>Diplôme de 2ème cycle universitaire (master)</span>
+                </label>
+
+                <label class="choice-option">
+                    <input type="radio" name="demo_education" value="licence_bac2">
+                    <span>Diplôme du 1er cycle universitaire (licence), BTS, DUT, ou équivalent niveau BAC+2</span>
+                </label>
+
+                <label class="choice-option">
+                    <input type="radio" name="demo_education" value="baccalaureat">
+                    <span>Baccalauréat général, technologique, professionnel ou équivalent</span>
+                </label>
+
+                <label class="choice-option">
+                    <input type="radio" name="demo_education" value="cap_bep">
+                    <span>CAP, BEP ou diplôme de même niveau</span>
+                </label>
+
+                <label class="choice-option">
+                    <input type="radio" name="demo_education" value="brevet">
+                    <span>Brevet des collèges</span>
+                </label>
+
+                <label class="choice-option">
+                    <input type="radio" name="demo_education" value="aucun">
+                    <span>Aucun diplôme</span>
+                </label>
+
+                <label class="choice-option">
+                    <input type="radio" name="demo_education" value="ne_se_prononce_pas">
+                    <span>Je ne souhaite pas me prononcer</span>
+                </label>
+
+            </div>
+
+        </div>
+
+
+        <!-- Appareil utilisé -->
+        <div class="item-block">
+
+            <p class="item-text">
+                <strong>Avez-vous effectué la tâche sur :</strong>
+            </p>
+
+            <div class="choice-row">
+
+                <label class="choice-option">
+                    <input type="radio" name="demo_device" value="ordinateur">
+                    <span>Un ordinateur</span>
+                </label>
+
+                <label class="choice-option">
+                    <input type="radio" name="demo_device" value="tablette">
+                    <span>Une tablette</span>
+                </label>
+
+                <label class="choice-option">
+                    <input type="radio" name="demo_device" value="telephone">
+                    <span>Un téléphone</span>
+                </label>
+
+                <label class="choice-option">
+                    <input type="radio" name="demo_device" value="autre">
+                    <span>Autre</span>
+                </label>
+
+            </div>
+
+        </div>
 
 
         <div class="navigation">
 
             <button
-                id="threat-next-button"
+                id="demographics-submit-button"
                 type="button"
-                onclick="submitThreatSection()"
-            >
-                Suivant
-            </button>
-
-        </div>
-
-    </section>
-
-
-    <!-- ================================================= -->
-    <!-- 7. DEBRIEF OPEN QUESTIONS -->
-    <!-- ================================================= -->
-
-    <section
-        id="debrief-section"
-        class="study-section hidden"
-    >
-
-        <div class="question-card">
-
-            <h2>
-                Quelques questions pour terminer
-            </h2>
-
-            <p class="intro-text">
-                Merci de répondre librement aux questions suivantes.
-            </p>
-
-
-            <div class="item-block">
-
-                <p class="item-text">
-                    1. Selon vous, qu'est-ce que cette étude cherchait à mesurer ?
-                </p>
-
-                <textarea
-                    id="debrief-q1"
-                    rows="5"
-                    placeholder="Votre réponse..."
-                ></textarea>
-
-            </div>
-
-
-            <div class="item-block">
-
-                <p class="item-text">
-                    2. Comment avez-vous procédé pour estimer les pourcentages ?
-                    Avez-vous utilisé une stratégie particulière ?
-                </p>
-
-                <textarea
-                    id="debrief-q2"
-                    rows="5"
-                    placeholder="Votre réponse..."
-                ></textarea>
-
-            </div>
-
-
-            <div class="item-block">
-
-                <p class="item-text">
-                    3. Avez-vous remarqué quelque chose de particulier
-                    à propos des grilles de cercles ?
-                </p>
-
-                <textarea
-                    id="debrief-q3"
-                    rows="5"
-                    placeholder="Votre réponse..."
-                ></textarea>
-
-            </div>
-
-
-            <div class="item-block">
-
-                <p class="item-text">
-                    4. En regardant les grilles de cercles,
-                    les cercles vous ont-ils fait penser à quelque chose ?
-                    Si oui, à quoi ?
-                </p>
-
-                <textarea
-                    id="debrief-q4"
-                    rows="5"
-                    placeholder="Votre réponse..."
-                ></textarea>
-
-            </div>
-
-
-            <div class="item-block">
-
-                <p class="item-text">
-                    5. Avez-vous fait un lien entre les grilles de visages
-                    et les grilles de cercles ?
-                    Si oui, lequel ?
-                </p>
-
-                <textarea
-                    id="debrief-q5"
-                    rows="5"
-                    placeholder="Votre réponse..."
-                ></textarea>
-
-            </div>
-
-
-            <button
-                type="button"
-                onclick="submitDebriefOpenQuestions()"
-            >
-                Suivant
-            </button>
-
-        </div>
-
-    </section>
-
-
-    <!-- ================================================= -->
-    <!-- 8. DEBRIEF SCALE -->
-    <!-- ================================================= -->
-
-    <section
-        id="debrief-scale-section"
-        class="study-section hidden"
-    >
-
-        <div class="question-card">
-
-            <h2>
-                Dernière question
-            </h2>
-
-            <p class="item-text">
-                Pendant la tâche, vous est-il arrivé de voir les cercles foncés
-                comme représentant des personnes noires, et les cercles clairs
-                comme représentant des personnes blanches ?
-            </p>
-
-
-            <div class="likert-scale">
-
-                <label class="likert-option">
-                    <input
-                        type="radio"
-                        name="debrief_symbolic_link"
-                        value="1"
-                    >
-                    <span>Jamais</span>
-                </label>
-
-
-                <label class="likert-option">
-                    <input
-                        type="radio"
-                        name="debrief_symbolic_link"
-                        value="2"
-                    >
-                    <span>Rarement</span>
-                </label>
-
-
-                <label class="likert-option">
-                    <input
-                        type="radio"
-                        name="debrief_symbolic_link"
-                        value="3"
-                    >
-                    <span>Parfois</span>
-                </label>
-
-
-                <label class="likert-option">
-                    <input
-                        type="radio"
-                        name="debrief_symbolic_link"
-                        value="4"
-                    >
-                    <span>Souvent</span>
-                </label>
-
-
-                <label class="likert-option">
-                    <input
-                        type="radio"
-                        name="debrief_symbolic_link"
-                        value="5"
-                    >
-                    <span>Tout le temps</span>
-                </label>
-
-            </div>
-
-
-            <button
-                type="button"
-                onclick="submitDebriefScale()"
+                onclick="submitDemographics()"
             >
                 Terminer
             </button>
@@ -675,6 +667,9 @@
         </div>
 
     </section>
+
+
+
     <!-- ================================================= -->
     <!-- SAVING -->
     <!-- ================================================= -->
@@ -717,6 +712,19 @@
 
             <p>
                 Vos réponses ont bien été enregistrées.
+            </p>
+
+            <p class="large-instruction">
+                Vous allez être redirigé(e) automatiquement vers Prolific
+                dans quelques secondes.
+            </p>
+
+            <p class="secondary-instruction">
+                Si rien ne se passe,
+                <a id="prolific-return-link" href="#" onclick="redirectToProlific(); return false;">cliquez ici pour retourner sur Prolific</a>.
+                <br>
+                Code de complétion :
+                <strong id="prolific-completion-code"></strong>
             </p>
 
         </div>

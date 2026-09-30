@@ -676,6 +676,46 @@ input[type="number"] {
 
 
 /* =========================================================
+   DEBRIEF
+========================================================= */
+
+.debrief-textarea {
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 12px 14px;
+
+    border: 1px solid #ccc;
+
+    border-radius: 7px;
+
+    font-family: inherit;
+
+    font-size: 16px;
+
+    line-height: 1.5;
+
+    resize: vertical;
+}
+
+
+.debrief-followup {
+
+    margin-top: 25px;
+}
+
+
+.debrief-scale {
+
+    justify-content: space-between;
+
+    margin-top: 10px;
+}
+
+
+/* =========================================================
    BUTTONS
 ========================================================= */
 

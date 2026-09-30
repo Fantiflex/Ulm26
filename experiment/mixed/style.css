@@ -279,6 +279,29 @@ input[type="text"] {
 }
 
 
+/* ---------------------------------------------------------
+   Curseur sans position de départ visible.
+
+   Par défaut, un <input type="range"> a deux comportements
+   natifs gênants pour ce qu'on veut ici :
+   1) le "thumb" (le petit rond) marque la position ;
+   2) certains navigateurs (Chrome notamment) colorient
+      nativement la barre jusqu'à la valeur courante,
+      indépendamment du thumb.
+
+   On neutralise donc complètement le style natif de la barre
+   (::-webkit-slider-runnable-track / ::-moz-range-track) pour
+   qu'elle reste uniformément grise quelle que soit la valeur,
+   et on recrée un thumb personnalisé qui, lui, peut être
+   masqué proprement.
+
+   Le JS (script.js) ajoute la classe "slider-not-touched" à
+   chaque nouveau trial et la retire dès que le participant
+   clique ou fait glisser le curseur : tant que la classe est
+   présente, le thumb est invisible et rien n'indique
+   visuellement où se trouve la valeur de départ.
+--------------------------------------------------------- */
+
 .percentage-slider {
 
     width: 100%;
@@ -286,6 +309,105 @@ input[type="text"] {
     cursor: pointer;
 
     margin-top: 20px;
+
+    -webkit-appearance: none;
+
+    -moz-appearance: none;
+
+    appearance: none;
+
+    height: 8px;
+
+    background: transparent;
+
+    outline: none;
+}
+
+
+/* Barre (track) : toujours grise, jamais de remplissage
+   coloré en fonction de la valeur. */
+
+.percentage-slider::-webkit-slider-runnable-track {
+
+    height: 8px;
+
+    background: #ccc;
+
+    border-radius: 4px;
+}
+
+
+.percentage-slider::-moz-range-track {
+
+    height: 8px;
+
+    background: #ccc;
+
+    border-radius: 4px;
+}
+
+
+.percentage-slider::-moz-range-progress {
+
+    background: #ccc;
+
+    height: 8px;
+
+    border-radius: 4px;
+}
+
+
+/* Thumb personnalisé (remplace le rond natif du navigateur). */
+
+.percentage-slider::-webkit-slider-thumb {
+
+    -webkit-appearance: none;
+
+    appearance: none;
+
+    width: 20px;
+
+    height: 20px;
+
+    margin-top: -6px;
+
+    border-radius: 50%;
+
+    background-color: #1a73e8;
+
+    cursor: pointer;
+
+    transition: opacity 0.05s ease-out;
+}
+
+
+.percentage-slider::-moz-range-thumb {
+
+    width: 20px;
+
+    height: 20px;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background-color: #1a73e8;
+
+    cursor: pointer;
+
+    transition: opacity 0.05s ease-out;
+}
+
+
+.percentage-slider.slider-not-touched::-webkit-slider-thumb {
+
+    opacity: 0;
+}
+
+
+.percentage-slider.slider-not-touched::-moz-range-thumb {
+
+    opacity: 0;
 }
 
 
@@ -452,6 +574,104 @@ input[type="text"] {
     font-size: 13px;
 
     color: #666;
+}
+
+
+/* =========================================================
+   DEMOGRAPHICS
+========================================================= */
+
+/* Choix sur une ligne (genre) */
+.choice-row {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 10px 30px;
+}
+
+
+/* Choix empilés (niveau d'études) */
+.choice-list {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 6px;
+}
+
+
+.choice-option {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 6px 8px;
+
+    border-radius: 6px;
+
+    cursor: pointer;
+
+    font-size: 16px;
+}
+
+
+.choice-option:hover {
+
+    background-color: #eeeeee;
+}
+
+
+.choice-option input {
+
+    margin: 0;
+
+    cursor: pointer;
+
+    flex-shrink: 0;
+}
+
+
+.age-input-row {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    font-size: 16px;
+}
+
+
+input[type="number"] {
+
+    width: 120px;
+
+    box-sizing: border-box;
+
+    padding: 11px 13px;
+
+    border: 1px solid #ccc;
+
+    border-radius: 7px;
+
+    font-size: 16px;
+}
+
+
+.field-error {
+
+    color: #c62828;
+
+    font-size: 14px;
+
+    margin: 10px 0 0 0;
 }
 
 

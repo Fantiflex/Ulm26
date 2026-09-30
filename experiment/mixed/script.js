@@ -15,8 +15,6 @@ const MATRIX_SIZE = 64;
 const MATRIX_ROWS = 8;
 
 const MATRIX_COLUMNS = 8;
-// Debrief
-
 
 
 
@@ -27,26 +25,34 @@ const MATRIX_COLUMNS = 8;
 
 // Nombre exact de personnes noires parmi 64.
 // 8/64 puis incréments de 6 jusqu'à 56/64.
-const TARGETS = [
-    { count: 8,  folder: "12pct_black" },
-    { count: 14, folder: "22pct_black" },
-    { count: 20, folder: "31pct_black" },
-    { count: 26, folder: "41pct_black" },
-    { count: 32, folder: "50pct_black" },
-    { count: 38, folder: "59pct_black" },
-    { count: 44, folder: "69pct_black" },
-    { count: 50, folder: "78pct_black" },
-    { count: 56, folder: "88pct_black" }
-];
+const TARGET_COUNTS = [
+    8,
+    14,
+    20,
+    26,
+    32,
+    38,
+    44,
+    50,
+    56
+    ];
 
     // 5 versions différentes de chaque composition.
     const N_VERSIONS = 5;
 
 
-    // Les trials seront construits au début de l'expérience,
-    // une fois la condition non-sociale du participant choisie.
+    // Les trials seront construits au début de l'expérience.
     let imageTrials = [];
 
+
+    // Il n'y a plus de manipulation entre-sujets sur la couleur
+    // des cercles : tous les participants voient le même fichier,
+    // "circles.png", où les cercles sont en niveaux de gris
+    // (visages noirs -> cercles FONCÉS, visages blancs -> cercles CLAIRS).
+    // On garde ce nom de variable pour ne pas casser le reste du code
+    // (identifiants de trial, champ "color_scheme" enregistré dans
+    // les données), mais sa valeur est fixe.
+    const participantCircleScheme = "grey";
 
 
     // =========================================================
@@ -55,20 +61,34 @@ const TARGETS = [
 
     function buildImageTrials() {
 
-            const trials = [];
+        const trials = [];
 
-            let pairIndex = 0;
+        let pairIndex = 0;
 
-            TARGETS.forEach(target => {
 
-                const targetCount =
-                    target.count;
+        TARGET_COUNTS.forEach(
+            targetCount => {
+
+                // Nombre de personnes/cercle du groupe "principal"
+                // dans la matrice.
+                const basePercentage =
+                    100 * targetCount / MATRIX_SIZE;
+
+
+                const folderPercentage =
+                    Math.round(
+                        basePercentage
+                    );
+
 
                 const folder =
-                    target.folder;
+                    `${folderPercentage}pct_black`;
+
 
                 const paddedTargetCount =
-                    String(targetCount).padStart(
+                    String(
+                        targetCount
+                    ).padStart(
                         2,
                         "0"
                     );
@@ -115,10 +135,15 @@ const TARGETS = [
                             : "white";
 
 
+                    // Le mot-clé (noirs/blancs) est mis en gras
+                    // pour bien ressortir dans la consigne affichée.
+                    // NB : cette chaîne contient du HTML (balise
+                    // <strong>) et doit être injectée via innerHTML,
+                    // jamais via textContent (voir showImageTrial()).
                     const faceQuestion =
                         askPrimaryGroup
-                            ? "Quel pourcentage des visages étaient perçus comme noirs ?"
-                            : "Quel pourcentage des visages étaient perçus comme blancs ?";
+                            ? "Quel pourcentage des visages étaient perçus comme <strong>noirs</strong> ?"
+                            : "Quel pourcentage des visages étaient perçus comme <strong>blancs</strong> ?";
 
 
                     const faceAskedGroupCount =
@@ -150,6 +175,8 @@ const TARGETS = [
                         true_percentage:
                             faceTruePercentage,
 
+                        folder_percentage:
+                            folderPercentage,
 
                         version:
                             versionNumber,
@@ -171,29 +198,48 @@ const TARGETS = [
 
                     });
 
+
                     // =================================================
                     // 2. MATRICE NON-SOCIALE
                     // =================================================
 
-                    // targetCount correspond au nombre de cercles clairs.
-                    // Le reste correspond aux cercles foncés.
-
-                    const circleTargetGroup =
-                        askPrimaryGroup
-                            ? "light"
-                            : "dark";
+                    // Un seul fichier de cercles par matrice
+                    // (généré par 03_generate_matrices.py).
+                    const circleFile =
+                        "circles.png";
 
 
-                    const circleQuestion =
-                        askPrimaryGroup
-                            ? "Quel pourcentage des cercles étaient clairs ?"
-                            : "Quel pourcentage des cercles étaient foncés ?";
+                    let circleTargetGroup;
+                    let circleQuestion;
+                    let circleAskedGroupCount;
 
 
-                    const circleAskedGroupCount =
-                        askPrimaryGroup
-                            ? targetCount
-                            : MATRIX_SIZE - targetCount;
+                    if (askPrimaryGroup) {
+
+                        // targetCount = nombre de visages noirs
+                        // = nombre de cercles FONCÉS dans circles.png
+                        circleTargetGroup =
+                            "dark";
+
+                        circleQuestion =
+                            "Quel pourcentage des cercles étaient perçus comme <strong>foncés</strong> ?";
+
+                        circleAskedGroupCount =
+                            targetCount;
+
+                    } else {
+
+                        // Le reste = visages blancs = cercles CLAIRS
+                        circleTargetGroup =
+                            "light";
+
+                        circleQuestion =
+                            "Quel pourcentage des cercles étaient perçus comme <strong>clairs</strong> ?";
+
+                        circleAskedGroupCount =
+                            MATRIX_SIZE - targetCount;
+
+                    }
 
 
                     const circleTruePercentage =
@@ -205,7 +251,7 @@ const TARGETS = [
                     trials.push({
 
                         id:
-                            `mb${paddedTargetCount}_circles_${circleTargetGroup}_v${paddedVersion}`,
+                            `mb${paddedTargetCount}_${participantCircleScheme}_${circleTargetGroup}_v${paddedVersion}`,
 
                         target_count:
                             targetCount,
@@ -219,11 +265,17 @@ const TARGETS = [
                         true_percentage:
                             circleTruePercentage,
 
+                        folder_percentage:
+                            folderPercentage,
+
                         version:
                             versionNumber,
 
                         image_type:
                             "circles",
+
+                        color_scheme:
+                            participantCircleScheme,
 
                         target_group:
                             circleTargetGroup,
@@ -232,7 +284,7 @@ const TARGETS = [
                             circleQuestion,
 
                         image:
-                            `${basePath}/circles.png`
+                            `${basePath}/${circleFile}`
 
                     });
 
@@ -280,6 +332,11 @@ const TARGETS = [
         );
 
 
+        console.log(
+            "Condition cercles du participant :",
+            participantCircleScheme
+        );
+
 
         console.log(
             "Répartition des questions :",
@@ -290,112 +347,85 @@ const TARGETS = [
         return trials;
     }
 // =========================================================
-// THREAT QUESTIONNAIRE
+// DEBRIEF EN ENTONNOIR (juste après la tâche, 1 question par page)
 // =========================================================
+// Du plus ouvert au plus explicite. Pas de retour en arrière :
+// le participant ne voit jamais la question suivante avant
+// d'avoir répondu à la précédente.
+//   type "text"       : réponse libre
+//   type "yesno_text" : Oui / Non + précision libre si Oui
+//   type "scale"      : échelle à choix unique
 
-const threatSections = [
+const debriefQuestions = [
 
     {
-        id: "general_immigration_threat",
+        id: "debrief_1_study_goal",
+        type: "text",
+        text: "Selon vous, qu'est-ce que cette étude cherchait à mesurer ?"
+    },
 
-        title:
-            "General immigration threat",
+    {
+        id: "debrief_2_strategy",
+        type: "text",
+        text: "Comment avez-vous procédé pour estimer les pourcentages ? Avez-vous utilisé une stratégie particulière ?"
+    },
 
-        items: [
+    {
+        id: "debrief_3_circles_noticed",
+        type: "text",
+        text: "Avez-vous remarqué quelque chose de particulier à propos des grilles de cercles ?"
+    },
 
-            {
-                id: "general_threat_1",
+    {
+        id: "debrief_4_circles_association",
+        type: "yesno_text",
+        text: "En regardant les grilles de cercles, les cercles vous ont-ils fait penser à quelque chose ?",
+        followup: "Si oui, à quoi ?"
+    },
 
-                text:
-                    "Les personnes noires vivant ici menacent notre mode de vie et nos valeurs en France."
-            },
+    {
+        id: "debrief_5_faces_circles_link",
+        type: "yesno_text",
+        text: "Avez-vous fait un lien entre les grilles de visages et les grilles de cercles ?",
+        followup: "Si oui, lequel ?"
+    },
 
-            {
-                id: "general_threat_2",
-
-                text:
-                    "Les personnes noires vivant ici menacent la sécurité publique en France."
-            }
-
+    {
+        id: "debrief_6_explicit_projection",
+        type: "scale",
+        text: "Pendant la tâche, vous est-il arrivé de voir les cercles <strong>foncés</strong> comme représentant des <strong>personnes noires</strong>, et les cercles <strong>clairs</strong> comme représentant des <strong>personnes blanches</strong> ?",
+        options: [
+            "Jamais",
+            "Rarement",
+            "Parfois",
+            "Souvent",
+            "Tout le temps"
         ]
     },
 
 
+    // --- Contrôle technique : affichage des images ---
     {
-        id: "collective_existential_threat",
-
-        title:
-            "Collective existential threat",
-
-        items: [
-
-            {
-                id: "existential_threat_1",
-
-                text:
-                    "L'existence de mon groupe racial est en péril."
-            },
-
-            {
-                id: "existential_threat_2",
-
-                text:
-                    "L'existence physique de mon groupe racial est en danger."
-            }
-
-        ]
+        id: "check_7_image_display",
+        type: "scale",
+        vertical: true,
+        text: "Les images se sont-elles bien affichées pendant la tâche (sans lenteur, saccade ou image manquante) ?",
+        options: [
+            "Oui, toujours",
+            "Oui, la plupart du temps",
+            "Il y a eu quelques problèmes",
+            "Il y a eu beaucoup de problèmes"
+        ],
+        details: "Si vous avez rencontré des problèmes, pouvez-vous les décrire ? (facultatif)"
     },
 
 
+    // --- Commentaire libre ---
     {
-        id: "ingroup_prejudice_concern",
-
-        title:
-            "In-group prejudice concern",
-
-        items: [
-
-            {
-                id: "prejudice_concern_1",
-
-                text:
-                    "La présence des personnes noires entraîne du mécontentement au sein de la population française."
-            },
-
-            {
-                id: "prejudice_concern_2",
-
-                text:
-                    "La présence des personnes noires entraîne une augmentation de la xénophobie en France."
-            }
-
-        ]
-    },
-
-
-    {
-        id: "fear_of_appearing_racist",
-
-        title:
-            "Fear of appearing racist / intergroup anxiety",
-
-        items: [
-
-            {
-                id: "intergroup_anxiety_1",
-
-                text:
-                    "Quand j'interagis avec une personne noire, il ou elle penserait que j'ai des préjugés envers elle peu importe ce que je fais."
-            },
-
-            {
-                id: "intergroup_anxiety_2",
-
-                text:
-                    "Quand j'interagis avec une personne noire, j'imagine qu'il ou elle observerait attentivement mon comportement pour voir si j'ai des préjugés."
-            }
-
-        ]
+        id: "comment_8_free",
+        type: "text",
+        optional: true,
+        text: "Avez-vous des remarques ou des commentaires sur l'expérience ? (facultatif)"
     }
 
 ];
@@ -406,9 +436,33 @@ const threatSections = [
 // =========================================================
 let imageResponseTimeoutId = null;
 let imageTrialResolved = false;
-let participantId = "";
+// Fin de l'étude : retour vers Prolific (code de complétion de l'étude)
+const PROLIFIC_COMPLETION_CODE = "C1Q6XPPW";
+
+const PROLIFIC_COMPLETION_URL =
+    `https://app.prolific.com/submissions/complete?cc=${PROLIFIC_COMPLETION_CODE}`;
+
+const REDIRECT_DELAY_MS = 3000;
+
+
+// Identifiants Prolific (voir initializeParticipantId)
+const PROLIFIC_ID_LENGTH = 24;
+
+let prolificPidUrl = null;        // lu dans l'URL (PROLIFIC_PID)
+
+let prolificStudyIdUrl = null;    // lu dans l'URL (STUDY_ID)
+
+let prolificSessionIdUrl = null;  // lu dans l'URL (SESSION_ID)
+
+let prolificIdTyped = null;       // saisi par le participant
 
 let studyStartedAt = null;
+
+
+// Écran / fenêtre du participant (mesuré au début et à la fin)
+let screenInfoStart = null;
+
+let screenInfoEnd = null;
 
 
 // Images
@@ -419,6 +473,7 @@ let imageRatings = [];
 
 // Training
 
+// 2 essais d'entraînement : 1 social (visages) + 1 non-social (cercles)
 const N_TRAINING_TRIALS = 2;
 
 let trainingTrials = [];
@@ -447,28 +502,24 @@ let populationSliderStartedAt = null;
 let populationSliderWasMoved = false;
 
 
-// Group apart
+// Debrief en entonnoir
 
-let groupApartResponse = null;
+let currentDebriefQuestion = 0;
 
-let groupApartStartedAt = null;
+let debriefResponses = [];
+
+let debriefQuestionStartedAt = null;
 
 
-// Threat questionnaire
+// Demographics (dernière page : genre, âge, niveau d'études)
 
-let currentThreatSection = 0;
+const AGE_MIN = 18;
 
-let threatResponses = [];
+const AGE_MAX = 80;
 
-let debriefOpenResponses = null;
+let demographicsResponse = null;
 
-let debriefScaleResponse = null;
-
-let debriefStartedAt = null;
-
-let debriefScaleStartedAt = null;
-
-let threatSectionStartedAt = null;
+let demographicsStartedAt = null;
 
 
 // JATOS
@@ -532,106 +583,121 @@ function showOnly(sectionId) {
 }
 
 
-function createLikertScale(name) {
+// ---------------------------------------------------------
+// IDENTIFIANTS PROLIFIC
+// ---------------------------------------------------------
+// Deux sources, enregistrées sous des noms DIFFÉRENTS pour
+// pouvoir les comparer après coup :
+//   - prolific_pid_url   : lu automatiquement dans l'URL du lien
+//                          Prolific (paramètres PROLIFIC_PID,
+//                          STUDY_ID, SESSION_ID) ;
+//   - prolific_id_typed  : saisi par le participant sur la
+//                          première page (vérification / secours).
+// La case de saisie n'est JAMAIS pré-remplie avec l'ID de l'URL,
+// sinon la vérification croisée n'aurait aucun sens.
 
-    let html = "";
+function readUrlParameter(name) {
 
-
-    for (
-        let value = 1;
-        value <= 7;
-        value++
-    ) {
-
-        html += `
-
-            <label class="likert-option">
-
-                <input
-                    type="radio"
-                    name="${name}"
-                    value="${value}"
-                >
-
-                <span class="likert-number">
-                    ${value}
-                </span>
-
-            </label>
-
-        `;
-    }
-
-
-    return html;
-}
-
-function initializeParticipantId() {
-
-    let urlParticipantId = null;
-
-
-    // Cas JATOS
+    // Cas JATOS : JATOS conserve les paramètres du lien d'origine
     if (
         typeof jatos !== "undefined" &&
         jatosAvailable &&
-        jatos.urlQueryParameters
+        jatos.urlQueryParameters &&
+        jatos.urlQueryParameters[name]
     ) {
-
-        urlParticipantId =
-            jatos.urlQueryParameters.PROLIFIC_PID ||
-            jatos.urlQueryParameters.participant_id ||
-            jatos.urlQueryParameters.participant ||
-            jatos.urlQueryParameters.pid ||
-            jatos.urlQueryParameters.id ||
-            null;
+        return String(jatos.urlQueryParameters[name]).trim();
     }
 
+    // Mode local / navigateur
+    const value =
+        new URLSearchParams(window.location.search).get(name);
 
-    // Fallback mode local / navigateur
-    if (!urlParticipantId) {
-
-        const params =
-            new URLSearchParams(
-                window.location.search
-            );
-
-        urlParticipantId =
-            params.get("PROLIFIC_PID") ||
-            params.get("participant_id") ||
-            params.get("participant") ||
-            params.get("pid") ||
-            params.get("id");
-    }
-
-
-    if (urlParticipantId) {
-
-        participantId =
-            String(urlParticipantId).trim();
-
-
-        const input =
-            document.getElementById(
-                "participant-id"
-            );
-
-
-        input.value =
-            participantId;
-
-        input.disabled =
-            true;
-
-
-        console.log(
-            "Participant ID récupéré depuis l'URL :",
-            participantId
-        );
-
-    }
-
+    return value ? String(value).trim() : null;
 }
+
+
+function initializeParticipantId() {
+
+    prolificPidUrl =
+        readUrlParameter("PROLIFIC_PID");
+
+    prolificStudyIdUrl =
+        readUrlParameter("STUDY_ID");
+
+    prolificSessionIdUrl =
+        readUrlParameter("SESSION_ID");
+
+    console.log(
+        "IDs Prolific lus dans l'URL :",
+        {
+            PROLIFIC_PID: prolificPidUrl,
+            STUDY_ID: prolificStudyIdUrl,
+            SESSION_ID: prolificSessionIdUrl
+        }
+    );
+}
+
+
+// ---------------------------------------------------------
+// TAILLE D'ÉCRAN / FENÊTRE
+// ---------------------------------------------------------
+// Le navigateur donne des tailles en pixels, PAS en centimètres :
+// la taille physique de l'écran (en pouces/cm) n'est pas accessible.
+//   screen_*      : taille de l'écran entier
+//   viewport_*    : zone réellement visible dans le navigateur
+//   device_pixel_ratio : nombre de pixels physiques par pixel CSS
+//                        (écrans Retina / zoom du navigateur)
+
+function getScreenInfo() {
+
+    const dpr =
+        window.devicePixelRatio || 1;
+
+    return {
+
+        screen_width_px:
+            window.screen.width,
+
+        screen_height_px:
+            window.screen.height,
+
+        screen_available_width_px:
+            window.screen.availWidth,
+
+        screen_available_height_px:
+            window.screen.availHeight,
+
+        viewport_width_px:
+            window.innerWidth,
+
+        viewport_height_px:
+            window.innerHeight,
+
+        device_pixel_ratio:
+            dpr,
+
+        screen_width_physical_px:
+            Math.round(window.screen.width * dpr),
+
+        screen_height_physical_px:
+            Math.round(window.screen.height * dpr),
+
+        orientation:
+            (window.screen.orientation && window.screen.orientation.type) || null,
+
+        max_touch_points:
+            navigator.maxTouchPoints || 0,
+
+        user_agent:
+            navigator.userAgent,
+
+        timestamp_utc:
+            new Date().toISOString()
+
+    };
+}
+
+
 function shuffleArray(array) {
 
     for (let i = array.length - 1; i > 0; i--) {
@@ -656,28 +722,45 @@ function startStudy() {
             "participant-id"
         );
 
-
-    if (!participantId) {
-
-        participantId =
-            input.value.trim();
-
-    }
-
-
-    if (!participantId) {
-
-        alert(
-            "Veuillez entrer votre identifiant participant."
+    const error =
+        document.getElementById(
+            "participant-id-error"
         );
+
+
+    // On enlève les espaces éventuels (copier-coller)
+    const typedId =
+        input.value.replace(/\s+/g, "");
+
+
+    // Un ID Prolific fait exactement 24 caractères (lettres/chiffres)
+    if (!/^[A-Za-z0-9]{24}$/.test(typedId)) {
+
+        error.textContent =
+            typedId.length === 0
+                ? "Veuillez indiquer votre ID Prolific."
+                : `Votre ID Prolific doit contenir exactement ${PROLIFIC_ID_LENGTH} caractères (lettres et chiffres uniquement). Vous en avez saisi ${typedId.length}.`;
+
+        error.classList.remove("hidden");
+
+        input.focus();
 
         return;
     }
 
 
+    error.classList.add("hidden");
+
+    prolificIdTyped =
+        typedId;
+
+
     // ==============================================
     // Construit les 90 trials
     // ==============================================
+    // (plus de condition non-sociale à assigner : tous
+    // les participants voient les mêmes cercles, cf.
+    // participantCircleScheme = "blue_green" plus haut)
 
     imageTrials =
         buildImageTrials();
@@ -686,8 +769,15 @@ function startStudy() {
     studyStartedAt =
         new Date();
 
+    screenInfoStart =
+        getScreenInfo();
 
-    startImageInstructions();
+
+    // Page d'accueil générale (visages / cercles),
+    // avant les instructions détaillées de la tâche.
+    showOnly(
+        "study-intro-section"
+    );
 }
 // =========================================================
 // IMAGE INSTRUCTIONS
@@ -721,43 +811,24 @@ function startTrainingTask() {
     trainingRatings = [];
 
 
-    // Sépare les trials sociaux et non-sociaux.
-    const faceTrials =
-        imageTrials.filter(
-            trial => trial.image_type === "face"
-        );
+    // 1 grille de visages + 1 grille de cercles, tirées au hasard
+    // parmi les stimuli, présentées dans un ordre aléatoire.
+    // On travaille sur des copies afin de ne pas modifier imageTrials.
 
-    const circleTrials =
-        imageTrials.filter(
-            trial => trial.image_type === "circles"
-        );
-
-
-    // Choisit un essai aléatoire de chaque type.
     const randomFaceTrial =
-        faceTrials[
-            Math.floor(
-                Math.random() * faceTrials.length
-            )
-        ];
+        shuffleArray(
+            imageTrials.filter(t => t.image_type === "face")
+        )[0];
 
     const randomCircleTrial =
-        circleTrials[
-            Math.floor(
-                Math.random() * circleTrials.length
-            )
-        ];
+        shuffleArray(
+            imageTrials.filter(t => t.image_type === "circles")
+        )[0];
 
-
-    // Training = exactement 1 visage + 1 cercle.
-    trainingTrials = [
-        randomFaceTrial,
-        randomCircleTrial
-    ];
-
-
-    // Randomise simplement leur ordre.
-    shuffleArray(trainingTrials);
+    trainingTrials =
+        shuffleArray(
+            [randomFaceTrial, randomCircleTrial]
+        );
 
 
     console.log(
@@ -773,6 +844,7 @@ function startTrainingTask() {
 
     showImageTrial();
 }
+
 // =========================================================
 // IMAGE TASK
 // =========================================================
@@ -833,12 +905,6 @@ function showImageTrial() {
     const trial =
         getCurrentTrial();
 
-    const trialIndex =
-        getCurrentTrialIndex();
-
-    const trialTotal =
-        getCurrentTrialTotal();
-
     imageTrialResolved = false;
 
     if (imageResponseTimeoutId !== null) {
@@ -846,14 +912,9 @@ function showImageTrial() {
         imageResponseTimeoutId = null;
     }
 
-    document
-        .getElementById(
-            "image-progress"
-        )
-        .textContent =
-        isTraining
-            ? `Entraînement ${trialIndex + 1} sur ${trialTotal}`
-            : `Image ${trialIndex + 1} sur ${trialTotal}`;
+    // La progression ("Image X sur Y") n'est volontairement
+    // plus affichée aux participants (cf. #image-progress,
+    // laissé vide dans le HTML).
 
     const image =
         document.getElementById(
@@ -904,19 +965,35 @@ function showImageTrial() {
 
     if (responseInstruction) {
 
-        responseInstruction.textContent =
+        // innerHTML (et non textContent) : la question contient
+        // désormais une balise <strong> pour mettre le mot-clé
+        // (noirs/blancs/clairs/foncés) en gras.
+        responseInstruction.innerHTML =
             trial.question;
 
     }
 
-    // Reset
-    const randomStart =
-        Math.floor(Math.random() * 101);
+    // -----------------------------------------------------
+    // Curseur : aucune position n'est mise en avant visuellement.
+    // Un <input type="range"> a techniquement toujours une valeur
+    // sous-jacente (ici fixée à 50, le milieu, plutôt que random),
+    // mais le curseur (le "thumb") est masqué via la classe CSS
+    // "slider-not-touched" tant que le participant n'a pas cliqué
+    // ou glissé dessus — dès la première interaction, la classe
+    // est retirée et le curseur apparaît là où il a cliqué.
+    // Voir style.css pour la règle correspondante.
+    // -----------------------------------------------------
 
-    slider.value = randomStart;
+    const neutralStart = 50;
+
+    slider.value = neutralStart;
 
     trial.slider_start =
-    randomStart;
+    neutralStart;
+
+    slider.classList.add(
+        "slider-not-touched"
+    );
 
     sliderValue.textContent = "— %";
 
@@ -970,6 +1047,23 @@ function showImageTrial() {
         imagePresentationStartedAt =
             performance.now();
 
+        // Temps de chargement de l'image (lag réseau) et taille
+        // réellement affichée à l'écran (en pixels CSS).
+        trial.image_load_ms =
+            Math.round(
+                imagePresentationStartedAt -
+                trial.image_load_started_at
+            );
+
+        const displayedBox =
+            image.getBoundingClientRect();
+
+        trial.image_displayed_width_px =
+            Math.round(displayedBox.width);
+
+        trial.image_displayed_height_px =
+            Math.round(displayedBox.height);
+
 
         // 2 seconds AFTER actual loading
 
@@ -996,7 +1090,7 @@ function showImageTrial() {
 
 
             // =====================================================
-            // LIMITE DE 5 SECONDES POUR RÉPONDRE
+            // LIMITE DE 10 SECONDES POUR RÉPONDRE
             // =====================================================
 
             imageResponseTimeoutId =
@@ -1038,6 +1132,9 @@ function showImageTrial() {
     };
 
 
+    trial.image_load_started_at =
+        performance.now();
+
     image.src =
         trial.image;
 }
@@ -1059,6 +1156,13 @@ imageSlider.addEventListener(
 
         imageSliderWasMoved =
             true;
+
+
+        // Dès la première interaction, on révèle le curseur
+        // (il était masqué par "slider-not-touched").
+        imageSlider.classList.remove(
+            "slider-not-touched"
+        );
 
 
         document
@@ -1141,11 +1245,17 @@ async function submitImageRating() {
         true_percentage:
             trial.true_percentage,
 
+        folder_percentage:
+            trial.folder_percentage,
+
         version:
             trial.version,
 
         image_type:
             trial.image_type,
+
+        color_scheme:
+            trial.color_scheme,
 
         target_group:
             trial.target_group,
@@ -1167,6 +1277,15 @@ async function submitImageRating() {
 
         slider_start:
             trial.slider_start,
+
+        image_load_ms:
+            trial.image_load_ms,
+
+        image_displayed_width_px:
+            trial.image_displayed_width_px,
+
+        image_displayed_height_px:
+            trial.image_displayed_height_px,
 
         presentation_order:
             trialIndex + 1,
@@ -1248,7 +1367,7 @@ async function submitImageRating() {
 
         } else {
 
-            startPopulationQuestion();
+            showQuestionnaireTransition();
 
         }
 
@@ -1288,18 +1407,26 @@ async function handleImageTimeout() {
         target_count:
             trial.target_count,
 
+        asked_group_count:
+            trial.asked_group_count,
+
         total_count:
             trial.total_count,
 
         true_percentage:
             trial.true_percentage,
 
+        folder_percentage:
+            trial.folder_percentage,
 
         version:
             trial.version,
 
         image_type:
             trial.image_type,
+
+        color_scheme:
+            trial.color_scheme,
 
         target_group:
             trial.target_group,
@@ -1325,6 +1452,15 @@ async function handleImageTimeout() {
 
         slider_start:
             trial.slider_start,
+
+        image_load_ms:
+            trial.image_load_ms,
+
+        image_displayed_width_px:
+            trial.image_displayed_width_px,
+
+        image_displayed_height_px:
+            trial.image_displayed_height_px,
 
         presentation_order:
             trialIndex + 1,
@@ -1469,7 +1605,7 @@ async function handleImageTimeout() {
 
                 } else {
 
-                    startPopulationQuestion();
+                    showQuestionnaireTransition();
 
                 }
 
@@ -1482,7 +1618,314 @@ async function handleImageTimeout() {
 
 }
 // =========================================================
-// POPULATION ESTIMATE
+// TRANSITION VERS LES QUESTIONNAIRES
+// =========================================================
+
+function showQuestionnaireTransition() {
+
+    showOnly(
+        "questionnaire-transition-section"
+    );
+
+}
+
+
+// =========================================================
+// DEBRIEF EN ENTONNOIR — une question par page
+// =========================================================
+
+function startDebrief() {
+
+    currentDebriefQuestion = 0;
+
+    debriefResponses = [];
+
+    showOnly(
+        "debrief-section"
+    );
+
+    renderDebriefQuestion();
+}
+
+
+// Supprime les balises HTML (<strong>) pour enregistrer
+// le texte de la question en clair dans les données.
+function stripHtml(html) {
+
+    const div =
+        document.createElement("div");
+
+    div.innerHTML =
+        html;
+
+    return div.textContent.trim();
+}
+
+
+function renderDebriefQuestion() {
+
+    const question =
+        debriefQuestions[currentDebriefQuestion];
+
+    const container =
+        document.getElementById(
+            "debrief-question-container"
+        );
+
+    let answerHtml = "";
+
+
+    if (question.type === "text") {
+
+        answerHtml = `
+            <textarea
+                id="debrief-text"
+                class="debrief-textarea"
+                rows="5"
+                placeholder="Votre réponse"
+            ></textarea>
+        `;
+
+    } else if (question.type === "yesno_text") {
+
+        answerHtml = `
+            <div class="choice-row">
+
+                <label class="choice-option">
+                    <input type="radio" name="debrief_yesno" value="oui">
+                    <span>Oui</span>
+                </label>
+
+                <label class="choice-option">
+                    <input type="radio" name="debrief_yesno" value="non">
+                    <span>Non</span>
+                </label>
+
+            </div>
+
+            <div
+                id="debrief-followup-block"
+                class="debrief-followup hidden"
+            >
+
+                <p class="item-text">
+                    ${question.followup}
+                </p>
+
+                <textarea
+                    id="debrief-text"
+                    class="debrief-textarea"
+                    rows="4"
+                    placeholder="Votre réponse"
+                ></textarea>
+
+            </div>
+        `;
+
+    } else if (question.type === "scale") {
+
+        answerHtml = `
+            <div class="${question.vertical ? "choice-list" : "choice-row debrief-scale"}">
+                ${question.options.map((label, index) => `
+                    <label class="choice-option">
+                        <input type="radio" name="debrief_scale" value="${index + 1}">
+                        <span>${label}</span>
+                    </label>
+                `).join("")}
+            </div>
+        `;
+
+        // Précision libre facultative sous l'échelle
+        if (question.details) {
+
+            answerHtml += `
+                <div class="debrief-followup">
+
+                    <p class="item-text">
+                        ${question.details}
+                    </p>
+
+                    <textarea
+                        id="debrief-text"
+                        class="debrief-textarea"
+                        rows="3"
+                        placeholder="Votre réponse (facultatif)"
+                    ></textarea>
+
+                </div>
+            `;
+        }
+    }
+
+
+    container.innerHTML = `
+        <div class="question-card">
+
+            <h2>
+                ${question.text}
+            </h2>
+
+            ${answerHtml}
+
+        </div>
+    `;
+
+
+    // Oui -> affiche la précision ; Non -> la masque
+    if (question.type === "yesno_text") {
+
+        document
+            .querySelectorAll('input[name="debrief_yesno"]')
+            .forEach(input => {
+
+                input.addEventListener(
+                    "change",
+                    function () {
+
+                        document
+                            .getElementById("debrief-followup-block")
+                            .classList.toggle(
+                                "hidden",
+                                this.value !== "oui"
+                            );
+
+                    }
+                );
+
+            });
+    }
+
+
+    debriefQuestionStartedAt =
+        performance.now();
+
+    window.scrollTo(0, 0);
+}
+
+
+async function submitDebriefQuestion() {
+
+    const question =
+        debriefQuestions[currentDebriefQuestion];
+
+    const response = {
+
+        item_id:
+            question.id,
+
+        question_order:
+            currentDebriefQuestion + 1,
+
+        question_text:
+            stripHtml(question.text),
+
+        type:
+            question.type
+
+    };
+
+
+    if (question.type === "text") {
+
+        const text =
+            document.getElementById("debrief-text").value.trim();
+
+        // Les questions facultatives (commentaire libre) peuvent rester vides
+        if (!text && !question.optional) {
+
+            alert("Veuillez répondre à la question avant de continuer.");
+
+            return;
+        }
+
+        response.text = text || null;
+
+    } else if (question.type === "yesno_text") {
+
+        const selected =
+            document.querySelector('input[name="debrief_yesno"]:checked');
+
+        if (!selected) {
+
+            alert("Veuillez répondre Oui ou Non.");
+
+            return;
+        }
+
+        const text =
+            document.getElementById("debrief-text").value.trim();
+
+        if (selected.value === "oui" && !text) {
+
+            alert("Veuillez préciser votre réponse.");
+
+            return;
+        }
+
+        response.yes_no = selected.value;
+
+        response.text = selected.value === "oui" ? text : null;
+
+    } else if (question.type === "scale") {
+
+        const selected =
+            document.querySelector('input[name="debrief_scale"]:checked');
+
+        if (!selected) {
+
+            alert("Veuillez sélectionner une réponse.");
+
+            return;
+        }
+
+        response.scale_value = Number(selected.value);
+
+        response.scale_label =
+            question.options[Number(selected.value) - 1];
+
+        if (question.details) {
+
+            response.text =
+                document.getElementById("debrief-text").value.trim() || null;
+        }
+    }
+
+
+    response.response_time_ms =
+        Math.round(
+            performance.now() -
+            debriefQuestionStartedAt
+        );
+
+    response.timestamp_utc =
+        new Date().toISOString();
+
+
+    debriefResponses.push(
+        response
+    );
+
+
+    await saveResults(false);
+
+
+    currentDebriefQuestion++;
+
+
+    if (currentDebriefQuestion < debriefQuestions.length) {
+
+        renderDebriefQuestion();
+
+    } else {
+
+        // Fin du debrief -> pourcentage de personnes noires en France.
+        startPopulationQuestion();
+    }
+}
+
+
+// =========================================================
+// POPULATION ESTIMATE (après le debrief)
 // =========================================================
 
 function startPopulationQuestion() {
@@ -1506,13 +1949,18 @@ function startPopulationQuestion() {
         );
 
 
-    const randomStart =
-        Math.floor(
-            Math.random() * 101
-        );
+    // Même logique que pour le curseur des images : valeur
+    // technique neutre (50) et thumb masqué via la classe
+    // "slider-not-touched" tant que le participant n'a pas
+    // cliqué/glissé dessus (voir style.css).
+    const neutralStart = 50;
 
     slider.value =
-        randomStart;
+        neutralStart;
+
+    slider.classList.add(
+        "slider-not-touched"
+    );
 
 
     document
@@ -1548,6 +1996,13 @@ populationSlider.addEventListener(
 
         populationSliderWasMoved =
             true;
+
+
+        // Dès la première interaction, on révèle le curseur
+        // (il était masqué par "slider-not-touched").
+        populationSlider.classList.remove(
+            "slider-not-touched"
+        );
 
 
         document
@@ -1601,495 +2056,141 @@ async function submitPopulationEstimate() {
     await saveResults(false);
 
 
-    startGroupApartQuestion();
+    // Après la population -> page démographique (dernière page).
+    startDemographics();
 }
 
 
 // =========================================================
-// GROUP APART
+// DEMOGRAPHICS — genre, âge, niveau d'études (une seule page)
 // =========================================================
 
-function startGroupApartQuestion() {
+function startDemographics() {
 
     showOnly(
-        "group-apart-section"
+        "demographics-section"
     );
 
 
     document
-        .getElementById(
-            "group-apart-scale"
-        )
-        .innerHTML =
-        createLikertScale(
-            "group_apart"
-        );
+        .getElementById("demo-age-error")
+        .classList.add("hidden");
 
 
-    groupApartStartedAt =
+    demographicsStartedAt =
         performance.now();
 
+
+    window.scrollTo(0, 0);
 }
 
 
-// =========================================================
-// SUBMIT GROUP APART
-// =========================================================
+// Renvoie l'âge (entier) s'il est valide, sinon null.
+function readValidAge() {
 
-async function submitGroupApart() {
+    const raw =
+        document
+            .getElementById("demo-age")
+            .value
+            .trim();
 
-    const selected =
+
+    // Uniquement des chiffres (pas de décimales, pas de texte)
+    if (!/^\d+$/.test(raw)) {
+        return null;
+    }
+
+
+    const age =
+        Number(raw);
+
+
+    if (age < AGE_MIN || age > AGE_MAX) {
+        return null;
+    }
+
+
+    return age;
+}
+
+
+async function submitDemographics() {
+
+    const gender =
         document.querySelector(
-            'input[name="group_apart"]:checked'
+            'input[name="demo_gender"]:checked'
         );
 
-
-    if (!selected) {
-
-        alert(
-            "Veuillez sélectionner une réponse."
+    const education =
+        document.querySelector(
+            'input[name="demo_education"]:checked'
         );
 
-        return;
-    }
+    const device =
+        document.querySelector(
+            'input[name="demo_device"]:checked'
+        );
 
+    const age =
+        readValidAge();
 
-    groupApartResponse = {
-
-        item_id:
-            "group_apart",
-
-        response:
-            Number(selected.value),
-
-        response_time_ms:
-            Math.round(
-                performance.now() -
-                groupApartStartedAt
-            ),
-
-        timestamp_utc:
-            new Date().toISOString()
-
-    };
-
-
-    await saveResults(false);
-
-
-    currentThreatSection =
-        0;
-
-
-    startThreatQuestionnaire();
-}
-
-
-// =========================================================
-// THREAT QUESTIONNAIRE
-// =========================================================
-
-function startThreatQuestionnaire() {
-
-    showOnly(
-        "threat-section"
-    );
-
-
-    showThreatSection();
-}
-
-
-// =========================================================
-// SHOW THREAT SECTION
-// =========================================================
-
-function showThreatSection() {
-
-    const section =
-        threatSections[
-            currentThreatSection
-        ];
-
-
-    document
-        .getElementById(
-            "threat-progress"
-        )
-        .textContent =
-        `Rubrique ${currentThreatSection + 1} sur ${threatSections.length}`;
-
-
-    document
-        .getElementById(
-            "threat-title"
-        )
-        .textContent =
-        section.title;
-
-
-    const container =
+    const ageError =
         document.getElementById(
-            "threat-items"
+            "demo-age-error"
         );
 
 
-    container.innerHTML =
-        "";
+    if (age === null) {
 
+        ageError.classList.remove("hidden");
 
-    section.items.forEach(
-        (item, index) => {
-
-            const block =
-                document.createElement(
-                    "div"
-                );
-
-
-            block.className =
-                "item-block";
-
-
-            const radioName =
-                `${section.id}_${item.id}`;
-
-
-            block.innerHTML = `
-
-                <div class="item-number">
-
-                    Affirmation ${index + 1}
-
-                </div>
-
-
-                <p class="item-text">
-
-                    ${item.text}
-
-                </p>
-
-
-                <div class="likert-scale">
-
-                    ${createLikertScale(
-                        radioName
-                    )}
-
-                </div>
-
-
-                <div class="anchors">
-
-                    <span>
-                        1 — Pas du tout d'accord
-                    </span>
-
-                    <span>
-                        7 — Totalement d'accord
-                    </span>
-
-                </div>
-
-            `;
-
-
-            container.appendChild(
-                block
-            );
-
-        }
-    );
-
-
-    const button =
-        document.getElementById(
-            "threat-next-button"
-        );
-
-
-    button.textContent =
-        currentThreatSection ===
-        threatSections.length - 1
-            ? "Terminer"
-            : "Suivant";
-
-
-    threatSectionStartedAt =
-        performance.now();
-
-
-    window.scrollTo(
-        0,
-        0
-    );
-
-}
-
-
-// =========================================================
-// SUBMIT THREAT SECTION
-// =========================================================
-
-async function submitThreatSection() {
-
-    const section =
-        threatSections[
-            currentThreatSection
-        ];
-
-
-    const sectionResponses =
-        [];
-
-
-    for (
-        const item
-        of section.items
-    ) {
-
-        const radioName =
-            `${section.id}_${item.id}`;
-
-
-        const selected =
-            document.querySelector(
-                `input[name="${radioName}"]:checked`
-            );
-
-
-        if (!selected) {
-
-            alert(
-                "Veuillez répondre à toutes les affirmations avant de continuer."
-            );
-
-            return;
-        }
-
-
-        sectionResponses.push({
-
-            construct:
-                section.id,
-
-            item_id:
-                item.id,
-
-            response:
-                Number(
-                    selected.value
-                ),
-
-            timestamp_utc:
-                new Date().toISOString()
-
-        });
-
-    }
-
-
-    const elapsed =
-        Math.round(
-            performance.now() -
-            threatSectionStartedAt
-        );
-
-
-    sectionResponses.forEach(
-        response => {
-
-            response.section_response_time_ms =
-                elapsed;
-
-        }
-    );
-
-
-    threatResponses.push(
-        ...sectionResponses
-    );
-
-
-    await saveResults(false);
-
-
-    currentThreatSection++;
-
-
-    if (
-        currentThreatSection <
-        threatSections.length
-    ) {
-
-        showThreatSection();
+        document
+            .getElementById("demo-age")
+            .focus();
 
     } else {
 
-        startDebrief();
+        ageError.classList.add("hidden");
 
     }
 
-}
 
-// =========================================================
-// DEBRIEF
-// =========================================================
-
-function startDebrief() {
-
-    debriefStartedAt =
-        performance.now();
-
-    showOnly(
-        "debrief-section"
-    );
-
-    window.scrollTo(
-        0,
-        0
-    );
-}
-
-
-// =========================================================
-// SUBMIT DEBRIEF OPEN QUESTIONS
-// =========================================================
-
-async function submitDebriefOpenQuestions() {
-
-    const q1 =
-        document
-            .getElementById("debrief-q1")
-            .value
-            .trim();
-
-    const q2 =
-        document
-            .getElementById("debrief-q2")
-            .value
-            .trim();
-
-    const q3 =
-        document
-            .getElementById("debrief-q3")
-            .value
-            .trim();
-
-    const q4 =
-        document
-            .getElementById("debrief-q4")
-            .value
-            .trim();
-
-    const q5 =
-        document
-            .getElementById("debrief-q5")
-            .value
-            .trim();
-
-
-    debriefOpenResponses = {
-
-        study_measure_guess:
-            q1,
-
-        estimation_strategy:
-            q2,
-
-        circle_observations:
-            q3,
-
-        circle_associations:
-            q4,
-
-        face_circle_link:
-            q5,
-
-        response_time_ms:
-            Math.round(
-                performance.now() -
-                debriefStartedAt
-            ),
-
-        timestamp_utc:
-            new Date().toISOString()
-
-    };
-
-
-    await saveResults(false);
-
-
-    debriefScaleStartedAt =
-        performance.now();
-
-
-    showOnly(
-        "debrief-scale-section"
-    );
-
-
-    window.scrollTo(
-        0,
-        0
-    );
-}
-
-
-// =========================================================
-// SUBMIT DEBRIEF SCALE
-// =========================================================
-
-async function submitDebriefScale() {
-
-    const selected =
-        document.querySelector(
-            'input[name="debrief_symbolic_link"]:checked'
-        );
-
-
-    if (!selected) {
+    if (!gender || !education || !device || age === null) {
 
         alert(
-            "Veuillez sélectionner une réponse."
+            age === null
+                ? `Veuillez indiquer votre âge en années (nombre entier entre ${AGE_MIN} et ${AGE_MAX}).`
+                : "Veuillez répondre à toutes les questions avant de terminer."
         );
 
         return;
     }
 
 
-    debriefScaleResponse = {
+    demographicsResponse = {
 
-        item_id:
-            "circle_race_symbolic_link",
+        gender:
+            gender.value,
 
-        response:
-            Number(selected.value),
+        age:
+            age,
 
-        response_label:
-            {
-                1: "Jamais",
-                2: "Rarement",
-                3: "Parfois",
-                4: "Souvent",
-                5: "Tout le temps"
-            }[Number(selected.value)],
+        education:
+            education.value,
+
+        device:
+            device.value,
 
         response_time_ms:
             Math.round(
                 performance.now() -
-                debriefScaleStartedAt
+                demographicsStartedAt
             ),
 
         timestamp_utc:
             new Date().toISOString()
 
     };
-
-
-    await saveResults(false);
 
 
     finishStudy();
@@ -2104,12 +2205,38 @@ function buildResultData(completed) {
 
     return {
 
-        participant_id:
-            participantId,
+        // ID lus automatiquement dans le lien Prolific
+        prolific_pid_url:
+            prolificPidUrl,
+
+        prolific_study_id_url:
+            prolificStudyIdUrl,
+
+        prolific_session_id_url:
+            prolificSessionIdUrl,
+
+
+        // ID saisi par le participant (vérification)
+        prolific_id_typed:
+            prolificIdTyped,
+
+
+        // true / false si les deux sont disponibles, sinon null
+        prolific_ids_match:
+            prolificPidUrl && prolificIdTyped
+                ? prolificPidUrl === prolificIdTyped
+                : null,
 
 
         completed:
             completed,
+
+
+        screen_info_start:
+            screenInfoStart,
+
+        screen_info_end:
+            screenInfoEnd,
 
 
         study_started_at_utc:
@@ -2122,6 +2249,9 @@ function buildResultData(completed) {
             completed
                 ? new Date().toISOString()
                 : null,
+
+        circle_condition:
+        participantCircleScheme,
 
 
         expected_training_trials:
@@ -2144,6 +2274,10 @@ function buildResultData(completed) {
             imageRatings,
 
 
+        debrief:
+            debriefResponses,
+
+
         population_black_estimate: {
 
             percentage:
@@ -2155,20 +2289,9 @@ function buildResultData(completed) {
         },
 
 
-        group_apart:
-            groupApartResponse,
+        demographics:
+            demographicsResponse
 
-
-        threat_responses:
-            threatResponses,
-
-
-        debrief_open_responses:
-            debriefOpenResponses,
-
-
-        debrief_symbolic_link:
-            debriefScaleResponse
     };
 
 }
@@ -2233,16 +2356,14 @@ async function finishStudy() {
         "saving-section"
     );
 
+    screenInfoEnd =
+        getScreenInfo();
+
 
     try {
 
         await saveResults(
             true
-        );
-
-
-        showOnly(
-            "end-section"
         );
 
     } catch (error) {
@@ -2259,9 +2380,66 @@ async function finishStudy() {
 
 
         showOnly(
-            "threat-section"
+            "demographics-section"
         );
 
+        return;
     }
 
+
+    // Page de fin : remerciement + lien de secours vers Prolific
+    // (au cas où la redirection automatique ne fonctionnerait pas).
+    document
+        .getElementById("prolific-return-link")
+        .href = PROLIFIC_COMPLETION_URL;
+
+    document
+        .getElementById("prolific-completion-code")
+        .textContent = PROLIFIC_COMPLETION_CODE;
+
+    showOnly(
+        "end-section"
+    );
+
+
+    // Redirection automatique vers Prolific après quelques secondes.
+    setTimeout(
+        redirectToProlific,
+        REDIRECT_DELAY_MS
+    );
+
+}
+
+
+// =========================================================
+// RETOUR VERS PROLIFIC
+// =========================================================
+// Sur JATOS, endStudyAndRedirect() clôt l'étude côté serveur
+// (statut FINISHED) PUIS envoie le participant sur Prolific,
+// qui enregistre alors la participation comme terminée.
+
+function redirectToProlific() {
+
+    if (jatosAvailable) {
+
+        try {
+
+            jatos.endStudyAndRedirect(
+                PROLIFIC_COMPLETION_URL
+            );
+
+            return;
+
+        } catch (error) {
+
+            console.error(
+                "endStudyAndRedirect a échoué, redirection simple :",
+                error
+            );
+        }
+    }
+
+    // Mode local (ou secours)
+    window.location.href =
+        PROLIFIC_COMPLETION_URL;
 }
